@@ -16,14 +16,43 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static org.apache.commons.digester3.binder.DigesterLoader.newLoader;
+import static java.net.HttpURLConnection.HTTP_OK;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
+import org.apache.commons.digester3.Digester;
+import org.apache.commons.digester3.annotations.FromAnnotationsRuleModule;
+
 import com.ning.http.client.AsyncHandler;
 import com.ning.http.client.HttpResponseBodyPart;
 import com.ning.http.client.HttpResponseHeaders;
 import com.ning.http.client.HttpResponseStatus;
 
-final class OutputPrinterAsyncHandler
+final class PrintListAsyncHandler
     implements AsyncHandler<Void>
 {
+
+    private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+    private final Digester digester;
+
+    public PrintListAsyncHandler( final Class<?> mappingType, boolean header )
+    {
+        digester = newLoader( new FromAnnotationsRuleModule()
+        {
+
+            @Override
+            protected void configureRules()
+            {
+                bindRulesFrom( mappingType );
+            }
+
+        } )
+        .setStackAction( new LoggingStackAction( header ) )
+        .newDigester();
+    }
 
     public void onThrowable( Throwable t )
     {
@@ -33,14 +62,14 @@ final class OutputPrinterAsyncHandler
     public STATE onBodyPartReceived( HttpResponseBodyPart bodyPart )
         throws Exception
     {
-        bodyPart.writeTo( System.out );
+        bodyPart.writeTo( baos );
         return STATE.CONTINUE;
     }
 
     public STATE onStatusReceived( HttpResponseStatus responseStatus )
         throws Exception
     {
-        if ( 200 != responseStatus.getStatusCode() )
+        if ( HTTP_OK != responseStatus.getStatusCode() )
         {
             return STATE.ABORT;
         }
@@ -56,6 +85,11 @@ final class OutputPrinterAsyncHandler
     public Void onCompleted()
         throws Exception
     {
+        baos.flush();
+        baos.close();
+
+        // FIXME that is not efficient
+        digester.parse( new ByteArrayInputStream( baos.toByteArray() ) );
         return null;
     }
 

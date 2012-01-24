@@ -77,6 +77,12 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-digester3</artifactId>
+      <version>3.1</version>
+    </dependency>
   </dependencies>
 
   <build>

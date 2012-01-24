@@ -32,10 +32,10 @@ public final class OnDsiProgram
     @Parameter( names = { "-X", "--debug" }, description = "Produce execution debug output." )
     private boolean debug;
 
-    @Parameter( names = { "-u", "--username" }, description = "The DSI account username", required = true )
+    @Parameter( names = { "-u", "--username" }, description = "The DSI account username" )
     private String username;
 
-    @Parameter( names = { "-p", "--password" }, description = "The DSI account password", password = true, required = true )
+    @Parameter( names = { "-p", "--password" }, description = "The DSI account password", password = true )
     private String password;
 
     @Parameter( names = { "-U", "--uri" }, description = "The DSI web service URI" )

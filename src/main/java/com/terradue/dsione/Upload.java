@@ -74,8 +74,7 @@ public final class Upload
                                             .addQueryParameter( "qualifierId", qualifierId )
                                             .addQueryParameter( "applianceName", applianceName )
                                             .addQueryParameter( "applianceDescription", applianceDescription )
-                                            .build(),
-                                        new OutputPrinterAsyncHandler() );
+                                            .build() );
         }
         catch ( IOException e )
         {

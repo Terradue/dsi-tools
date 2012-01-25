@@ -39,17 +39,17 @@ public final class DescribeInstances
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     private boolean headers = false;
 
-    @Parameter( arity = 1, description = "The image identification as returned by the upload command" )
-    private List<String> imageId = new LinkedList<String>();
+    @Parameter( arity = 1, description = "The instance identification as returned by the upload command" )
+    private List<String> instanceId = new LinkedList<String>();
 
     @Override
     protected void execute()
         throws Exception
     {
         StringBuilder requestPath = new StringBuilder( "deployments" );
-        if ( !imageId.isEmpty() )
+        if ( !instanceId.isEmpty() )
         {
-            requestPath.append( imageId.iterator().next() );
+            requestPath.append( '/' ).append( instanceId.iterator().next() );
         }
 
         URI serviceUrl = getQueryUri( requestPath.toString() );

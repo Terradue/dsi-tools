@@ -16,16 +16,21 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.net.URI.create;
+
 import static java.lang.System.currentTimeMillis;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.security.KeyStore;
 import java.util.Date;
 import java.util.Properties;
 
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
@@ -62,8 +67,8 @@ public abstract class AbstractCommand
     @Parameter( names = { "-p", "--password" }, description = "The DSI account password", password = true )
     private String password;
 
-    @Parameter( names = { "-U", "--uri" }, description = "The DSI web service URI" )
-    protected String serviceUri = "https://testcloud.t-systems.com/ZimoryManage/";
+    @Parameter( names = { "-U", "--uri" }, description = "The DSI web service URI", converter = URIConverter.class )
+    protected URI serviceUri = create( "https://testcloud.t-systems.com/ZimoryManage/" );
 
     protected Logger logger;
 
@@ -135,6 +140,12 @@ public abstract class AbstractCommand
 
         Throwable error = null;
         final DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+
+        // username/password authentication
+        defaultHttpClient.getCredentialsProvider().setCredentials( new AuthScope( serviceUri.getHost(), 443 ),
+                                                                   new UsernamePasswordCredentials( username,
+                                                                                                    password ) );
+
         try
         {
             // TODO verify that the certificate ALWAYS exists

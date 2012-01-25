@@ -35,11 +35,6 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 
 import com.beust.jcommander.JCommander;
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.AsyncHttpClientConfig;
-import com.ning.http.client.Realm;
-import com.ning.http.client.Realm.AuthScheme;
-import com.ning.http.client.resumable.ResumableIOExceptionFilter;
 
 public final class Main
 {
@@ -128,21 +123,7 @@ public final class Main
         Throwable error = null;
         try
         {
-            AsyncHttpClient httpClient = new AsyncHttpClient(new AsyncHttpClientConfig.Builder()
-                                                            .setAllowPoolingConnection( true )
-                                                            .addIOExceptionFilter( new ResumableIOExceptionFilter() )
-                                                            .setMaximumConnectionsPerHost( 10 )
-                                                            .setMaximumConnectionsTotal( 100 )
-                                                            .setFollowRedirects( true )
-                                                            .setRealm( new Realm.RealmBuilder()
-                                                                .setPrincipal( onDsiProgram.getUsername() )
-                                                                .setPassword( onDsiProgram.getPassword() )
-                                                                .setUsePreemptiveAuth(true)
-                                                                .setScheme( AuthScheme.BASIC )
-                                                                .build() )
-                                                            .build() );
-
-            commands.get( parsedCommand ).execute( onDsiProgram, httpClient );
+            commands.get( parsedCommand ).execute( onDsiProgram );
         }
         catch ( Throwable t )
         {

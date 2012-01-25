@@ -18,7 +18,6 @@ package com.terradue.dsione;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.ning.http.client.AsyncHttpClient;
 
 @Parameters( commandDescription = "List and describe previously uploaded images of a user to be used with an OpenNebula Cloud." )
 public final class DescribeImages
@@ -28,7 +27,7 @@ public final class DescribeImages
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     private boolean headers = false;
 
-    public void execute( OnDsiProgram mainSettings, AsyncHttpClient httpClient )
+    public void execute( OnDsiProgram mainSettings )
     {
         // TODO Auto-generated method stub
 

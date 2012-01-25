@@ -16,16 +16,11 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.ListenableFuture;
-import com.ning.http.client.RequestBuilder;
-import com.terradue.dsione.model.Deployment;
 
 @Parameters( commandDescription = "List and describe running instances" )
 public final class DescribeInstances
@@ -38,9 +33,9 @@ public final class DescribeInstances
     @Parameter( arity = 1, description = "The image identification as returned by the upload command" )
     private List<String> imageId = new LinkedList<String>();
 
-    public void execute( OnDsiProgram mainSettings, AsyncHttpClient httpClient )
+    public void execute( OnDsiProgram mainSettings )
     {
-        StringBuilder requestPath = new StringBuilder( mainSettings.getServiceUri() )
+        /* StringBuilder requestPath = new StringBuilder( mainSettings.getServiceUri() )
                                             .append( "services/api/deployments" );
         if ( !imageId.isEmpty() )
         {
@@ -58,6 +53,7 @@ public final class DescribeInstances
         {
             throw new RuntimeException( "An error occurred while uploading the image: " + e.getMessage(), e );
         }
+        */
     }
 
 }

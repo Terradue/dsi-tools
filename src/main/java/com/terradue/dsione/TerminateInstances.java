@@ -21,7 +21,6 @@ import java.util.List;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.ning.http.client.AsyncHttpClient;
 
 @Parameters( commandDescription = "Terminate the selected running instance" )
 public final class TerminateInstances
@@ -31,7 +30,7 @@ public final class TerminateInstances
     @Parameter( arity = 1, description = "The instance identification as returned by the run-instances command" )
     private List<String> imageId = new LinkedList<String>();
 
-    public void execute( OnDsiProgram mainSettings, AsyncHttpClient httpClient )
+    public void execute( OnDsiProgram mainSettings )
     {
         // TODO Auto-generated method stub
 

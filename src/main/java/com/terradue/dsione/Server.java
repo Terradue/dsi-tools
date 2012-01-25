@@ -16,13 +16,11 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import com.ning.http.client.AsyncHttpClient;
-
 public final class Server
     implements Command
 {
 
-    public void execute( OnDsiProgram mainSettings, AsyncHttpClient httpClient )
+    public void execute( OnDsiProgram mainSettings )
     {
         // TODO Auto-generated method stub
 

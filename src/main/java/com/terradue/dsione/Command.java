@@ -16,11 +16,9 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import com.ning.http.client.AsyncHttpClient;
-
 public interface Command
 {
 
-    void execute( OnDsiProgram mainSettings, AsyncHttpClient httpClient );
+    void execute( OnDsiProgram mainSettings );
 
 }

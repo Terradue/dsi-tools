@@ -19,7 +19,6 @@ package com.terradue.dsione;
 import static java.lang.String.format;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,8 +28,6 @@ import org.slf4j.LoggerFactory;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.RequestBuilder;
 
 @Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class Upload
@@ -54,7 +51,7 @@ public final class Upload
     @Parameter( arity = 1, description = "Path to the image to upload", converter = FileConverter.class )
     private List<File> images = new LinkedList<File>();
 
-    public void execute( OnDsiProgram mainSettings, AsyncHttpClient httpClient )
+    public void execute( OnDsiProgram mainSettings )
     {
         File image = images.get( 0 );
 
@@ -66,6 +63,7 @@ public final class Upload
 
         logger.info( "Uploading image: {}...", image );
 
+        /*
         try
         {
             httpClient.executeRequest( new RequestBuilder( "GET" )
@@ -80,6 +78,7 @@ public final class Upload
         {
             throw new RuntimeException( "An error occurred while uploading the image: " + e.getMessage(), e );
         }
+        */
     }
 
 }

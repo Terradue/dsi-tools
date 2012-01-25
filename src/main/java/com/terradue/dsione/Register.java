@@ -18,7 +18,6 @@ package com.terradue.dsione;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.ning.http.client.AsyncHttpClient;
 
 @Parameters( commandDescription = "Register a previously uploaded image for use with an OpenNebula Cloud." )
 public final class Register
@@ -28,7 +27,7 @@ public final class Register
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     private boolean headers = false;
 
-    public void execute( OnDsiProgram mainSettings, AsyncHttpClient httpClient )
+    public void execute( OnDsiProgram mainSettings )
     {
         // TODO Auto-generated method stub
 

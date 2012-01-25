@@ -18,7 +18,6 @@ package com.terradue.dsione;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.ning.http.client.AsyncHttpClient;
 
 @Parameters( commandDescription = "Runs an instance of a particular image." )
 public final class RunInstances
@@ -28,7 +27,7 @@ public final class RunInstances
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     private boolean headers = false;
 
-    public void execute( OnDsiProgram mainSettings, AsyncHttpClient httpClient )
+    public void execute( OnDsiProgram mainSettings )
     {
         // TODO Auto-generated method stub
 

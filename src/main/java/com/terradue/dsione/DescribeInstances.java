@@ -20,8 +20,11 @@ import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.http.client.methods.HttpGet;
+
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.terradue.dsione.model.Deployment;
 
 @Parameters( commandDescription = "List and describe running instances" )
 public final class DescribeInstances
@@ -51,18 +54,7 @@ public final class DescribeInstances
 
         URI serviceUrl = getQueryUri( requestPath.toString() );
 
-        /*try
-        {
-            httpClient.executeRequest( new RequestBuilder( "GET" )
-                .setUrl( requestPath.toString() )
-                .build(),
-                new PrintListAsyncHandler( Deployment.class, headers ) );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeException( "An error occurred while uploading the image: " + e.getMessage(), e );
-        }
-        */
+        httpClient.execute( new HttpGet( serviceUrl ), new XmlLoggingHandler( Deployment.class, headers ) );
     }
 
 }

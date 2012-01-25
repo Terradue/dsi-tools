@@ -1,9 +1,5 @@
 package com.terradue.dsione.model;
 
-import org.apache.commons.digester3.annotations.rules.BeanPropertySetter;
-import org.apache.commons.digester3.annotations.rules.ObjectCreate;
-import org.apache.commons.digester3.annotations.rules.SetProperty;
-
 /*
  *  Copyright 2012 Terradue srl
  *
@@ -19,6 +15,10 @@ import org.apache.commons.digester3.annotations.rules.SetProperty;
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
+import org.apache.commons.digester3.annotations.rules.BeanPropertySetter;
+import org.apache.commons.digester3.annotations.rules.ObjectCreate;
+import org.apache.commons.digester3.annotations.rules.SetProperty;
 
 @ObjectCreate( pattern = "*/deployment" )
 public final class Deployment

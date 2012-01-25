@@ -219,6 +219,8 @@ public abstract class AbstractCommand
 
             logger.info( "------------------------------------------------------------------------" );
 
+            httpClient.getConnectionManager().shutdown();
+
             System.exit( exit );
         }
     }

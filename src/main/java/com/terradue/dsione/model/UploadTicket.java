@@ -16,6 +16,8 @@ package com.terradue.dsione.model;
  *  limitations under the License.
  */
 
+import java.net.URI;
+
 import org.apache.commons.digester3.annotations.rules.BeanPropertySetter;
 import org.apache.commons.digester3.annotations.rules.ObjectCreate;
 
@@ -27,7 +29,7 @@ public final class UploadTicket
     private String expirationDate;
 
     @BeanPropertySetter( pattern = "uploadTicket/ftpUploadURL" )
-    private String ftpLocation;
+    private URI ftpLocation;
 
     @BeanPropertySetter( pattern = "uploadTicket/qualifierId" )
     private String qualifierId;
@@ -42,12 +44,12 @@ public final class UploadTicket
         this.expirationDate = expirationDate;
     }
 
-    public String getFtpLocation()
+    public URI getFtpLocation()
     {
         return ftpLocation;
     }
 
-    public void setFtpLocation( String ftpLocation )
+    public void setFtpLocation( URI ftpLocation )
     {
         this.ftpLocation = ftpLocation;
     }

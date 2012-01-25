@@ -16,6 +16,7 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 import static java.lang.String.format;
 import static org.apache.commons.digester3.binder.DigesterLoader.newLoader;
 import static org.apache.http.HttpStatus.SC_OK;
@@ -28,6 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.digester3.annotations.FromAnnotationsRuleModule;
+import org.apache.commons.net.ftp.FTPClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -112,9 +114,27 @@ public final class Upload
                      new String[]
                      {
                          image.getAbsolutePath(),
-                         uploadTicket.getFtpLocation(),
+                         uploadTicket.getFtpLocation().toString(),
                          uploadTicket.getExpirationDate()
                      } );
+
+        FTPClient ftpClient = new FTPClient();
+        ftpClient.connect( uploadTicket.getFtpLocation().getHost() );
+
+        try
+        {
+            // ftpClient.login( username, password ) TODO does FTP requires a login?
+            int reply = ftpClient.getReplyCode();
+
+            if ( !isPositiveCompletion( reply ) )
+            {
+                throw new RuntimeException( uploadTicket.getFtpLocation() + " refused connection" );
+            }
+        }
+        finally
+        {
+            ftpClient.disconnect();
+        }
     }
 
 }

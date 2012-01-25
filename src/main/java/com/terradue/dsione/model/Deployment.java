@@ -20,32 +20,32 @@ import org.apache.commons.digester3.annotations.rules.SetProperty;
  *  limitations under the License.
  */
 
-@ObjectCreate( pattern = "deployments/deployment" )
+@ObjectCreate( pattern = "*/deployment" )
 public final class Deployment
 {
 
-    @SetProperty( pattern = "deployments/deployment", attributeName = "id" )
+    @SetProperty( pattern = "*/deployment", attributeName = "id" )
     private int id;
 
-    @BeanPropertySetter( pattern = "deployments/deployment/active" )
+    @BeanPropertySetter( pattern = "*/deployment/active" )
     private boolean active;
 
-    @BeanPropertySetter( pattern = "deployments/deployment/applianceId" )
+    @BeanPropertySetter( pattern = "*/deployment/applianceId" )
     private int applianceId;
 
-    @BeanPropertySetter( pattern = "deployments/deployment/cpuNumber" )
+    @BeanPropertySetter( pattern = "*/deployment/cpuNumber" )
     private int cpuNumber;
 
-    @BeanPropertySetter( pattern = "deployments/deployment/createdBy" )
+    @BeanPropertySetter( pattern = "*/deployment/createdBy" )
     private String createdBy;
 
-    @BeanPropertySetter( pattern = "deployments/deployment/locationId" )
+    @BeanPropertySetter( pattern = "*/deployment/locationId" )
     private int locationId;
 
-    @BeanPropertySetter( pattern = "deployments/deployment/memSize" )
+    @BeanPropertySetter( pattern = "*/deployment/memSize" )
     private int memorySize;
 
-    @BeanPropertySetter( pattern = "deployments/deployment/name" )
+    @BeanPropertySetter( pattern = "*/deployment/name" )
     private String name;
 
     public int getId()

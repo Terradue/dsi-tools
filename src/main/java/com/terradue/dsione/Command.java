@@ -19,6 +19,6 @@ package com.terradue.dsione;
 public interface Command
 {
 
-    void execute( OnDsiProgram mainSettings );
+    void execute( String...args );
 
 }

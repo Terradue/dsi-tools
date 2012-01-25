@@ -67,15 +67,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.ning</groupId>
-      <artifactId>async-http-client</artifactId>
-      <version>1.6.5</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.2-alpha1</version>
     </dependency>
 
     <dependency>
@@ -112,8 +106,32 @@
           <extraJvmArguments>-Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
           <programs>
             <program>
-              <mainClass>com.terradue.dsione.Main</mainClass>
-              <name>dsione</name>
+              <mainClass>com.terradue.dsione.DescribeImages</mainClass>
+              <name>dsione-describe-images</name>
+            </program>
+            <program>
+              <mainClass>com.terradue.dsione.DescribeInstances</mainClass>
+              <name>dsione-describe-instances</name>
+            </program>
+            <program>
+              <mainClass>com.terradue.dsione.Register</mainClass>
+              <name>dsione-register</name>
+            </program>
+            <program>
+              <mainClass>com.terradue.dsione.RunInstances</mainClass>
+              <name>dsione-run-instances</name>
+            </program>
+            <program>
+              <mainClass>com.terradue.dsione.Server</mainClass>
+              <name>dsione-server</name>
+            </program>
+            <program>
+              <mainClass>com.terradue.dsione.TerminateInstances</mainClass>
+              <name>dsione-terminate-instances</name>
+            </program>
+            <program>
+              <mainClass>com.terradue.dsione.Upload</mainClass>
+              <name>dsione-upload</name>
             </program>
           </programs>
         </configuration>

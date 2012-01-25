@@ -21,16 +21,21 @@ import com.beust.jcommander.Parameters;
 
 @Parameters( commandDescription = "Runs an instance of a particular image." )
 public final class RunInstances
-    implements Command
+    extends AbstractCommand
 {
+
+    public static void main( String[] args )
+    {
+        new RunInstances().execute( args );
+    }
 
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     private boolean headers = false;
 
-    public void execute( OnDsiProgram mainSettings )
+    @Override
+    protected void execute()
     {
         // TODO Auto-generated method stub
-
     }
 
 }

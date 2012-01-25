@@ -21,16 +21,21 @@ import com.beust.jcommander.Parameters;
 
 @Parameters( commandDescription = "Register a previously uploaded image for use with an OpenNebula Cloud." )
 public final class Register
-    implements Command
+    extends AbstractCommand
 {
+
+    public static void main( String[] args )
+    {
+        new Register().execute( args );
+    }
 
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     private boolean headers = false;
 
-    public void execute( OnDsiProgram mainSettings )
+    @Override
+    protected void execute()
     {
         // TODO Auto-generated method stub
-
     }
 
 }

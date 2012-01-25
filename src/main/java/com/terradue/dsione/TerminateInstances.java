@@ -24,16 +24,21 @@ import com.beust.jcommander.Parameters;
 
 @Parameters( commandDescription = "Terminate the selected running instance" )
 public final class TerminateInstances
-    implements Command
+    extends AbstractCommand
 {
+
+    public static void main( String[] args )
+    {
+        new TerminateInstances().execute( args );
+    }
 
     @Parameter( arity = 1, description = "The instance identification as returned by the run-instances command" )
     private List<String> imageId = new LinkedList<String>();
 
-    public void execute( OnDsiProgram mainSettings )
+    @Override
+    protected void execute()
     {
         // TODO Auto-generated method stub
-
     }
 
 }

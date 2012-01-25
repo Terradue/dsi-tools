@@ -24,8 +24,13 @@ import com.beust.jcommander.Parameters;
 
 @Parameters( commandDescription = "List and describe running instances" )
 public final class DescribeInstances
-    implements Command
+    extends AbstractCommand
 {
+
+    public static void main( String[] args )
+    {
+        new DescribeInstances().execute( args );
+    }
 
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     private boolean headers = false;
@@ -33,7 +38,8 @@ public final class DescribeInstances
     @Parameter( arity = 1, description = "The image identification as returned by the upload command" )
     private List<String> imageId = new LinkedList<String>();
 
-    public void execute( OnDsiProgram mainSettings )
+    @Override
+    protected void execute()
     {
         /* StringBuilder requestPath = new StringBuilder( mainSettings.getServiceUri() )
                                             .append( "services/api/deployments" );

@@ -1,5 +1,6 @@
 package com.terradue.dsione;
 
+
 /*
  *  Copyright 2012 Terradue srl
  *
@@ -17,13 +18,18 @@ package com.terradue.dsione;
  */
 
 public final class Server
-    implements Command
+    extends AbstractCommand
 {
 
-    public void execute( OnDsiProgram mainSettings )
+    public static void main( String[] args )
+    {
+        new Server().execute( args );
+    }
+
+    @Override
+    protected void execute()
     {
         // TODO Auto-generated method stub
-
     }
 
 }

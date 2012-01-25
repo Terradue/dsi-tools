@@ -16,17 +16,20 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyStore;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,49 +38,65 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 
 import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
+import com.beust.jcommander.converters.FileConverter;
 
-public final class Main
+@Parameters( commandDescription = "OpenNebula-DSI CLI tools" )
+public abstract class AbstractCommand
+    implements Command
 {
 
-    /**
-     * @param args
-     */
-    public static void main( String[] args )
+    @Parameter( names = { "-h", "--help" }, description = "Display help information." )
+    private boolean printHelp;
+
+    @Parameter( names = { "-v", "--version" }, description = "Display version information." )
+    private boolean showVersion;
+
+    @Parameter( names = { "-X", "--debug" }, description = "Produce execution debug output." )
+    private boolean debug;
+
+    @Parameter( names = { "-u", "--username" }, description = "The DSI account username" )
+    private String username;
+
+    @Parameter( names = { "-p", "--password" }, description = "The DSI account password", password = true )
+    private String password;
+
+    @Parameter( names = { "-U", "--uri" }, description = "The DSI web service URI" )
+    protected String serviceUri = "https://testcloud.t-systems.com/ZimoryManage/";
+
+    protected Logger logger;
+
+    protected HttpClient httpClient;
+
+    @Parameter(
+        names = { "-c", "--certificate" },
+        description = "The SSL certificate required to auth to DSI web service URI",
+        converter = FileConverter.class
+    )
+    private File sslCertificate;
+
+    @Override
+    public final void execute( String...args )
     {
-        final Map<String, Command> commands = new HashMap<String, Command>();
-        commands.put( "describe-images", new DescribeImages() );
-        commands.put( "describe-instances", new DescribeInstances() );
-        commands.put( "register", new Register() );
-        commands.put( "run-instances", new RunInstances() );
-        // commands.put( "server", new Server() );
-        commands.put( "terminate-instances", new TerminateInstances() );
-        commands.put( "upload", new Upload() );
-
-        OnDsiProgram onDsiProgram = new OnDsiProgram();
-        JCommander commander = new JCommander( onDsiProgram );
+        JCommander commander = new JCommander( this );
         commander.setProgramName( System.getProperty( "app.name" ) );
-
-        // load commands
-        for ( Entry<String, Command> command : commands.entrySet() )
-        {
-            commander.addCommand( command.getKey(), command.getValue() );
-        }
 
         commander.parse( args );
 
-        if ( onDsiProgram.isPrintHelp() )
+        if ( printHelp )
         {
             commander.usage();
             System.exit( -1 );
         }
 
-        if ( onDsiProgram.isShowVersion() )
+        if ( showVersion )
         {
             printVersionInfo();
             System.exit( -1 );
         }
 
-        if ( onDsiProgram.isDebug() )
+        if ( debug )
         {
             System.setProperty( "log.level", "DEBUG" );
         }
@@ -96,14 +115,14 @@ public final class Main
             // the context was probably already configured by default configuration
             // rules
             lc.reset();
-            configurator.doConfigure( Main.class.getClassLoader().getResourceAsStream( "logback-config.xml" ) );
+            configurator.doConfigure( getClass().getClassLoader().getResourceAsStream( "logback-config.xml" ) );
         }
         catch ( JoranException je )
         {
             // StatusPrinter should handle this
         }
 
-        final Logger logger = LoggerFactory.getLogger( Main.class );
+        logger = LoggerFactory.getLogger( getClass() );
 
         logger.info( "" );
         logger.info( "------------------------------------------------------------------------" );
@@ -111,19 +130,42 @@ public final class Main
         logger.info( "------------------------------------------------------------------------" );
         logger.info( "" );
 
-        String parsedCommand = commander.getParsedCommand();
-        if ( parsedCommand == null || !commands.containsKey( parsedCommand ) )
-        {
-            throw new IllegalArgumentException( format( "%s argument can not be processed", parsedCommand ) );
-        }
-
         long start = currentTimeMillis();
         int exit = 0;
 
         Throwable error = null;
+        final DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
         try
         {
-            commands.get( parsedCommand ).execute( onDsiProgram );
+            // TODO verify that the certificate ALWAYS exists
+            if ( sslCertificate != null )
+            {
+                KeyStore trustStore = KeyStore.getInstance( KeyStore.getDefaultType() );
+                FileInputStream instream = new FileInputStream( new File( "my.keystore" ) );
+                try
+                {
+                    trustStore.load( instream, password.toCharArray() );
+                }
+                finally
+                {
+                    try
+                    {
+                        instream.close();
+                    }
+                    catch ( Exception ignore )
+                    {
+                        // close quietly
+                    }
+                }
+
+                SSLSocketFactory socketFactory = new SSLSocketFactory( trustStore );
+                Scheme sch = new Scheme( "https", 443, socketFactory );
+                defaultHttpClient.getConnectionManager().getSchemeRegistry().register( sch );
+            }
+
+            httpClient = defaultHttpClient;
+
+            execute();
         }
         catch ( Throwable t )
         {
@@ -140,7 +182,7 @@ public final class Main
             {
                 logger.info( "" );
 
-                if ( onDsiProgram.isDebug() )
+                if ( debug )
                 {
                     logger.error( "Execution terminated with errors", error );
                 }
@@ -166,11 +208,12 @@ public final class Main
         }
     }
 
+    protected abstract void execute();
+
     private static void printVersionInfo()
     {
         Properties properties = new Properties();
-        InputStream input =
-            Main.class.getClassLoader().getResourceAsStream( "META-INF/maven/com.terradue/ondsi-tools/pom.properties" );
+        InputStream input = AbstractCommand.class.getClassLoader().getResourceAsStream( "META-INF/maven/com.terradue/ondsi-tools/pom.properties" );
 
         if ( input != null )
         {

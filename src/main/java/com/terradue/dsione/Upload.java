@@ -22,19 +22,19 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
 
 @Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class Upload
-    implements Command
+    extends AbstractCommand
 {
 
-    private final Logger logger = LoggerFactory.getLogger( getClass() );
+    public static void main( String[] args )
+    {
+        new Upload().execute( args );
+    }
 
     @Parameter( names = { "-a", "--appliance" }, description = "The DSI applicance name" )
     private String applianceName;
@@ -51,7 +51,8 @@ public final class Upload
     @Parameter( arity = 1, description = "Path to the image to upload", converter = FileConverter.class )
     private List<File> images = new LinkedList<File>();
 
-    public void execute( OnDsiProgram mainSettings )
+    @Override
+    protected void execute()
     {
         File image = images.get( 0 );
 

@@ -34,6 +34,7 @@ public final class DescribeImages
 
     @Override
     protected void execute()
+        throws Exception
     {
         // TODO Auto-generated method stub
     }

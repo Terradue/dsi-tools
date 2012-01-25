@@ -53,6 +53,7 @@ public final class Upload
 
     @Override
     protected void execute()
+        throws Exception
     {
         File image = images.get( 0 );
 
@@ -65,21 +66,12 @@ public final class Upload
         logger.info( "Uploading image: {}...", image );
 
         /*
-        try
-        {
-            httpClient.executeRequest( new RequestBuilder( "GET" )
-                                            .setUrl( mainSettings.getServiceUri() + "services/api/clouds/uploadTicket" )
-                                            .addQueryParameter( "providerId", providerId )
-                                            .addQueryParameter( "qualifierId", qualifierId )
-                                            .addQueryParameter( "applianceName", applianceName )
-                                            .addQueryParameter( "applianceDescription", applianceDescription )
-                                            .build() );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeException( "An error occurred while uploading the image: " + e.getMessage(), e );
-        }
-        */
+         * try { httpClient.executeRequest( new RequestBuilder( "GET" ) .setUrl( mainSettings.getServiceUri() +
+         * "services/api/clouds/uploadTicket" ) .addQueryParameter( "providerId", providerId ) .addQueryParameter(
+         * "qualifierId", qualifierId ) .addQueryParameter( "applianceName", applianceName ) .addQueryParameter(
+         * "applianceDescription", applianceDescription ) .build() ); } catch ( IOException e ) { throw new
+         * RuntimeException( "An error occurred while uploading the image: " + e.getMessage(), e ); }
+         */
     }
 
 }

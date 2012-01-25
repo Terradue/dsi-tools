@@ -16,6 +16,7 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,15 +41,17 @@ public final class DescribeInstances
 
     @Override
     protected void execute()
+        throws Exception
     {
-        /* StringBuilder requestPath = new StringBuilder( mainSettings.getServiceUri() )
-                                            .append( "services/api/deployments" );
+        StringBuilder requestPath = new StringBuilder( "deployments" );
         if ( !imageId.isEmpty() )
         {
             requestPath.append( imageId.iterator().next() );
         }
 
-        try
+        URI serviceUrl = getQueryUri( requestPath.toString() );
+
+        /*try
         {
             httpClient.executeRequest( new RequestBuilder( "GET" )
                 .setUrl( requestPath.toString() )

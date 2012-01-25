@@ -1,6 +1,5 @@
 package com.terradue.dsione;
 
-
 /*
  *  Copyright 2012 Terradue srl
  *
@@ -28,6 +27,7 @@ public final class Server
 
     @Override
     protected void execute()
+        throws Exception
     {
         // TODO Auto-generated method stub
     }

@@ -34,6 +34,7 @@ public final class Register
 
     @Override
     protected void execute()
+        throws Exception
     {
         // TODO Auto-generated method stub
     }

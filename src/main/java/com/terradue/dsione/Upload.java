@@ -16,14 +16,17 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 import static java.lang.String.format;
 import static org.apache.commons.digester3.binder.DigesterLoader.newLoader;
+import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.util.EntityUtils.toByteArray;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
@@ -121,8 +124,10 @@ public final class Upload
         FTPClient ftpClient = new FTPClient();
         ftpClient.connect( uploadTicket.getFtpLocation().getHost() );
 
+        InputStream imageStream = null;
         try
         {
+            imageStream = new FileInputStream( image );
             // ftpClient.login( username, password ) TODO does FTP requires a login?
             int reply = ftpClient.getReplyCode();
 
@@ -130,10 +135,42 @@ public final class Upload
             {
                 throw new RuntimeException( uploadTicket.getFtpLocation() + " refused connection" );
             }
+
+            if ( !ftpClient.changeWorkingDirectory( uploadTicket.getFtpLocation().getPath() ) )
+            {
+                throw new RuntimeException( "Impossible to access to "
+                                            + uploadTicket.getFtpLocation().getPath()
+                                            + " directory on "
+                                            + uploadTicket.getFtpLocation().getHost()
+                                            + ", contact the DSI support team" );
+            }
+
+            if ( ftpClient.storeUniqueFile( imageStream ) )
+            {
+                logger.info( "Image {} successfully stored", image );
+            }
+            else
+            {
+                throw new RuntimeException( "Impossible to store the image, contact the DSI support team" );
+            }
+
         }
         finally
         {
+            // ftpClient.logout();
             ftpClient.disconnect();
+
+            if ( imageStream != null )
+            {
+                try
+                {
+                    imageStream.close();
+                }
+                catch ( IOException e )
+                {
+                    // close quietly
+                }
+            }
         }
     }
 

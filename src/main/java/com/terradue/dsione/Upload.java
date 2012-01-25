@@ -17,14 +17,26 @@ package com.terradue.dsione;
  */
 
 import static java.lang.String.format;
+import static org.apache.commons.digester3.binder.DigesterLoader.newLoader;
+import static org.apache.http.HttpStatus.SC_OK;
+import static org.apache.http.util.EntityUtils.toByteArray;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.apache.commons.digester3.annotations.FromAnnotationsRuleModule;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
+import com.terradue.dsione.model.UploadTicket;
 
 @Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class Upload
@@ -48,6 +60,9 @@ public final class Upload
     @Parameter( names = { "-Q", "--qualifier" }, description = "The DSI qualifier ID" )
     private String qualifierId;
 
+    @Parameter( names = { "-O", "--operating-system" }, description = "The DSI applicance Operating System (optional)" )
+    private String applianceOS = "Linux";
+
     @Parameter( arity = 1, description = "Path to the image to upload", converter = FileConverter.class )
     private List<File> images = new LinkedList<File>();
 
@@ -63,15 +78,43 @@ public final class Upload
                                                         image ) );
         }
 
-        logger.info( "Uploading image: {}...", image );
+        logger.info( "Requesting FTP location where uploading images..." );
 
-        /*
-         * try { httpClient.executeRequest( new RequestBuilder( "GET" ) .setUrl( mainSettings.getServiceUri() +
-         * "services/api/clouds/uploadTicket" ) .addQueryParameter( "providerId", providerId ) .addQueryParameter(
-         * "qualifierId", qualifierId ) .addQueryParameter( "applianceName", applianceName ) .addQueryParameter(
-         * "applianceDescription", applianceDescription ) .build() ); } catch ( IOException e ) { throw new
-         * RuntimeException( "An error occurred while uploading the image: " + e.getMessage(), e ); }
-         */
+        URI serviceUrl = getQueryUri( "clouds/uploadTicket",
+                                      new BasicNameValuePair( "providerId", providerId ),
+                                      new BasicNameValuePair( "qualifierId", qualifierId ),
+                                      new BasicNameValuePair( "applianceName", applianceName ),
+                                      new BasicNameValuePair( "applianceDescription", applianceDescription ),
+                                      new BasicNameValuePair( "applianceOS", applianceOS ) );
+
+        HttpResponse response = httpClient.execute( new HttpGet( serviceUrl ) );
+
+        if ( SC_OK != response.getStatusLine().getStatusCode() )
+        {
+            throw new ClientProtocolException( "impossible to read web service response, DSI server replied: "
+                                               + response.getStatusLine().getReasonPhrase() );
+        }
+
+        UploadTicket uploadTicket = newLoader( new FromAnnotationsRuleModule()
+        {
+
+            @Override
+            protected void configureRules()
+            {
+                bindRulesFrom( UploadTicket.class );
+            }
+
+        } )
+        .newDigester()
+        .parse( new ByteArrayInputStream( toByteArray( response.getEntity() ) ) );
+
+        logger.info( "Uploading image: {} on {} (expires on)...",
+                     new String[]
+                     {
+                         image.getAbsolutePath(),
+                         uploadTicket.getFtpLocation(),
+                         uploadTicket.getExpirationDate()
+                     } );
     }
 
 }

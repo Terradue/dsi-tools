@@ -16,29 +16,36 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.lang.System.currentTimeMillis;
 import static java.util.Arrays.asList;
+import static org.apache.commons.digester3.binder.DigesterLoader.newLoader;
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.client.utils.URIUtils.createURI;
 import static org.apache.http.client.utils.URLEncodedUtils.format;
+import static org.apache.http.util.EntityUtils.toByteArray;
 
-import static java.lang.System.currentTimeMillis;
-
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.security.KeyStore;
 import java.util.Date;
 import java.util.Properties;
 
+import org.apache.commons.digester3.annotations.FromAnnotationsRuleModule;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.AuthCache;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.impl.auth.DigestScheme;
+import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +56,6 @@ import ch.qos.logback.core.joran.spi.JoranException;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.beust.jcommander.converters.FileConverter;
 
 @Parameters( commandDescription = "OpenNebula-DSI CLI tools" )
 public abstract class AbstractCommand
@@ -66,24 +72,20 @@ public abstract class AbstractCommand
     private boolean debug;
 
     @Parameter( names = { "-u", "--username" }, description = "The DSI account username" )
-    private String username;
+    protected String username;
 
     @Parameter( names = { "-p", "--password" }, description = "The DSI account password", password = true )
-    private String password;
+    protected String password;
 
-    @Parameter( names = { "-", "--host" }, description = "The DSI web service URI" )
+    @Parameter( names = { "-H", "--host" }, description = "The DSI web service URI" )
     protected String serviceHost = "testcloud.t-systems.com";
+
+    @Parameter( names = { "-P", "--port" }, description = "The DSI web service URI" )
+    protected int servicePort = 80;
 
     protected Logger logger;
 
-    protected HttpClient httpClient;
-
-    @Parameter(
-        names = { "-c", "--certificate" },
-        description = "The SSL certificate required to auth to DSI web service URI",
-        converter = FileConverter.class
-    )
-    private File sslCertificate;
+    private HttpClient httpClient;
 
     @Override
     public final void execute( String...args )
@@ -143,40 +145,31 @@ public abstract class AbstractCommand
         int exit = 0;
 
         Throwable error = null;
+
         final DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
 
         // username/password authentication
-        defaultHttpClient.getCredentialsProvider().setCredentials( new AuthScope( serviceHost, 443 ),
+        defaultHttpClient.getCredentialsProvider().setCredentials( new AuthScope( serviceHost, servicePort ),
                                                                    new UsernamePasswordCredentials( username,
                                                                                                     password ) );
 
+        // Create AuthCache instance
+        AuthCache authCache = new BasicAuthCache();
+        // Generate DIGEST scheme object, initialize it and add it to the local
+        // auth cache
+        DigestScheme digestAuth = new DigestScheme();
+        // Suppose we already know the realm name
+        digestAuth.overrideParamter( "realm", "some realm" );
+        // Suppose we already know the expected nonce value
+        digestAuth.overrideParamter( "nonce", "whatever" );
+        authCache.put( new HttpHost( serviceHost, servicePort ), digestAuth );
+
+        // Add AuthCache to the execution context
+        BasicHttpContext localcontext = new BasicHttpContext();
+        localcontext.setAttribute( ClientContext.AUTH_CACHE, authCache );
+
         try
         {
-            // TODO verify that the certificate ALWAYS exists
-            if ( sslCertificate != null )
-            {
-                KeyStore trustStore = KeyStore.getInstance( KeyStore.getDefaultType() );
-                FileInputStream instream = new FileInputStream( new File( "my.keystore" ) );
-                try
-                {
-                    trustStore.load( instream, password.toCharArray() );
-                }
-                finally
-                {
-                    try
-                    {
-                        instream.close();
-                    }
-                    catch ( Exception ignore )
-                    {
-                        // close quietly
-                    }
-                }
-
-                SSLSocketFactory socketFactory = new SSLSocketFactory( trustStore );
-                Scheme sch = new Scheme( "https", 443, socketFactory );
-                defaultHttpClient.getConnectionManager().getSchemeRegistry().register( sch );
-            }
 
             httpClient = defaultHttpClient;
 
@@ -228,10 +221,53 @@ public abstract class AbstractCommand
     protected abstract void execute()
         throws Exception;
 
-    protected URI getQueryUri( String path, NameValuePair... parameters )
-        throws URISyntaxException
+    private URI getServiceUri( String path, NameValuePair... parameters )
+        throws Exception
     {
-        return createURI( "https", serviceHost, 80, "/ZimoryManage/services/api/", format( asList( parameters ), "UTF-8" ), null );
+        return createURI( "https",
+                          serviceHost,
+                          servicePort,
+                          String.format( "/ZimoryManage/services/api/%s", path ),
+                          format( asList( parameters ), "UTF-8" ),
+                          null );
+    }
+
+    protected void invokeGetAndLog( Class<?> targetType, boolean showHeaders, String path, NameValuePair... parameters )
+        throws Exception
+    {
+        URI serviceUrl = getServiceUri( path, parameters );
+
+        httpClient.execute( new HttpGet( serviceUrl ), new XmlLoggingHandler( targetType, showHeaders ) );
+    }
+
+    protected <T> T invokeGet( final Class<T> resultType, String path, NameValuePair... parameters )
+        throws Exception
+    {
+        URI serviceUrl = getServiceUri( path, parameters );
+
+        HttpResponse response = httpClient.execute( new HttpGet( serviceUrl ) );
+
+        if ( SC_OK != response.getStatusLine().getStatusCode() )
+        {
+            throw new ClientProtocolException( String.format( "impossible to read '%s' response, DSI server replied: ",
+                                                              serviceUrl,
+                                                              response.getStatusLine().getReasonPhrase() ) );
+        }
+
+        T returned = newLoader( new FromAnnotationsRuleModule()
+        {
+
+            @Override
+            protected void configureRules()
+            {
+                bindRulesFrom( resultType );
+            }
+
+        } )
+        .newDigester()
+        .<T>parse( new ByteArrayInputStream( toByteArray( response.getEntity() ) ) );
+
+        return returned;
     }
 
     private static void printVersionInfo()

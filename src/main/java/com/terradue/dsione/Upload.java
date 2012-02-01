@@ -17,25 +17,16 @@ package com.terradue.dsione;
  */
 
 import static java.lang.String.format;
-import static org.apache.commons.digester3.binder.DigesterLoader.newLoader;
 import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
-import static org.apache.http.HttpStatus.SC_OK;
-import static org.apache.http.util.EntityUtils.toByteArray;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.digester3.annotations.FromAnnotationsRuleModule;
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.beust.jcommander.Parameter;
@@ -85,33 +76,12 @@ public final class Upload
 
         logger.info( "Requesting FTP location where uploading images..." );
 
-        URI serviceUrl = getQueryUri( "clouds/uploadTicket",
-                                      new BasicNameValuePair( "providerId", providerId ),
-                                      new BasicNameValuePair( "qualifierId", qualifierId ),
-                                      new BasicNameValuePair( "applianceName", applianceName ),
-                                      new BasicNameValuePair( "applianceDescription", applianceDescription ),
-                                      new BasicNameValuePair( "applianceOS", applianceOS ) );
-
-        HttpResponse response = httpClient.execute( new HttpGet( serviceUrl ) );
-
-        if ( SC_OK != response.getStatusLine().getStatusCode() )
-        {
-            throw new ClientProtocolException( "impossible to read web service response, DSI server replied: "
-                                               + response.getStatusLine().getReasonPhrase() );
-        }
-
-        UploadTicket uploadTicket = newLoader( new FromAnnotationsRuleModule()
-        {
-
-            @Override
-            protected void configureRules()
-            {
-                bindRulesFrom( UploadTicket.class );
-            }
-
-        } )
-        .newDigester()
-        .parse( new ByteArrayInputStream( toByteArray( response.getEntity() ) ) );
+        UploadTicket uploadTicket = invokeGet( UploadTicket.class, "clouds/uploadTicket",
+                                               new BasicNameValuePair( "providerId", providerId ),
+                                               new BasicNameValuePair( "qualifierId", qualifierId ),
+                                               new BasicNameValuePair( "applianceName", applianceName ),
+                                               new BasicNameValuePair( "applianceDescription", applianceDescription ),
+                                               new BasicNameValuePair( "applianceOS", applianceOS ) );
 
         logger.info( "Uploading image: {} on {} (expires on)...",
                      new String[]
@@ -128,7 +98,7 @@ public final class Upload
         try
         {
             imageStream = new FileInputStream( image );
-            // ftpClient.login( username, password ) TODO does FTP requires a login?
+            ftpClient.login( username, password );
             int reply = ftpClient.getReplyCode();
 
             if ( !isPositiveCompletion( reply ) )
@@ -157,7 +127,7 @@ public final class Upload
         }
         finally
         {
-            // ftpClient.logout();
+            ftpClient.logout();
             ftpClient.disconnect();
 
             if ( imageStream != null )

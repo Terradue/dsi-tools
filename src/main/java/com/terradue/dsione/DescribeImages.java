@@ -16,11 +16,8 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.apache.http.client.methods.HttpGet;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
@@ -36,7 +33,7 @@ public final class DescribeImages
         new DescribeImages().execute( args );
     }
 
-    @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
+    @Parameter( names = { "--headers" }, description = "Display column headers" )
     private boolean headers = false;
 
     @Parameter( arity = 1, description = "The image identification as returned by the upload command" )
@@ -52,9 +49,7 @@ public final class DescribeImages
             requestPath.append( '/' ).append( imageId.iterator().next() );
         }
 
-        URI serviceUrl = getQueryUri( requestPath.toString() );
-
-        httpClient.execute( new HttpGet( serviceUrl ), new XmlLoggingHandler( Appliance.class, headers ) );
+        invokeGetAndLog( Appliance.class, headers, requestPath.toString() );
     }
 
 }

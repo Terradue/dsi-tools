@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>DSI OpenNebula- Tools - Checkstyle report</title>
+    <link>http://terradue.github.com/dsione-tools/</link>
+    <description>DSI OpenNebula- Tools - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2011 - 2012 Terradue s.r.l.</copyright>
+    <item>
+      <title>File: 15,
+             Errors: 68,
+             Warnings: 102,
+             Infos: 10
+      </title>
+            <link>http://terradue.github.com/dsione-tools//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://terradue.github.com/dsione-tools//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.DescribeImages.java">com/terradue/dsione/DescribeImages.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.model.UploadTicket.java">com/terradue/dsione/model/UploadTicket.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.DescribeInstances.java">com/terradue/dsione/DescribeInstances.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.URIConverter.java">com/terradue/dsione/URIConverter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.TerminateInstances.java">com/terradue/dsione/TerminateInstances.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.Upload.java">com/terradue/dsione/Upload.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.Command.java">com/terradue/dsione/Command.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.Register.java">com/terradue/dsione/Register.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.LoggingStackAction.java">com/terradue/dsione/LoggingStackAction.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.XmlLoggingHandler.java">com/terradue/dsione/XmlLoggingHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.model.Deployment.java">com/terradue/dsione/model/Deployment.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  32
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.RunInstances.java">com/terradue/dsione/RunInstances.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.Server.java">com/terradue/dsione/Server.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.AbstractCommand.java">com/terradue/dsione/AbstractCommand.java</a>
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.model.Appliance.java">com/terradue/dsione/model/Appliance.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  36
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

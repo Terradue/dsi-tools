@@ -1,0 +1,15 @@
+-bootclasspath
+'/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsfd.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Frameworks/JavaRuntimeSupport.framework/Resources/Java/JavaRuntimeSupport.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/laf.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/sunrsasign.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsse.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/charsets.jar'
+-classpath
+'/Users/simonetripodi/Documents/workspace/dsione-tools/target/classes:/Users/simonetripodi/.m2/repository/ch/qos/logback/logback-core/0.9.28/logback-core-0.9.28.jar:/Users/simonetripodi/.m2/repository/ch/qos/logback/logback-classic/0.9.28/logback-classic-0.9.28.jar:/Users/simonetripodi/.m2/repository/commons-net/commons-net/3.0.1/commons-net-3.0.1.jar:/Users/simonetripodi/.m2/repository/com/beust/jcommander/1.23/jcommander-1.23.jar:/Users/simonetripodi/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/Users/simonetripodi/.m2/repository/org/apache/httpcomponents/httpclient/4.2-alpha1/httpclient-4.2-alpha1.jar:/Users/simonetripodi/.m2/repository/org/apache/commons/commons-digester3/3.1/commons-digester3-3.1.jar:/Users/simonetripodi/.m2/repository/org/apache/httpcomponents/httpcore/4.2-alpha2/httpcore-4.2-alpha2.jar:/Users/simonetripodi/.m2/repository/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar:/Users/simonetripodi/.m2/repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar:/Users/simonetripodi/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar'
+-doclet
+'com.google.doclava.Doclava'
+-docletpath
+'/Users/simonetripodi/.m2/repository/com/google/doclava/doclava/1.0.2/doclava-1.0.2.jar:/Users/simonetripodi/.m2/repository/com/google/guava/guava/r06/guava-r06.jar:/Users/simonetripodi/.m2/repository/com/google/jsilver/jsilver/1.0.0/jsilver-1.0.0.jar:/Users/simonetripodi/.m2/repository/junit/junit/4.8.2/junit-4.8.2.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java'
+-hdf project.name "DSI OpenNebula- Tools"
+                -d /Users/simonetripodi/Documents/workspace/dsione-tools/target/site/apidocs

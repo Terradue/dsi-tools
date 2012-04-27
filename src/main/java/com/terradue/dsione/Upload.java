@@ -65,7 +65,7 @@ public final class Upload
     @Parameter( names = { "-u", "--username" }, description = "The DSI account username." )
     private String username;
 
-    @Parameter( names = { "-p", "--password" }, description = "The DSI account password.", password = true )
+    @Parameter( names = { "-p", "--password" }, description = "The DSI account password." )
     private String password;
 
     @Parameter( names = { "-i", "--image" }, description = "Path to the image to upload", converter = FileConverter.class )

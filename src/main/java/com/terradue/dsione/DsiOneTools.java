@@ -67,6 +67,12 @@ public final class DsiOneTools
     @Parameter( names = { "-P", "--port" }, description = "The DSI web service port." )
     protected int servicePort = 80;
 
+    @Parameter( names = { "-u", "--username" }, description = "The DSI account username." )
+    private String username;
+
+    @Parameter( names = { "-p", "--password" }, description = "The DSI account password." )
+    private String password;
+
     @Parameter(
         names = { "-c", "--certificate" },
         description = "The DSI web service certificate.",
@@ -199,6 +205,9 @@ public final class DsiOneTools
     protected void bindConfigurations()
     {
         // commons settings
+        bindProperty( "dsi.username" ).toValue( username );
+        bindProperty( "dsi.password" ).toValue( password );
+
         bindProperty( "service.host" ).toValue( serviceHost );
         bindProperty( "service.port" ).toValue( String.valueOf( servicePort ) );
         bindProperty( "service.url" ).toValue( "https://${service.host}:${service.port}/ZimoryManage/services/api/" );

@@ -47,10 +47,10 @@ public final class Upload
 
     private final Logger logger = getLogger( getClass() );
 
-    @Parameter( names = { "-a", "--appliance" }, description = "The DSI applicance name" )
+    @Parameter( names = { "-A", "--appliance" }, description = "The DSI applicance name" )
     private String applianceName;
 
-    @Parameter( names = { "-d", "--appliance-description" }, description = "The DSI applicance name" )
+    @Parameter( names = { "-D", "--appliance-description" }, description = "The DSI applicance name" )
     private String applianceDescription;
 
     @Parameter( names = { "-P", "--provider" }, description = "The DSI provider ID" )
@@ -62,13 +62,7 @@ public final class Upload
     @Parameter( names = { "-O", "--operating-system" }, description = "The DSI applicance Operating System (optional)" )
     private String applianceOS = "Linux";
 
-    @Parameter( names = { "-u", "--username" }, description = "The DSI account username." )
-    private String username;
-
-    @Parameter( names = { "-p", "--password" }, description = "The DSI account password." )
-    private String password;
-
-    @Parameter( names = { "-i", "--image" }, description = "Path to the image to upload", converter = FileConverter.class )
+    @Parameter( names = { "-I", "--image" }, description = "Path to the image to upload", converter = FileConverter.class )
     private File image;
 
     @Inject
@@ -78,6 +72,14 @@ public final class Upload
     @Inject
     private Client restClient;
 
+    @Inject
+    @Named( "dsi.username" )
+    private String username;
+
+    @Inject
+    @Named( "dsi.password" )
+    private String password;
+
     public void setUploadService( String uploadService )
     {
         this.uploadService = uploadService;
@@ -86,6 +88,16 @@ public final class Upload
     public void setRestClient( Client restClient )
     {
         this.restClient = restClient;
+    }
+
+    public void setUsername( String username )
+    {
+        this.username = username;
+    }
+
+    public void setPassword( String password )
+    {
+        this.password = password;
     }
 
     @Override

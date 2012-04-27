@@ -27,6 +27,7 @@ import org.apache.commons.ssl.KeyMaterial;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
+import com.google.inject.name.Named;
 
 public final class KeyManagerProvider
     implements Provider<KeyManager[]>
@@ -34,20 +35,23 @@ public final class KeyManagerProvider
 
     private final File certificate;
 
+    private final String password;
+
     @Inject
-    public KeyManagerProvider( File certificate )
+    public KeyManagerProvider( File certificate, @Named( "dsi.password" ) String password )
     {
         this.certificate = certificate;
+        this.password = password;
     }
 
     @Override
     public KeyManager[] get()
     {
-        final char[] password = "".toCharArray();
+        final char[] password = this.password.toCharArray();
 
         try
         {
-            final KeyStore store = new KeyMaterial( certificate, certificate, password ).getKeyStore();
+            final KeyStore store = new KeyMaterial( certificate, password ).getKeyStore();
             store.load( null, password );
 
             // initialize key and trust managers -> default behavior

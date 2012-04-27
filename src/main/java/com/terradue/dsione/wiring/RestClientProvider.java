@@ -1,4 +1,4 @@
-package com.terradue.dsione;
+package com.terradue.dsione.wiring;
 
 /*
  *  Copyright 2012 Terradue srl
@@ -23,7 +23,7 @@ import com.google.inject.Provider;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 
-final class RestClientProvider
+public final class RestClientProvider
     implements Provider<Client>
 {
 

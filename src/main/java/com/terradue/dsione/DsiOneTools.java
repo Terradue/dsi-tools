@@ -16,14 +16,17 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static com.google.inject.Guice.createInjector;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.getProperty;
+import static java.util.ServiceLoader.load;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Properties;
 
 import org.nnsoft.guice.rocoto.configuration.ConfigurationModule;
@@ -38,6 +41,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
+import com.terradue.dsione.wiring.RestClientModule;
 
 @Parameters( commandDescription = "OpenNebula-DSI CLI tools" )
 public final class DsiOneTools
@@ -74,6 +78,12 @@ public final class DsiOneTools
         commander.setProgramName( getProperty( "app.name" ) );
 
         commander.parse( args );
+
+        Iterator<Command> commands = load( Command.class ).iterator();
+        while ( commands.hasNext() )
+        {
+            commander.addCommand( commands.next() );
+        }
 
         if ( printHelp )
         {
@@ -113,11 +123,18 @@ public final class DsiOneTools
             // StatusPrinter should handle this
         }
 
+        String parsedCommand = commander.getParsedCommand();
+        if ( parsedCommand == null )
+        {
+            System.out.printf( "No known command in input. Please type %s -h for the usage.",
+                               getProperty( "app.name" ) );
+        }
+
         logger = LoggerFactory.getLogger( getClass() );
 
         logger.info( "" );
         logger.info( "------------------------------------------------------------------------" );
-        logger.info( "{}", getProperty( "app.name" ) );
+        logger.info( "{}: {}", getProperty( "app.name" ), parsedCommand );
         logger.info( "------------------------------------------------------------------------" );
         logger.info( "" );
 
@@ -128,7 +145,11 @@ public final class DsiOneTools
 
         try
         {
+            Object command = commander.getCommands().get( parsedCommand ).getObjects().get( 0 );
 
+            createInjector( this, new RestClientModule() ).injectMembers( command );
+
+            exit = Command.class.cast( command ).execute();
         }
         catch ( Throwable t )
         {

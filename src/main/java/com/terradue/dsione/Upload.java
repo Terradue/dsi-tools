@@ -60,10 +60,10 @@ public final class Upload
     private String applianceOS = "Linux";
 
     @Parameter( names = { "-u", "--username" }, description = "The DSI account username." )
-    protected String username;
+    private String username;
 
     @Parameter( names = { "-p", "--password" }, description = "The DSI account password.", password = true )
-    protected String password;
+    private String password;
 
     @Parameter( arity = 1, description = "Path to the image to upload", converter = FileConverter.class )
     private List<File> images = new LinkedList<File>();

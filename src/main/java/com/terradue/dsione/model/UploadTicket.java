@@ -16,15 +16,26 @@ package com.terradue.dsione.model;
  *  limitations under the License.
  */
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
 import java.net.URI;
 
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlAccessorType( FIELD )
+@XmlRootElement( name = "uploadTicket" )
 public final class UploadTicket
 {
 
+    @XmlElement( name = "expirationDate" )
     private String expirationDate;
 
+    @XmlElement( name = "ftpUploadURL" )
     private URI ftpLocation;
 
+    @XmlElement( name = "qualifierId" )
     private String qualifierId;
 
     public String getExpirationDate()

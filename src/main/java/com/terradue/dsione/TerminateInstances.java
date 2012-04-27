@@ -19,27 +19,25 @@ package com.terradue.dsione;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.kohsuke.MetaInfServices;
+
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
+@MetaInfServices
 @Parameters( commandDescription = "Terminate the selected running instance" )
 public final class TerminateInstances
-    extends AbstractCommand
+    implements Command
 {
-
-    public static void main( String[] args )
-    {
-        new TerminateInstances().execute( args );
-    }
 
     @Parameter( arity = 1, description = "The instance identification as returned by the run-instances command" )
     private List<String> imageId = new LinkedList<String>();
 
     @Override
-    protected void execute()
+    public int execute()
         throws Exception
     {
-        // TODO Auto-generated method stub
+        return 0;
     }
 
 }

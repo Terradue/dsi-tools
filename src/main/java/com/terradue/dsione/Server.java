@@ -1,5 +1,7 @@
 package com.terradue.dsione;
 
+import org.kohsuke.MetaInfServices;
+
 /*
  *  Copyright 2012 Terradue srl
  *
@@ -16,20 +18,16 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+@MetaInfServices
 public final class Server
-    extends AbstractCommand
+    implements Command
 {
 
-    public static void main( String[] args )
-    {
-        new Server().execute( args );
-    }
-
     @Override
-    protected void execute()
+    public int execute()
         throws Exception
     {
-        // TODO Auto-generated method stub
+        return 0;
     }
 
 }

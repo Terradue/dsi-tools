@@ -19,6 +19,7 @@ package com.terradue.dsione;
 public interface Command
 {
 
-    void execute( String...args );
+    int execute()
+        throws Exception;
 
 }

@@ -19,19 +19,16 @@ package com.terradue.dsione;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.kohsuke.MetaInfServices;
+
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.terradue.dsione.model.Appliance;
 
+@MetaInfServices
 @Parameters( commandDescription = "List and describe previously uploaded images of a user to be used with an OpenNebula Cloud." )
 public final class DescribeImages
-    extends AbstractCommand
+    implements Command
 {
-
-    public static void main( String[] args )
-    {
-        new DescribeImages().execute( args );
-    }
 
     @Parameter( names = { "--headers" }, description = "Display column headers" )
     private boolean headers = false;
@@ -40,7 +37,7 @@ public final class DescribeImages
     private List<String> imageId = new LinkedList<String>();
 
     @Override
-    protected void execute()
+    public int execute()
         throws Exception
     {
         StringBuilder requestPath = new StringBuilder( "appliances" );
@@ -49,7 +46,7 @@ public final class DescribeImages
             requestPath.append( '/' ).append( imageId.iterator().next() );
         }
 
-        invokeGetAndLog( Appliance.class, headers, requestPath.toString() );
+        return 0;
     }
 
 }

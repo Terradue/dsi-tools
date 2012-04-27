@@ -16,36 +16,23 @@ package com.terradue.dsione.model;
  *  limitations under the License.
  */
 
-import org.apache.commons.digester3.annotations.rules.BeanPropertySetter;
-import org.apache.commons.digester3.annotations.rules.ObjectCreate;
-import org.apache.commons.digester3.annotations.rules.SetProperty;
-
-@ObjectCreate( pattern = "*/deployment" )
 public final class Deployment
 {
 
-    @SetProperty( pattern = "*/deployment", attributeName = "id" )
     private int id;
 
-    @BeanPropertySetter( pattern = "*/deployment/active" )
     private boolean active;
 
-    @BeanPropertySetter( pattern = "*/deployment/applianceId" )
     private int applianceId;
 
-    @BeanPropertySetter( pattern = "*/deployment/cpuNumber" )
     private int cpuNumber;
 
-    @BeanPropertySetter( pattern = "*/deployment/createdBy" )
     private String createdBy;
 
-    @BeanPropertySetter( pattern = "*/deployment/locationId" )
     private int locationId;
 
-    @BeanPropertySetter( pattern = "*/deployment/memSize" )
     private int memorySize;
 
-    @BeanPropertySetter( pattern = "*/deployment/name" )
     private String name;
 
     public int getId()

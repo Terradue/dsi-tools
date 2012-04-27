@@ -16,38 +16,25 @@ package com.terradue.dsione.model;
  *  limitations under the License.
  */
 
-import org.apache.commons.digester3.annotations.rules.BeanPropertySetter;
-import org.apache.commons.digester3.annotations.rules.ObjectCreate;
-import org.apache.commons.digester3.annotations.rules.SetProperty;
-
-@ObjectCreate( pattern = "*/appliance" )
 public final class Appliance
 {
-    @SetProperty( pattern = "*/appliance", attributeName = "id" )
+
     private int id;
 
-    @BeanPropertySetter( pattern = "*/appliance/architecture" )
     private String architecture;
 
-    @BeanPropertySetter( pattern = "*/appliance/custom" )
     private boolean custom;
 
-    @BeanPropertySetter( pattern = "*/appliance/description" )
     private String description;
 
-    @BeanPropertySetter( pattern = "*/appliance/name" )
     private String name;
 
-    @BeanPropertySetter( pattern = "*/appliance/operSystem" )
     private String operatingSystem;
 
-    @BeanPropertySetter( pattern = "*/appliance/usageCount" )
     private int usageCount;
 
-    @BeanPropertySetter( pattern = "*/appliance/vmType" )
     private String virtualMachineType;
 
-    @BeanPropertySetter( pattern = "*/appliance/deprecated" )
     private boolean deprecated;
 
     public int getId()

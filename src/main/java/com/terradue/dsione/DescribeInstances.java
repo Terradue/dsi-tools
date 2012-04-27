@@ -19,19 +19,16 @@ package com.terradue.dsione;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.kohsuke.MetaInfServices;
+
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.terradue.dsione.model.Deployment;
 
+@MetaInfServices
 @Parameters( commandDescription = "List and describe running instances" )
 public final class DescribeInstances
-    extends AbstractCommand
+    implements Command
 {
-
-    public static void main( String[] args )
-    {
-        new DescribeInstances().execute( args );
-    }
 
     @Parameter( names = { "--headers" }, description = "Display column headers" )
     private boolean headers = false;
@@ -40,7 +37,7 @@ public final class DescribeInstances
     private List<String> instanceId = new LinkedList<String>();
 
     @Override
-    protected void execute()
+    public int execute()
         throws Exception
     {
         StringBuilder requestPath = new StringBuilder( "deployments" );
@@ -49,7 +46,7 @@ public final class DescribeInstances
             requestPath.append( '/' ).append( instanceId.iterator().next() );
         }
 
-        invokeGetAndLog( Deployment.class, headers, requestPath.toString() );
+        return 0;
     }
 
 }

@@ -18,6 +18,7 @@ package com.terradue.dsione;
 
 import static java.lang.String.format;
 import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,22 +28,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.http.message.BasicNameValuePair;
+import org.kohsuke.MetaInfServices;
+import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
 import com.terradue.dsione.model.UploadTicket;
 
+@MetaInfServices
 @Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class Upload
-    extends AbstractCommand
+    implements Command
 {
 
-    public static void main( String[] args )
-    {
-        new Upload().execute( args );
-    }
+    private final Logger logger = getLogger( getClass() );
 
     @Parameter( names = { "-a", "--appliance" }, description = "The DSI applicance name" )
     private String applianceName;
@@ -59,11 +59,17 @@ public final class Upload
     @Parameter( names = { "-O", "--operating-system" }, description = "The DSI applicance Operating System (optional)" )
     private String applianceOS = "Linux";
 
+    @Parameter( names = { "-u", "--username" }, description = "The DSI account username." )
+    protected String username;
+
+    @Parameter( names = { "-p", "--password" }, description = "The DSI account password.", password = true )
+    protected String password;
+
     @Parameter( arity = 1, description = "Path to the image to upload", converter = FileConverter.class )
     private List<File> images = new LinkedList<File>();
 
     @Override
-    protected void execute()
+    public int execute()
         throws Exception
     {
         File image = images.get( 0 );
@@ -76,12 +82,13 @@ public final class Upload
 
         logger.info( "Requesting FTP location where uploading images..." );
 
-        UploadTicket uploadTicket = invokeGet( UploadTicket.class, "clouds/uploadTicket",
+        UploadTicket uploadTicket = null;
+        /* UploadTicket uploadTicket = invokeGet( UploadTicket.class, "clouds/uploadTicket",
                                                new BasicNameValuePair( "providerId", providerId ),
                                                new BasicNameValuePair( "qualifierId", qualifierId ),
                                                new BasicNameValuePair( "applianceName", applianceName ),
                                                new BasicNameValuePair( "applianceDescription", applianceDescription ),
-                                               new BasicNameValuePair( "applianceOS", applianceOS ) );
+                                               new BasicNameValuePair( "applianceOS", applianceOS ) ); */
 
         logger.info( "Uploading image: {} on {} (expires on)...",
                      new String[]
@@ -142,6 +149,8 @@ public final class Upload
                 }
             }
         }
+
+        return 0;
     }
 
 }

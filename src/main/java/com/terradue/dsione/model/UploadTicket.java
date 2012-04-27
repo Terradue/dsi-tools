@@ -18,20 +18,13 @@ package com.terradue.dsione.model;
 
 import java.net.URI;
 
-import org.apache.commons.digester3.annotations.rules.BeanPropertySetter;
-import org.apache.commons.digester3.annotations.rules.ObjectCreate;
-
-@ObjectCreate( pattern = "uploadTicket" )
 public final class UploadTicket
 {
 
-    @BeanPropertySetter( pattern = "uploadTicket/expirationDate" )
     private String expirationDate;
 
-    @BeanPropertySetter( pattern = "uploadTicket/ftpUploadURL" )
     private URI ftpLocation;
 
-    @BeanPropertySetter( pattern = "uploadTicket/qualifierId" )
     private String qualifierId;
 
     public String getExpirationDate()

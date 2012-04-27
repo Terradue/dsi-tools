@@ -16,27 +16,25 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import org.kohsuke.MetaInfServices;
+
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
+@MetaInfServices
 @Parameters( commandDescription = "Register a previously uploaded image for use with an OpenNebula Cloud." )
 public final class Register
-    extends AbstractCommand
+    implements Command
 {
-
-    public static void main( String[] args )
-    {
-        new Register().execute( args );
-    }
 
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     private boolean headers = false;
 
     @Override
-    protected void execute()
+    public int execute()
         throws Exception
     {
-        // TODO Auto-generated method stub
+        return -1;
     }
 
 }

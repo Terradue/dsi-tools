@@ -16,36 +16,16 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
-import static java.util.Arrays.asList;
-import static org.apache.commons.digester3.binder.DigesterLoader.newLoader;
-import static org.apache.http.HttpStatus.SC_OK;
-import static org.apache.http.client.utils.URIUtils.createURI;
-import static org.apache.http.client.utils.URLEncodedUtils.format;
-import static org.apache.http.util.EntityUtils.toByteArray;
+import static java.lang.System.getProperty;
 
-import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.util.Date;
 import java.util.Properties;
 
-import org.apache.commons.digester3.annotations.FromAnnotationsRuleModule;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.AuthCache;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.impl.auth.DigestScheme;
-import org.apache.http.impl.client.BasicAuthCache;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,8 +38,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 @Parameters( commandDescription = "OpenNebula-DSI CLI tools" )
-public abstract class AbstractCommand
-    implements Command
+public final class DsiOneTools
 {
 
     @Parameter( names = { "-h", "--help" }, description = "Display help information." )
@@ -71,40 +50,34 @@ public abstract class AbstractCommand
     @Parameter( names = { "-X", "--debug" }, description = "Produce execution debug output." )
     private boolean debug;
 
-    @Parameter( names = { "-u", "--username" }, description = "The DSI account username" )
-    protected String username;
-
-    @Parameter( names = { "-p", "--password" }, description = "The DSI account password", password = true )
-    protected String password;
-
-    @Parameter( names = { "-H", "--host" }, description = "The DSI web service URI" )
+    @Parameter( names = { "-H", "--host" }, description = "The DSI web service URI." )
     protected String serviceHost = "testcloud.t-systems.com";
 
-    @Parameter( names = { "-P", "--port" }, description = "The DSI web service URI" )
+    @Parameter( names = { "-P", "--port" }, description = "The DSI web service port." )
     protected int servicePort = 80;
+
+    @Parameter( names = { "-c", "--certificate" }, description = "The DSI web service certificate." )
+    protected File dsiCertificate = new File( getProperty( "user.home" ), format( ".dsi/" ) );
 
     protected Logger logger;
 
-    private HttpClient httpClient;
-
-    @Override
-    public final void execute( String...args )
+    public final int execute( String...args )
     {
-        JCommander commander = new JCommander( this );
-        commander.setProgramName( System.getProperty( "app.name" ) );
+        final JCommander commander = new JCommander( this );
+        commander.setProgramName( getProperty( "app.name" ) );
 
         commander.parse( args );
 
         if ( printHelp )
         {
             commander.usage();
-            System.exit( -1 );
+            return -1;
         }
 
         if ( showVersion )
         {
             printVersionInfo();
-            System.exit( -1 );
+            return -1;
         }
 
         if ( debug )
@@ -137,7 +110,7 @@ public abstract class AbstractCommand
 
         logger.info( "" );
         logger.info( "------------------------------------------------------------------------" );
-        logger.info( "{}", System.getProperty( "app.name" ) );
+        logger.info( "{}", getProperty( "app.name" ) );
         logger.info( "------------------------------------------------------------------------" );
         logger.info( "" );
 
@@ -146,33 +119,8 @@ public abstract class AbstractCommand
 
         Throwable error = null;
 
-        final DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
-
-        // username/password authentication
-        defaultHttpClient.getCredentialsProvider().setCredentials( new AuthScope( serviceHost, servicePort ),
-                                                                   new UsernamePasswordCredentials( username,
-                                                                                                    password ) );
-
-        // Create AuthCache instance
-        AuthCache authCache = new BasicAuthCache();
-        // Generate DIGEST scheme object, initialize it and add it to the local
-        // auth cache
-        DigestScheme digestAuth = new DigestScheme();
-        // Suppose we already know the realm name
-        digestAuth.overrideParamter( "realm", "some realm" );
-        // Suppose we already know the expected nonce value
-        digestAuth.overrideParamter( "nonce", "whatever" );
-        authCache.put( new HttpHost( serviceHost, servicePort ), digestAuth );
-
-        // Add AuthCache to the execution context
-        BasicHttpContext localcontext = new BasicHttpContext();
-        localcontext.setAttribute( ClientContext.AUTH_CACHE, authCache );
-
         try
         {
-
-            httpClient = defaultHttpClient;
-
             execute();
         }
         catch ( Throwable t )
@@ -184,7 +132,7 @@ public abstract class AbstractCommand
         {
             logger.info( "" );
             logger.info( "------------------------------------------------------------------------" );
-            logger.info( "{} {}", System.getProperty( "app.name" ), ( exit < 0 ) ? "FAILURE" : "SUCCESS" );
+            logger.info( "{} {}", getProperty( "app.name" ), ( exit < 0 ) ? "FAILURE" : "SUCCESS" );
 
             if ( exit < 0 )
             {
@@ -211,69 +159,15 @@ public abstract class AbstractCommand
                          runtime.totalMemory() / megaUnit );
 
             logger.info( "------------------------------------------------------------------------" );
-
-            httpClient.getConnectionManager().shutdown();
-
-            System.exit( exit );
-        }
-    }
-
-    protected abstract void execute()
-        throws Exception;
-
-    private URI getServiceUri( String path, NameValuePair... parameters )
-        throws Exception
-    {
-        return createURI( "https",
-                          serviceHost,
-                          servicePort,
-                          String.format( "/ZimoryManage/services/api/%s", path ),
-                          format( asList( parameters ), "UTF-8" ),
-                          null );
-    }
-
-    protected void invokeGetAndLog( Class<?> targetType, boolean showHeaders, String path, NameValuePair... parameters )
-        throws Exception
-    {
-        URI serviceUrl = getServiceUri( path, parameters );
-
-        httpClient.execute( new HttpGet( serviceUrl ), new XmlLoggingHandler( targetType, showHeaders ) );
-    }
-
-    protected <T> T invokeGet( final Class<T> resultType, String path, NameValuePair... parameters )
-        throws Exception
-    {
-        URI serviceUrl = getServiceUri( path, parameters );
-
-        HttpResponse response = httpClient.execute( new HttpGet( serviceUrl ) );
-
-        if ( SC_OK != response.getStatusLine().getStatusCode() )
-        {
-            throw new ClientProtocolException( String.format( "impossible to read '%s' response, DSI server replied: ",
-                                                              serviceUrl,
-                                                              response.getStatusLine().getReasonPhrase() ) );
         }
 
-        T returned = newLoader( new FromAnnotationsRuleModule()
-        {
-
-            @Override
-            protected void configureRules()
-            {
-                bindRulesFrom( resultType );
-            }
-
-        } )
-        .newDigester()
-        .<T>parse( new ByteArrayInputStream( toByteArray( response.getEntity() ) ) );
-
-        return returned;
+        return exit;
     }
 
     private static void printVersionInfo()
     {
         Properties properties = new Properties();
-        InputStream input = AbstractCommand.class.getClassLoader().getResourceAsStream( "META-INF/maven/com.terradue/ondsi-tools/pom.properties" );
+        InputStream input = DsiOneTools.class.getClassLoader().getResourceAsStream( "META-INF/maven/com.terradue/ondsi-tools/pom.properties" );
 
         if ( input != null )
         {
@@ -303,24 +197,24 @@ public abstract class AbstractCommand
                            properties.getProperty( "version" ),
                            properties.getProperty( "build" ) );
         System.out.printf( "Java version: %s, vendor: %s%n",
-                           System.getProperty( "java.version" ),
-                           System.getProperty( "java.vendor" ) );
-        System.out.printf( "Java home: %s%n", System.getProperty( "java.home" ) );
+                           getProperty( "java.version" ),
+                           getProperty( "java.vendor" ) );
+        System.out.printf( "Java home: %s%n", getProperty( "java.home" ) );
         System.out.printf( "Default locale: %s_%s, platform encoding: %s%n",
-                           System.getProperty( "user.language" ),
-                           System.getProperty( "user.country" ),
-                           System.getProperty( "sun.jnu.encoding" ) );
+                           getProperty( "user.language" ),
+                           getProperty( "user.country" ),
+                           getProperty( "sun.jnu.encoding" ) );
         System.out.printf( "OS name: \"%s\", version: \"%s\", arch: \"%s\", family: \"%s\"%n",
-                           System.getProperty( "os.name" ),
-                           System.getProperty( "os.version" ),
-                           System.getProperty( "os.arch" ),
+                           getProperty( "os.name" ),
+                           getProperty( "os.version" ),
+                           getProperty( "os.arch" ),
                            getOsFamily() );
     }
 
     private static final String getOsFamily()
     {
-        String osName = System.getProperty( "os.name" ).toLowerCase();
-        String pathSep = System.getProperty( "path.separator" );
+        String osName = getProperty( "os.name" ).toLowerCase();
+        String pathSep = getProperty( "path.separator" );
 
         if ( osName.indexOf( "windows" ) != -1 )
         {

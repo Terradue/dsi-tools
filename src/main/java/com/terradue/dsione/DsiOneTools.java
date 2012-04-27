@@ -81,13 +81,13 @@ public final class DsiOneTools
         final JCommander commander = new JCommander( this );
         commander.setProgramName( getProperty( "app.name" ) );
 
-        commander.parse( args );
-
         Iterator<Command> commands = load( Command.class ).iterator();
         while ( commands.hasNext() )
         {
             commander.addCommand( commands.next() );
         }
+
+        commander.parse( args );
 
         if ( printHelp )
         {

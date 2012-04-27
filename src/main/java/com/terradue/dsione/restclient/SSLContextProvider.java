@@ -22,6 +22,7 @@ import javax.net.ssl.TrustManager;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.ProvisionException;
 
 public final class SSLContextProvider
     implements Provider<SSLContext>
@@ -49,7 +50,7 @@ public final class SSLContextProvider
         }
         catch ( Exception e )
         {
-            throw new IllegalStateException( "Impossible to initialize SSL context", e );
+            throw new ProvisionException( "Impossible to initialize SSL context", e );
         }
     }
 

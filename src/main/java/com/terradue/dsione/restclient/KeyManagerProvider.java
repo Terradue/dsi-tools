@@ -26,6 +26,7 @@ import org.apache.commons.ssl.KeyMaterial;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.ProvisionException;
 
 public final class KeyManagerProvider
     implements Provider<KeyManager[]>
@@ -58,7 +59,7 @@ public final class KeyManagerProvider
         }
         catch ( Exception e )
         {
-            throw new IllegalStateException( "Impossible to initialize SSL certificate/key", e );
+            throw new ProvisionException( "Impossible to initialize SSL certificate/key", e );
         }
     }
 

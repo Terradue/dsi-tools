@@ -210,7 +210,7 @@ public final class DsiOneTools
 
         bindProperty( "service.host" ).toValue( serviceHost );
         bindProperty( "service.port" ).toValue( String.valueOf( servicePort ) );
-        bindProperty( "service.url" ).toValue( "https://${service.host}:${service.port}/ZimoryManage/services/api/" );
+        bindProperty( "service.url" ).toValue( "https://${service.host}:${service.port}/ZimoryManage/services/api" );
 
         // services
         bindProperty( "service.upload" ).toValue( "${service.url}/clouds/uploadTicket" );

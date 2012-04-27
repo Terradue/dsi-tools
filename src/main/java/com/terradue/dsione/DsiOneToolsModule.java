@@ -16,8 +16,15 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static com.sun.jersey.api.client.Client.create;
+
+import org.sonatype.spice.jersey.client.ahc.config.DefaultAhcConfig;
+
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.config.ClientConfig;
 
 final class DsiOneToolsModule
     extends AbstractModule
@@ -26,7 +33,41 @@ final class DsiOneToolsModule
     @Override
     protected void configure()
     {
+        bind( ClientConfig.class ).toProvider( RestClientConfigProvider.class );
         bind( Client.class ).toProvider( RestClientProvider.class );
+    }
+
+    public static final class RestClientConfigProvider
+        implements Provider<ClientConfig>
+    {
+
+        @Override
+        public ClientConfig get()
+        {
+            DefaultAhcConfig config = new DefaultAhcConfig();
+            return config;
+        }
+
+    }
+
+    public static final class RestClientProvider
+        implements Provider<Client>
+    {
+
+        private final ClientConfig config;
+
+        @Inject
+        public RestClientProvider( ClientConfig config )
+        {
+            this.config = config;
+        }
+
+        @Override
+        public Client get()
+        {
+            return create( config );
+        }
+
     }
 
 }

@@ -16,7 +16,16 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static com.google.inject.Scopes.SINGLETON;
 import static com.sun.jersey.api.client.Client.create;
+
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.sonatype.spice.jersey.client.ahc.config.DefaultAhcConfig;
 
@@ -33,8 +42,73 @@ final class DsiOneToolsModule
     @Override
     protected void configure()
     {
-        bind( ClientConfig.class ).toProvider( RestClientConfigProvider.class );
-        bind( Client.class ).toProvider( RestClientProvider.class );
+        bind( X509TrustManager.class ).toProvider( X509TrustManagerProvider.class ).in( SINGLETON );
+        bind( ClientConfig.class ).toProvider( RestClientConfigProvider.class ).in( SINGLETON );
+        bind( Client.class ).toProvider( RestClientProvider.class ).in( SINGLETON );
+    }
+
+    public static final class X509TrustManagerProvider
+        implements Provider<X509TrustManager>
+    {
+
+        @Override
+        public X509TrustManager get()
+        {
+            return new X509TrustManager()
+            {
+
+                @Override
+                public X509Certificate[] getAcceptedIssuers()
+                {
+                    return new X509Certificate[0];
+                }
+
+                @Override
+                public void checkServerTrusted( X509Certificate[] chain, String authType )
+                    throws CertificateException
+                {
+                    // do nothing
+                }
+
+                @Override
+                public void checkClientTrusted( X509Certificate[] chain, String authType )
+                    throws CertificateException
+                {
+                    // do nothing
+                }
+
+            };
+        }
+
+    }
+
+    public static final class SSLContextProvider
+        implements Provider<SSLContext>
+    {
+
+        private final X509TrustManager trustManager;
+
+        @Inject
+        public SSLContextProvider( X509TrustManager trustManager )
+        {
+            this.trustManager = trustManager;
+        }
+
+        @Override
+        public SSLContext get()
+        {
+            try
+            {
+                SSLContext context = SSLContext.getInstance( "TLS" );
+                context.init( new KeyManager[] {}, new TrustManager[] { trustManager }, null );
+                return context;
+            }
+            catch ( Exception e )
+            {
+                throw new IllegalStateException( "Impossible to initialize SSL context", e );
+            }
+        }
+
     }
 
     public static final class RestClientConfigProvider

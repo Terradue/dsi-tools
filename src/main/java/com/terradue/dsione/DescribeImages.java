@@ -25,7 +25,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 @MetaInfServices
-@Parameters( commandDescription = "List and describe previously uploaded images of a user to be used with an OpenNebula Cloud." )
+@Parameters( commandNames = "desimg", commandDescription = "List and describe previously uploaded images of a user to be used with an OpenNebula Cloud." )
 public final class DescribeImages
     implements Command
 {

@@ -41,7 +41,7 @@ import com.sun.jersey.api.client.Client;
 import com.terradue.dsione.model.UploadTicket;
 
 @MetaInfServices
-@Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
+@Parameters( commandNames = "up", commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class Upload
     implements Command
 {

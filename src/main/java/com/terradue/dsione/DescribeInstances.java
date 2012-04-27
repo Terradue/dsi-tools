@@ -25,7 +25,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 @MetaInfServices
-@Parameters( commandDescription = "List and describe running instances" )
+@Parameters( commandNames = "desinst", commandDescription = "List and describe running instances" )
 public final class DescribeInstances
     implements Command
 {

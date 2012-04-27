@@ -2,6 +2,8 @@ package com.terradue.dsione;
 
 import org.kohsuke.MetaInfServices;
 
+import com.beust.jcommander.Parameters;
+
 /*
  *  Copyright 2012 Terradue srl
  *
@@ -19,6 +21,7 @@ import org.kohsuke.MetaInfServices;
  */
 
 @MetaInfServices
+@Parameters( commandNames = "server", commandDescription = "TBD." )
 public final class Server
     implements Command
 {

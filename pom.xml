@@ -149,32 +149,8 @@
           <extraJvmArguments>-Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
           <programs>
             <program>
-              <mainClass>com.terradue.dsione.DescribeImages</mainClass>
-              <name>dsione-describe-images</name>
-            </program>
-            <program>
-              <mainClass>com.terradue.dsione.DescribeInstances</mainClass>
-              <name>dsione-describe-instances</name>
-            </program>
-            <program>
-              <mainClass>com.terradue.dsione.Register</mainClass>
-              <name>dsione-register</name>
-            </program>
-            <program>
-              <mainClass>com.terradue.dsione.RunInstances</mainClass>
-              <name>dsione-run-instances</name>
-            </program>
-            <program>
-              <mainClass>com.terradue.dsione.Server</mainClass>
-              <name>dsione-server</name>
-            </program>
-            <program>
-              <mainClass>com.terradue.dsione.TerminateInstances</mainClass>
-              <name>dsione-terminate-instances</name>
-            </program>
-            <program>
-              <mainClass>com.terradue.dsione.Upload</mainClass>
-              <name>dsione-upload</name>
+              <mainClass>com.terradue.dsione.DsiOneTools</mainClass>
+              <name>dsi</name>
             </program>
           </programs>
         </configuration>

@@ -130,6 +130,7 @@ public final class DsiOneTools
         {
             System.out.printf( "No known command in input. Please type %s -h for the usage.",
                                getProperty( "app.name" ) );
+            return -1;
         }
 
         Logger logger = getLogger( getClass() );

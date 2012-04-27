@@ -26,7 +26,7 @@ import com.google.inject.AbstractModule;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 
-final class DsiOneToolsModule
+final class RestClientModule
     extends AbstractModule
 {
 

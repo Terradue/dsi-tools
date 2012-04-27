@@ -74,8 +74,6 @@ public final class DsiOneTools
     )
     protected File dsiCertificate = new File( getProperty( "user.home" ), format( ".dsi/" ) );
 
-    private Logger logger;
-
     public final int execute( String...args )
     {
         final JCommander commander = new JCommander( this );
@@ -134,7 +132,7 @@ public final class DsiOneTools
                                getProperty( "app.name" ) );
         }
 
-        logger = getLogger( getClass() );
+        Logger logger = getLogger( getClass() );
 
         logger.info( "" );
         logger.info( "------------------------------------------------------------------------" );

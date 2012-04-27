@@ -19,6 +19,7 @@ package com.terradue.dsione;
 import static com.google.inject.Guice.createInjector;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
+import static java.lang.System.exit;
 import static java.lang.System.getProperty;
 import static java.util.ServiceLoader.load;
 
@@ -204,6 +205,11 @@ public final class DsiOneTools
         bindProperty( "service.upload" ).toValue( "${service.url}/clouds/uploadTicket" );
 
         bind( File.class ).toInstance( dsiCertificate );
+    }
+
+    public static void main( String[] args )
+    {
+        exit( new DsiOneTools().execute( args ) );
     }
 
     private static void printVersionInfo()

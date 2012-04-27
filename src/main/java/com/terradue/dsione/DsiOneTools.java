@@ -71,7 +71,7 @@ public final class DsiOneTools
     )
     protected File dsiCertificate = new File( getProperty( "user.home" ), format( ".dsi/" ) );
 
-    protected Logger logger;
+    private Logger logger;
 
     public final int execute( String...args )
     {

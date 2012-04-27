@@ -80,6 +80,18 @@
     </dependency>
 
     <dependency>
+      <groupId>org.99soft.guice</groupId>
+      <artifactId>rocoto</artifactId>
+      <version>6.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ca.juliusdavies</groupId>
+      <artifactId>not-yet-commons-ssl</artifactId>
+      <version>0.3.11</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-client</artifactId>
       <version>1.13-b01</version>

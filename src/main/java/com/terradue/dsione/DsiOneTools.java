@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
+import org.nnsoft.guice.rocoto.configuration.ConfigurationModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +37,11 @@ import ch.qos.logback.core.joran.spi.JoranException;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.beust.jcommander.converters.FileConverter;
 
 @Parameters( commandDescription = "OpenNebula-DSI CLI tools" )
 public final class DsiOneTools
+    extends ConfigurationModule
 {
 
     @Parameter( names = { "-h", "--help" }, description = "Display help information." )
@@ -56,7 +59,11 @@ public final class DsiOneTools
     @Parameter( names = { "-P", "--port" }, description = "The DSI web service port." )
     protected int servicePort = 80;
 
-    @Parameter( names = { "-c", "--certificate" }, description = "The DSI web service certificate." )
+    @Parameter(
+        names = { "-c", "--certificate" },
+        description = "The DSI web service certificate.",
+        converter = FileConverter.class
+    )
     protected File dsiCertificate = new File( getProperty( "user.home" ), format( ".dsi/" ) );
 
     protected Logger logger;
@@ -121,7 +128,7 @@ public final class DsiOneTools
 
         try
         {
-            execute();
+
         }
         catch ( Throwable t )
         {
@@ -162,6 +169,20 @@ public final class DsiOneTools
         }
 
         return exit;
+    }
+
+    @Override
+    protected void bindConfigurations()
+    {
+        // commons settings
+        bindProperty( "service.host" ).toValue( serviceHost );
+        bindProperty( "service.port" ).toValue( String.valueOf( servicePort ) );
+        bindProperty( "service.url" ).toValue( "https://${service.host}:${service.port}/ZimoryManage/services/api/" );
+
+        // services
+        bindProperty( "service.upload" ).toValue( "${service.url}/clouds/uploadTicket" );
+
+        bind( File.class ).toInstance( dsiCertificate );
     }
 
     private static void printVersionInfo()

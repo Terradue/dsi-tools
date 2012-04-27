@@ -17,6 +17,7 @@ package com.terradue.dsione;
  */
 
 import static com.google.inject.Guice.createInjector;
+import static java.lang.Runtime.getRuntime;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.exit;
@@ -182,7 +183,7 @@ public final class DsiOneTools
             logger.info( "Total time: {}s", ( ( currentTimeMillis() - start ) / 1000 ) );
             logger.info( "Finished at: {}", new Date() );
 
-            final Runtime runtime = Runtime.getRuntime();
+            final Runtime runtime = getRuntime();
             final int megaUnit = 1024 * 1024;
             logger.info( "Final Memory: {}M/{}M", ( runtime.totalMemory() - runtime.freeMemory() ) / megaUnit,
                          runtime.totalMemory() / megaUnit );

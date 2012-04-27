@@ -16,8 +16,8 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import static javax.ws.rs.core.UriBuilder.fromUri;
 import static java.lang.String.format;
+import static javax.ws.rs.core.UriBuilder.fromUri;
 import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -25,8 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
+import java.net.URI;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.kohsuke.MetaInfServices;
@@ -69,8 +68,8 @@ public final class Upload
     @Parameter( names = { "-p", "--password" }, description = "The DSI account password.", password = true )
     private String password;
 
-    @Parameter( arity = 1, description = "Path to the image to upload", converter = FileConverter.class )
-    private List<File> images = new LinkedList<File>();
+    @Parameter( names = { "-i", "--image" }, description = "Path to the image to upload", converter = FileConverter.class )
+    private File image;
 
     @Inject
     @Named( "service.upload" )
@@ -93,8 +92,6 @@ public final class Upload
     public int execute()
         throws Exception
     {
-        File image = images.get( 0 );
-
         if ( !image.exists() || image.isDirectory() )
         {
             throw new IllegalArgumentException( format( "File %s must be an existing file (directories not supported)",
@@ -103,14 +100,20 @@ public final class Upload
 
         logger.info( "Requesting FTP location where uploading images..." );
 
-        UploadTicket uploadTicket = restClient.resource( fromUri( uploadService )
-                                                         .queryParam( "providerId", providerId )
-                                                         .queryParam( "qualifierId", qualifierId )
-                                                         .queryParam( "applianceName", applianceName )
-                                                         .queryParam( "applianceDescription", applianceDescription )
-                                                         .queryParam( "applianceOS", applianceOS )
-                                                         .build() )
-                                              .get( UploadTicket.class );
+        URI serviceUri = fromUri( uploadService )
+                         .queryParam( "providerId", providerId )
+                         .queryParam( "qualifierId", qualifierId )
+                         .queryParam( "applianceName", applianceName )
+                         .queryParam( "applianceDescription", applianceDescription )
+                         .queryParam( "applianceOS", applianceOS )
+                         .build();
+
+        if ( logger.isDebugEnabled() )
+        {
+            logger.debug( "Uploading ticket via HTTP: {}", serviceUri );
+        }
+
+        UploadTicket uploadTicket = restClient.resource( serviceUri ).get( UploadTicket.class );
 
         logger.info( "Uploading image: {} on {} (expires on)...",
                      new String[]

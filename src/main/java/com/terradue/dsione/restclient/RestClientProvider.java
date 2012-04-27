@@ -16,7 +16,7 @@ package com.terradue.dsione.restclient;
  *  limitations under the License.
  */
 
-import static com.sun.jersey.api.client.Client.create;
+import static org.sonatype.spice.jersey.client.ahc.AhcHttpClient.create;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;

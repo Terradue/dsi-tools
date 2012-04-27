@@ -23,6 +23,8 @@ import static java.lang.System.currentTimeMillis;
 import static java.lang.System.exit;
 import static java.lang.System.getProperty;
 import static java.util.ServiceLoader.load;
+import static org.slf4j.LoggerFactory.getILoggerFactory;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +35,6 @@ import java.util.Properties;
 
 import org.nnsoft.guice.rocoto.configuration.ConfigurationModule;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
@@ -109,7 +110,7 @@ public final class DsiOneTools
         }
 
         // assume SLF4J is bound to logback in the current environment
-        final LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+        final LoggerContext lc = (LoggerContext) getILoggerFactory();
 
         try
         {
@@ -132,7 +133,7 @@ public final class DsiOneTools
                                getProperty( "app.name" ) );
         }
 
-        logger = LoggerFactory.getLogger( getClass() );
+        logger = getLogger( getClass() );
 
         logger.info( "" );
         logger.info( "------------------------------------------------------------------------" );

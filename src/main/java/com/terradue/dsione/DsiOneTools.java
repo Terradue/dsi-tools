@@ -16,6 +16,7 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static org.nnsoft.guice.rocoto.Rocoto.expandVariables;
 import static com.google.inject.Guice.createInjector;
 import static java.lang.Runtime.getRuntime;
 import static java.lang.String.format;
@@ -150,7 +151,7 @@ public final class DsiOneTools
         {
             Object command = commander.getCommands().get( parsedCommand ).getObjects().get( 0 );
 
-            createInjector( this, new RestClientModule() ).injectMembers( command );
+            createInjector( expandVariables( this ), new RestClientModule() ).injectMembers( command );
 
             exit = Command.class.cast( command ).execute();
         }

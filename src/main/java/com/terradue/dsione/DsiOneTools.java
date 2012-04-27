@@ -41,7 +41,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
-import com.terradue.dsione.wiring.RestClientModule;
+import com.terradue.dsione.restclient.RestClientModule;
 
 @Parameters( commandDescription = "OpenNebula-DSI CLI tools" )
 public final class DsiOneTools

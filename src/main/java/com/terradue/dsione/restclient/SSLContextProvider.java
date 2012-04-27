@@ -1,4 +1,4 @@
-package com.terradue.dsione.wiring;
+package com.terradue.dsione.restclient;
 
 /*
  *  Copyright 2012 Terradue srl

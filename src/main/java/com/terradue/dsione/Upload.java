@@ -16,6 +16,7 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static javax.ws.rs.core.UriBuilder.fromUri;
 import static java.lang.String.format;
 import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -34,6 +35,9 @@ import org.slf4j.Logger;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import com.sun.jersey.api.client.Client;
 import com.terradue.dsione.model.UploadTicket;
 
 @MetaInfServices
@@ -68,6 +72,23 @@ public final class Upload
     @Parameter( arity = 1, description = "Path to the image to upload", converter = FileConverter.class )
     private List<File> images = new LinkedList<File>();
 
+    @Inject
+    @Named( "service.upload" )
+    private String uploadService;
+
+    @Inject
+    private Client restClient;
+
+    public void setUploadService( String uploadService )
+    {
+        this.uploadService = uploadService;
+    }
+
+    public void setRestClient( Client restClient )
+    {
+        this.restClient = restClient;
+    }
+
     @Override
     public int execute()
         throws Exception
@@ -82,13 +103,14 @@ public final class Upload
 
         logger.info( "Requesting FTP location where uploading images..." );
 
-        UploadTicket uploadTicket = null;
-        /* UploadTicket uploadTicket = invokeGet( UploadTicket.class, "clouds/uploadTicket",
-                                               new BasicNameValuePair( "providerId", providerId ),
-                                               new BasicNameValuePair( "qualifierId", qualifierId ),
-                                               new BasicNameValuePair( "applianceName", applianceName ),
-                                               new BasicNameValuePair( "applianceDescription", applianceDescription ),
-                                               new BasicNameValuePair( "applianceOS", applianceOS ) ); */
+        UploadTicket uploadTicket = restClient.resource( fromUri( uploadService )
+                                                         .queryParam( "providerId", providerId )
+                                                         .queryParam( "qualifierId", qualifierId )
+                                                         .queryParam( "applianceName", applianceName )
+                                                         .queryParam( "applianceDescription", applianceDescription )
+                                                         .queryParam( "applianceOS", applianceOS )
+                                                         .build() )
+                                              .get( UploadTicket.class );
 
         logger.info( "Uploading image: {} on {} (expires on)...",
                      new String[]

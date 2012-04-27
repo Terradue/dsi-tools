@@ -32,6 +32,7 @@ import org.sonatype.spice.jersey.client.ahc.config.DefaultAhcConfig;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.ning.http.client.resumable.ResumableIOExceptionFilter;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 
@@ -43,6 +44,7 @@ final class DsiOneToolsModule
     protected void configure()
     {
         bind( X509TrustManager.class ).toProvider( X509TrustManagerProvider.class ).in( SINGLETON );
+        bind( SSLContext.class ).toProvider( SSLContextProvider.class ).in( SINGLETON );
         bind( ClientConfig.class ).toProvider( RestClientConfigProvider.class ).in( SINGLETON );
         bind( Client.class ).toProvider( RestClientProvider.class ).in( SINGLETON );
     }
@@ -115,10 +117,26 @@ final class DsiOneToolsModule
         implements Provider<ClientConfig>
     {
 
+        private final SSLContext context;
+
+        @Inject
+        public RestClientConfigProvider( SSLContext context )
+        {
+            this.context = context;
+        }
+
         @Override
         public ClientConfig get()
         {
             DefaultAhcConfig config = new DefaultAhcConfig();
+            config.getAsyncHttpClientConfigBuilder()
+                .setRequestTimeoutInMs( 45 * 60 * 60 * 1000 ) // 45 minutes
+                .setAllowPoolingConnection( true )
+                .addIOExceptionFilter( new ResumableIOExceptionFilter() )
+                .setMaximumConnectionsPerHost( 10 )
+                .setMaximumConnectionsTotal( 100 )
+                .setFollowRedirects( true )
+                .setSSLContext( context );
             return config;
         }
 

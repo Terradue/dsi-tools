@@ -70,7 +70,7 @@
       <groupId>org.kohsuke.metainf-services</groupId>
       <artifactId>metainf-services</artifactId>
       <version>1.4</version>
-      <scope>provider</scope>
+      <optional>true</optional>
     </dependency>
 
     <dependency>

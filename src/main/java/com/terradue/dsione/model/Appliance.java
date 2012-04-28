@@ -1,5 +1,12 @@
 package com.terradue.dsione.model;
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /*
  *  Copyright 2012 Terradue srl
  *
@@ -16,25 +23,36 @@ package com.terradue.dsione.model;
  *  limitations under the License.
  */
 
+@XmlAccessorType( FIELD )
+@XmlRootElement( name = "appliance" )
 public final class Appliance
 {
 
+    @XmlAttribute
     private int id;
 
+    @XmlElement
     private String architecture;
 
+    @XmlElement
     private boolean custom;
 
+    @XmlElement
     private String description;
 
+    @XmlElement
     private String name;
 
+    @XmlElement( name = "operSystem" )
     private String operatingSystem;
 
+    @XmlElement
     private int usageCount;
 
+    @XmlElement( name = "vmType" )
     private String virtualMachineType;
 
+    @XmlElement
     private boolean deprecated;
 
     public int getId()

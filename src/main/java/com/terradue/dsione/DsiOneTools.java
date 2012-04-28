@@ -68,8 +68,11 @@ public final class DsiOneTools
     @Parameter( names = { "-p", "--password" }, description = "The DSI account password." )
     private String password;
 
-    @Parameter( names = { "-c", "--certificate" }, description = "The DSI web service certificate." )
-    protected String dsiCertificate;// = new File( getProperty( "user.home" ), format( ".dsi/dsi.pem" ) );
+    @Parameter(
+        names = { "-c", "--certificate" },
+        description = "The DSI web service certificate ($USER_HOME/.dsi/<DSI-username>.pem by default)."
+    )
+    protected String dsiCertificate;
 
     public final int execute( String...args )
     {

@@ -210,7 +210,7 @@ public final class DsiOneTools
         bindProperty( "service.url" ).toValue( "https://${service.host}/ZimoryManage/services/api" );
 
         // services
-        bindProperty( "service.upload" ).toValue( "${service.url}/clouds/uploadTicket" );
+        bindProperty( "service.upload" ).toValue( "${service.url}/appliances/uploadTicket" );
 
         if ( dsiCertificate == null )
         {

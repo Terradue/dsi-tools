@@ -16,18 +16,16 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import static org.nnsoft.guice.rocoto.Rocoto.expandVariables;
 import static com.google.inject.Guice.createInjector;
 import static java.lang.Runtime.getRuntime;
-import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.exit;
 import static java.lang.System.getProperty;
 import static java.util.ServiceLoader.load;
+import static org.nnsoft.guice.rocoto.Rocoto.expandVariables;
 import static org.slf4j.LoggerFactory.getILoggerFactory;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -35,6 +33,7 @@ import java.util.Iterator;
 import java.util.Properties;
 
 import org.nnsoft.guice.rocoto.configuration.ConfigurationModule;
+import org.nnsoft.guice.rocoto.converters.FileConverter;
 import org.slf4j.Logger;
 
 import ch.qos.logback.classic.LoggerContext;
@@ -44,7 +43,6 @@ import ch.qos.logback.core.joran.spi.JoranException;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.beust.jcommander.converters.FileConverter;
 import com.terradue.dsione.restclient.RestClientModule;
 
 @Parameters( commandDescription = "OpenNebula-DSI CLI tools" )
@@ -70,12 +68,8 @@ public final class DsiOneTools
     @Parameter( names = { "-p", "--password" }, description = "The DSI account password." )
     private String password;
 
-    @Parameter(
-        names = { "-c", "--certificate" },
-        description = "The DSI web service certificate.",
-        converter = FileConverter.class
-    )
-    protected File dsiCertificate = new File( getProperty( "user.home" ), format( ".dsi/" ) );
+    @Parameter( names = { "-c", "--certificate" }, description = "The DSI web service certificate." )
+    protected String dsiCertificate;// = new File( getProperty( "user.home" ), format( ".dsi/dsi.pem" ) );
 
     public final int execute( String...args )
     {
@@ -153,7 +147,8 @@ public final class DsiOneTools
         {
             Object command = commander.getCommands().get( parsedCommand ).getObjects().get( 0 );
 
-            createInjector( expandVariables( this ), new RestClientModule() ).injectMembers( command );
+            createInjector( expandVariables( this ), new FileConverter(), new RestClientModule() )
+            .injectMembers( command );
 
             exit = Command.class.cast( command ).execute();
         }
@@ -201,6 +196,8 @@ public final class DsiOneTools
     @Override
     protected void bindConfigurations()
     {
+        bindSystemProperties();
+
         // commons settings
         bindProperty( "dsi.username" ).toValue( username );
         bindProperty( "dsi.password" ).toValue( password );
@@ -211,7 +208,11 @@ public final class DsiOneTools
         // services
         bindProperty( "service.upload" ).toValue( "${service.url}/clouds/uploadTicket" );
 
-        bind( File.class ).toInstance( dsiCertificate );
+        if ( dsiCertificate == null )
+        {
+            dsiCertificate = "${user.home}/.dsi/${dsi.username}.pem";
+        }
+        bindProperty( "user.certificate" ).toValue( dsiCertificate );
     }
 
     public static void main( String[] args )

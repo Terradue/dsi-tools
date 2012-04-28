@@ -38,7 +38,8 @@ public final class KeyManagerProvider
     private final String password;
 
     @Inject
-    public KeyManagerProvider( File certificate, @Named( "dsi.password" ) String password )
+    public KeyManagerProvider( @Named( "user.certificate" ) File certificate,
+                               @Named( "dsi.password" ) String password )
     {
         this.certificate = certificate;
         this.password = password;

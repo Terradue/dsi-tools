@@ -51,7 +51,7 @@ public final class KeyManagerProvider
 
         try
         {
-            final KeyStore store = new KeyMaterial( certificate, password ).getKeyStore();
+            final KeyStore store = new KeyMaterial( certificate, certificate, password ).getKeyStore();
             store.load( null, password );
 
             // initialize key and trust managers -> default behavior

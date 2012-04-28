@@ -16,6 +16,7 @@ package com.terradue.dsione.restclient;
  *  limitations under the License.
  */
 
+import static java.lang.Runtime.getRuntime;
 import static org.sonatype.spice.jersey.client.ahc.AhcHttpClient.create;
 
 import com.google.inject.Inject;
@@ -38,7 +39,19 @@ public final class RestClientProvider
     @Override
     public Client get()
     {
-        return create( config );
+        final Client client = create( config );
+
+        getRuntime().addShutdownHook( new Thread()
+        {
+
+            public void run()
+            {
+                client.destroy();
+            }
+
+        } );
+
+        return client;
     }
 
 }

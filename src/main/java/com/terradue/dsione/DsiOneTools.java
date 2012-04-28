@@ -21,6 +21,7 @@ import static java.lang.Runtime.getRuntime;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.exit;
 import static java.lang.System.getProperty;
+import static java.lang.System.setProperty;
 import static java.util.ServiceLoader.load;
 import static org.nnsoft.guice.rocoto.Rocoto.expandVariables;
 import static org.slf4j.LoggerFactory.getILoggerFactory;
@@ -101,11 +102,11 @@ public final class DsiOneTools
 
         if ( debug )
         {
-            System.setProperty( "log.level", "DEBUG" );
+            setProperty( "log.level", "DEBUG" );
         }
         else
         {
-            System.setProperty( "log.level", "INFO" );
+            setProperty( "log.level", "INFO" );
         }
 
         // assume SLF4J is bound to logback in the current environment

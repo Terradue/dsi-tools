@@ -70,7 +70,7 @@ public final class DsiOneTools
 
     @Parameter(
         names = { "-c", "--certificate" },
-        description = "The DSI web service certificate ($USER_HOME/.dsi/<DSI-username>.pem by default)."
+        description = "The DSI web service certificate in PEM format ($USER_HOME/.dsi/<DSI-username>.pem by default)."
     )
     protected String dsiCertificate;
 

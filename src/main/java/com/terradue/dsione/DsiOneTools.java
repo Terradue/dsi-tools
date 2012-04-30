@@ -212,6 +212,7 @@ public final class DsiOneTools
         // services
         bindProperty( "service.appliances" ).toValue( "${service.url}/appliances" );
         bindProperty( "service.upload" ).toValue( "${service.appliances}/uploadTicket" );
+        bindProperty( "service.deployments" ).toValue( "${service.url}/deployments" );
 
         if ( dsiCertificate == null )
         {

@@ -19,6 +19,8 @@ package com.terradue.dsione;
 import org.kohsuke.MetaInfServices;
 
 import com.beust.jcommander.Parameters;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.terradue.dsione.model.Deployment;
 
 @MetaInfServices( value = Command.class )
@@ -26,5 +28,12 @@ import com.terradue.dsione.model.Deployment;
 public final class DescribeInstances
     extends AbstractDescribeCommand<Deployment>
 {
+
+    @Inject
+    @Override
+    public void setServiceUrl( @Named( "service.deployments" ) String serviceUrl )
+    {
+        super.setServiceUrl( serviceUrl );
+    }
 
 }

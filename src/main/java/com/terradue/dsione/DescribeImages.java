@@ -16,37 +16,24 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.kohsuke.MetaInfServices;
 
-import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import com.terradue.dsione.model.Appliance;
 
-@MetaInfServices
+@MetaInfServices( value = Command.class )
 @Parameters( commandNames = "desimg", commandDescription = "List and describe previously uploaded images of a user to be used with an OpenNebula Cloud." )
 public final class DescribeImages
-    implements Command
+    extends AbstractDescribeCommand<Appliance>
 {
 
-    @Parameter( names = { "--headers" }, description = "Display column headers" )
-    private boolean headers = false;
-
-    @Parameter( arity = 1, description = "The image identification as returned by the upload command" )
-    private List<String> imageId = new LinkedList<String>();
-
+    @Inject
     @Override
-    public int execute()
-        throws Exception
+    public void setServiceUrl( @Named( "service.appliances" ) String serviceUrl )
     {
-        StringBuilder requestPath = new StringBuilder( "appliances" );
-        if ( !imageId.isEmpty() )
-        {
-            requestPath.append( '/' ).append( imageId.iterator().next() );
-        }
-
-        return 0;
+        super.setServiceUrl( serviceUrl );
     }
 
 }

@@ -16,37 +16,15 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.kohsuke.MetaInfServices;
 
-import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.terradue.dsione.model.Deployment;
 
-@MetaInfServices
+@MetaInfServices( value = Command.class )
 @Parameters( commandNames = "desinst", commandDescription = "List and describe running instances" )
 public final class DescribeInstances
-    implements Command
+    extends AbstractDescribeCommand<Deployment>
 {
-
-    @Parameter( names = { "--headers" }, description = "Display column headers" )
-    private boolean headers = false;
-
-    @Parameter( arity = 1, description = "The instance identification as returned by the upload command" )
-    private List<String> instanceId = new LinkedList<String>();
-
-    @Override
-    public int execute()
-        throws Exception
-    {
-        StringBuilder requestPath = new StringBuilder( "deployments" );
-        if ( !instanceId.isEmpty() )
-        {
-            requestPath.append( '/' ).append( instanceId.iterator().next() );
-        }
-
-        return 0;
-    }
 
 }

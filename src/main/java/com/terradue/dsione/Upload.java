@@ -152,11 +152,9 @@ public final class Upload
 
             if ( !ftpClient.changeWorkingDirectory( uploadTicket.getFtpLocation().getPath() ) )
             {
-                throw new RuntimeException( "Impossible to access to "
-                                            + uploadTicket.getFtpLocation().getPath()
-                                            + " directory on "
-                                            + uploadTicket.getFtpLocation().getHost()
-                                            + ", contact the DSI support team" );
+                throw new RuntimeException( format( "Impossible to access to %s directory on %s, contact the DSI OPS",
+                                                    uploadTicket.getFtpLocation().getPath(),
+                                                    uploadTicket.getFtpLocation().getHost() ) );
             }
 
             if ( ftpClient.storeUniqueFile( imageStream ) )

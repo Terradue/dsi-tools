@@ -1,5 +1,12 @@
 package com.terradue.dsione.model;
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /*
  *  Copyright 2012 Terradue srl
  *
@@ -16,23 +23,33 @@ package com.terradue.dsione.model;
  *  limitations under the License.
  */
 
+@XmlAccessorType( FIELD )
+@XmlRootElement( name = "deployment " )
 public final class Deployment
 {
 
+    @XmlAttribute
     private int id;
 
+    @XmlElement
     private boolean active;
 
+    @XmlElement
     private int applianceId;
 
+    @XmlElement
     private int cpuNumber;
 
+    @XmlElement
     private String createdBy;
 
+    @XmlElement
     private int locationId;
 
+    @XmlElement( name = "memSize" )
     private int memorySize;
 
+    @XmlElement
     private String name;
 
     public int getId()

@@ -16,6 +16,8 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.lang.String.format;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -35,7 +37,7 @@ public final class URIConverter
         }
         catch ( URISyntaxException e )
         {
-            throw new ParameterException( value + " is not a valid URI: " + e.getMessage() );
+            throw new ParameterException( format( "%s is not a valid URI: %s", value, e.getMessage() ) );
         }
     }
 

@@ -1,12 +1,5 @@
 package com.terradue.dsione.model;
 
-import static javax.xml.bind.annotation.XmlAccessType.FIELD;
-
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /*
  *  Copyright 2012 Terradue srl
  *
@@ -22,6 +15,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType( FIELD )
 @XmlRootElement( name = "appliance" )

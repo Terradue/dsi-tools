@@ -154,7 +154,7 @@ public final class DsiOneTools
             createInjector( expandVariables( this ), new FileConverter(), new RestClientModule() )
             .injectMembers( command );
 
-            exit = Command.class.cast( command ).execute();
+            Command.class.cast( command ).execute();
         }
         catch ( Throwable t )
         {

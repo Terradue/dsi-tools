@@ -65,7 +65,7 @@ abstract class AbstractDescribeCommand<T>
     }
 
     @Override
-    public int execute()
+    public void execute()
         throws Exception
     {
         if ( !id.isEmpty() )
@@ -81,8 +81,6 @@ abstract class AbstractDescribeCommand<T>
         {
             log( restClient.resource( serviceUrl ).get( new GenericType<List<T>>(){} ) );
         }
-
-        return 0;
     }
 
     private void log( Collection<T> items )

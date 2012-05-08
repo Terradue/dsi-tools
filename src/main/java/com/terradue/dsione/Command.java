@@ -19,7 +19,7 @@ package com.terradue.dsione;
 public interface Command
 {
 
-    int execute()
+    void execute()
         throws Exception;
 
 }

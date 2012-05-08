@@ -34,10 +34,10 @@ public final class TerminateInstances
     private List<String> imageId = new LinkedList<String>();
 
     @Override
-    public int execute()
+    public void execute()
         throws Exception
     {
-        return 0;
+        // TODO
     }
 
 }

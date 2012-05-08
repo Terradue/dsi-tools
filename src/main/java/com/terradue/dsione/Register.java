@@ -31,10 +31,10 @@ public final class Register
     private boolean headers = false;
 
     @Override
-    public int execute()
+    public void execute()
         throws Exception
     {
-        return -1;
+        // TODO
     }
 
 }

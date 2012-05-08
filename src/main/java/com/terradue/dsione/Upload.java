@@ -101,7 +101,7 @@ public final class Upload
     }
 
     @Override
-    public int execute()
+    public void execute()
         throws Exception
     {
         if ( !image.exists() || image.isDirectory() )
@@ -184,8 +184,6 @@ public final class Upload
                 }
             }
         }
-
-        return 0;
     }
 
 }

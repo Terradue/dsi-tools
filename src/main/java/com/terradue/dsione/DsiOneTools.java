@@ -17,7 +17,9 @@ package com.terradue.dsione;
  */
 
 import static com.google.inject.Guice.createInjector;
+import static com.google.inject.name.Names.named;
 import static java.lang.Runtime.getRuntime;
+import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.exit;
 import static java.lang.System.getProperty;
@@ -27,6 +29,7 @@ import static org.nnsoft.guice.rocoto.Rocoto.expandVariables;
 import static org.slf4j.LoggerFactory.getILoggerFactory;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -34,7 +37,6 @@ import java.util.Iterator;
 import java.util.Properties;
 
 import org.nnsoft.guice.rocoto.configuration.ConfigurationModule;
-import org.nnsoft.guice.rocoto.converters.FileConverter;
 import org.slf4j.Logger;
 
 import ch.qos.logback.classic.LoggerContext;
@@ -69,11 +71,7 @@ public final class DsiOneTools
     @Parameter( names = { "-p", "--password" }, description = "The DSI account password." )
     private String password;
 
-    @Parameter(
-        names = { "-c", "--certificate" },
-        description = "The DSI web service certificate in PEM format ($USER_HOME/.dsi/<DSI-username>.pem by default)."
-    )
-    protected String dsiCertificate;
+    private File dsiCertificate;
 
     public final int execute( String...args )
     {
@@ -126,12 +124,30 @@ public final class DsiOneTools
             // StatusPrinter should handle this
         }
 
+        // validation
+
+        if ( username == null )
+        {
+            return printAndExit( "DSI Username not specified. Please type `%s -h` for the usage." );
+        }
+
+        if ( password == null )
+        {
+            return printAndExit( "DSI Password not specified. Please type `%s -h` for the usage." );
+        }
+
+        dsiCertificate = new File( getProperty( "basedir" ), format( "certs/%s.pem", username ) );
+        if ( !dsiCertificate.exists() )
+        {
+            return printAndExit( "DSI certificate %s does not exist, put %s.pem certificate under %s/certs directory",
+                                 dsiCertificate, username, getProperty( "basedir" ) );
+        }
+
         String parsedCommand = commander.getParsedCommand();
         if ( parsedCommand == null )
         {
-            System.out.printf( "No known command in input. Please type %s -h for the usage.",
+            return printAndExit( "No known command in input. Please type `%s -h` for the usage.",
                                getProperty( "app.name" ) );
-            return -1;
         }
 
         Logger logger = getLogger( getClass() );
@@ -151,8 +167,7 @@ public final class DsiOneTools
         {
             Object command = commander.getCommands().get( parsedCommand ).getObjects().get( 0 );
 
-            createInjector( expandVariables( this ), new FileConverter(), new RestClientModule() )
-            .injectMembers( command );
+            createInjector( expandVariables( this ), new RestClientModule() ).injectMembers( command );
 
             Command.class.cast( command ).execute();
         }
@@ -214,16 +229,19 @@ public final class DsiOneTools
         bindProperty( "service.upload" ).toValue( "${service.appliances}/uploadTicket" );
         bindProperty( "service.deployments" ).toValue( "${service.url}/deployments" );
 
-        if ( dsiCertificate == null )
-        {
-            dsiCertificate = "${user.home}/.dsi/${dsi.username}.pem";
-        }
-        bindProperty( "user.certificate" ).toValue( dsiCertificate );
+        // certificate
+        bind( File.class ).annotatedWith( named( "user.certificate" ) ).toInstance( dsiCertificate );
     }
 
     public static void main( String[] args )
     {
         exit( new DsiOneTools().execute( args ) );
+    }
+
+    private static int printAndExit( String messageTemplate, Object...args )
+    {
+        System.out.printf( messageTemplate, args );
+        return -1;
     }
 
     private static void printVersionInfo()

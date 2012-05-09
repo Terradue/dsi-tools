@@ -16,14 +16,14 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import static org.slf4j.LoggerFactory.getLogger;
 import static java.beans.Introspector.getBeanInfo;
-import static java.util.Collections.emptyList;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
 import java.util.Collection;
 import java.util.Formatter;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -31,28 +31,27 @@ import org.slf4j.Logger;
 import com.beust.jcommander.Parameter;
 import com.google.inject.Inject;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.GenericType;
 
-abstract class AbstractDescribeCommand<T>
+abstract class AbstractDescribeCommand
     implements Command
 {
 
-    private final Logger logger = getLogger( getClass() );
+    protected final Logger logger = getLogger( getClass() );
 
     // CLI Parameters
 
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
-    private boolean headers = false;
+    protected boolean headers = false;
 
     @Parameter( arity = 1, description = "The image identification as returned by the upload command" )
-    private List<String> id = emptyList();
+    protected List<String> id = new LinkedList<String>();
 
     // injected
 
     @Inject
-    private Client restClient;
+    protected Client restClient;
 
-    private String serviceUrl;
+    protected String serviceUrl;
 
     public void setRestClient( Client restClient )
     {
@@ -64,28 +63,15 @@ abstract class AbstractDescribeCommand<T>
         this.serviceUrl = serviceUrl;
     }
 
-    @Override
-    public void execute()
+    protected final <T> void log( Collection<T> items )
         throws Exception
     {
-        if ( !id.isEmpty() )
+        if ( items.isEmpty() )
         {
-            log( restClient.resource( new StringBuilder( serviceUrl )
-                                     .append( '/' )
-                                     .append( id.iterator().next() )
-                                     .toString() )
-                           .get( new GenericType<T>(){} ),
-                 headers );
+            logger.info( "0 items found" );
+            return;
         }
-        else
-        {
-            log( restClient.resource( serviceUrl ).get( new GenericType<List<T>>(){} ) );
-        }
-    }
 
-    private void log( Collection<T> items )
-        throws Exception
-    {
         boolean first = true;
 
         for ( T item : items )
@@ -99,7 +85,7 @@ abstract class AbstractDescribeCommand<T>
         }
     }
 
-    private void log( T item, boolean printHeaders )
+    protected final <T> void log( T item, boolean printHeaders )
         throws Exception
     {
         BeanInfo beanInfo = getBeanInfo( item.getClass() );

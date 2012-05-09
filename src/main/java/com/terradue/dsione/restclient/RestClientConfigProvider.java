@@ -22,9 +22,6 @@ import org.sonatype.spice.jersey.client.ahc.config.DefaultAhcConfig;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.name.Named;
-import com.ning.http.client.Realm;
-import com.ning.http.client.Realm.AuthScheme;
 import com.ning.http.client.resumable.ResumableIOExceptionFilter;
 import com.sun.jersey.api.client.config.ClientConfig;
 
@@ -34,18 +31,10 @@ public final class RestClientConfigProvider
 
     private final SSLContext context;
 
-    private final String username;
-
-    private final String password;
-
     @Inject
-    public RestClientConfigProvider( SSLContext context,
-                                     @Named( "dsi.password" ) String username,
-                                     @Named( "dsi.password" ) String password )
+    public RestClientConfigProvider( SSLContext context )
     {
         this.context = context;
-        this.username = username;
-        this.password = password;
     }
 
     @Override
@@ -59,13 +48,7 @@ public final class RestClientConfigProvider
               .setMaximumConnectionsPerHost( 10 )
               .setMaximumConnectionsTotal( 100 )
               .setFollowRedirects( true )
-              .setSSLContext( context )
-              .setRealm( new Realm.RealmBuilder()
-                         .setPrincipal( username )
-                         .setPassword( password )
-                         .setUsePreemptiveAuth( true )
-                         .setScheme( AuthScheme.BASIC )
-                         .build() );
+              .setSSLContext( context );
         return config;
     }
 

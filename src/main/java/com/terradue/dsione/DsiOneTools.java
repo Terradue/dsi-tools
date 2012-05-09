@@ -222,7 +222,7 @@ public final class DsiOneTools
         bindProperty( "dsi.password" ).toValue( password );
 
         bindProperty( "service.host" ).toValue( serviceHost );
-        bindProperty( "service.url" ).toValue( "https://${service.host}/ZimoryManage/services/api" );
+        bindProperty( "service.url" ).toValue( "https://${service.host}/services/api" );
 
         // services
         bindProperty( "service.appliances" ).toValue( "${service.url}/appliances" );

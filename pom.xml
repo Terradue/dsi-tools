@@ -149,8 +149,32 @@
           <extraJvmArguments>-Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
           <programs>
             <program>
-              <mainClass>com.terradue.dsione.DsiOneTools</mainClass>
-              <name>dsi</name>
+              <mainClass>TBD</mainClass>
+              <name>dsi-upload-instance</name>
+            </program>
+            <program>
+              <mainClass>TBD</mainClass>
+              <name>dsi-describe-instances</name>
+            </program>
+            <program>
+              <mainClass>TBD</mainClass>
+              <name>dsi-authorize</name>
+            </program>
+            <program>
+              <mainClass>TBD</mainClass>
+              <name>dsi-reboot-instances</name>
+            </program>
+            <program>
+              <mainClass>TBD</mainClass>
+              <name>dsi-stop-instances</name>
+            </program>
+            <program>
+              <mainClass>TBD</mainClass>
+              <name>dsi-start-instances</name>
+            </program>
+            <program>
+              <mainClass>TBD</mainClass>
+              <name>dsi-create-tags</name>
             </program>
           </programs>
         </configuration>

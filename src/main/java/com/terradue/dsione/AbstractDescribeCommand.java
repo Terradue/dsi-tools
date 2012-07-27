@@ -33,7 +33,7 @@ import com.google.inject.Inject;
 import com.sun.jersey.api.client.Client;
 
 abstract class AbstractDescribeCommand
-    implements Command
+    extends BaseTool
 {
 
     protected final Logger logger = getLogger( getClass() );

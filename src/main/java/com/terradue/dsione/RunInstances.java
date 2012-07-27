@@ -24,7 +24,7 @@ import com.beust.jcommander.Parameters;
 @MetaInfServices
 @Parameters( commandNames = "run", commandDescription = "Runs an instance of a particular image." )
 public final class RunInstances
-    implements Command
+    extends BaseTool
 {
 
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )

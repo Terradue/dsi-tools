@@ -42,7 +42,7 @@ import com.terradue.dsione.model.UploadTicket;
 @MetaInfServices
 @Parameters( commandNames = "up", commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class Upload
-    implements Command
+    extends BaseTool
 {
 
     private final Logger logger = getLogger( getClass() );

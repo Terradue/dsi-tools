@@ -16,10 +16,9 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-public interface Command
+public interface Tool
 {
 
-    void execute()
-        throws Exception;
+    int execute(  String...args );
 
 }

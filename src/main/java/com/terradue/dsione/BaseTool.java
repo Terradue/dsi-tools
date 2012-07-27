@@ -1,27 +1,10 @@
 package com.terradue.dsione;
 
-/*
- *  Copyright 2012 Terradue srl
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
 import static com.google.inject.Guice.createInjector;
 import static com.google.inject.name.Names.named;
 import static java.lang.Runtime.getRuntime;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
-import static java.lang.System.exit;
 import static java.lang.System.getProperty;
 import static java.lang.System.setProperty;
 import static java.util.ServiceLoader.load;
@@ -45,12 +28,11 @@ import ch.qos.logback.core.joran.spi.JoranException;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.beust.jcommander.Parameters;
 import com.terradue.dsione.restclient.RestClientModule;
 
-@Parameters( commandDescription = "OpenNebula-DSI CLI tools" )
-public final class DsiOneTools
+abstract class BaseTool
     extends ConfigurationModule
+    implements Tool
 {
 
     @Parameter( names = { "-h", "--help" }, description = "Display help information." )
@@ -73,7 +55,8 @@ public final class DsiOneTools
 
     private File dsiCertificate;
 
-    public final int execute( String...args )
+    @Override
+    public final int execute( String... args )
     {
         final JCommander commander = new JCommander( this );
         commander.setProgramName( getProperty( "app.name" ) );
@@ -165,11 +148,8 @@ public final class DsiOneTools
 
         try
         {
-            Object command = commander.getCommands().get( parsedCommand ).getObjects().get( 0 );
-
-            createInjector( expandVariables( this ), new RestClientModule() ).injectMembers( command );
-
-            Tool.class.cast( command ).execute();
+            createInjector( expandVariables( this ), new RestClientModule() ).injectMembers( this );
+            execute();
         }
         catch ( Throwable t )
         {
@@ -212,6 +192,9 @@ public final class DsiOneTools
         return exit;
     }
 
+    protected abstract void execute()
+        throws Exception;
+
     @Override
     protected void bindConfigurations()
     {
@@ -231,11 +214,6 @@ public final class DsiOneTools
 
         // certificate
         bind( File.class ).annotatedWith( named( "user.certificate" ) ).toInstance( dsiCertificate );
-    }
-
-    public static void main( String[] args )
-    {
-        exit( new DsiOneTools().execute( args ) );
     }
 
     private static int printAndExit( String messageTemplate, Object...args )

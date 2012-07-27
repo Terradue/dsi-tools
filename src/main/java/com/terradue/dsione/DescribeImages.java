@@ -29,7 +29,7 @@ import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.terradue.dsione.model.Appliance;
 
-@MetaInfServices( value = Command.class )
+@MetaInfServices( value = Tool.class )
 @Parameters( commandNames = "desimg", commandDescription = "List and describe previously uploaded images of a user to be used with an OpenNebula Cloud." )
 public final class DescribeImages
     extends AbstractDescribeCommand

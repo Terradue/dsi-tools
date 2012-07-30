@@ -31,7 +31,7 @@ public final class StartInstances
         exit( new StartInstances().execute( args ) );
     }
 
-    @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
+    @Parameter( names = { "--headers" }, description = "Display column headers" )
     private boolean headers = false;
 
     @Override

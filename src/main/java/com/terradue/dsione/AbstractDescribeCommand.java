@@ -38,7 +38,7 @@ abstract class AbstractDescribeCommand
 
     // CLI Parameters
 
-    @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
+    @Parameter( names = { "--headers" }, description = "Display column headers" )
     protected boolean headers = false;
 
     @Parameter( description = "The image identification as returned by the upload command" )

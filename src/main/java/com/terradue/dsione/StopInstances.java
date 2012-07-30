@@ -26,7 +26,7 @@ import com.beust.jcommander.Parameters;
 
 @MetaInfServices
 @Parameters( commandDescription = "Terminate the selected running instance" )
-public final class TerminateInstances
+public final class StopInstances
     extends BaseTool
 {
 

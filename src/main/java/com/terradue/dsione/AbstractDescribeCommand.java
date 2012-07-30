@@ -29,8 +29,6 @@ import java.util.List;
 import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
-import com.google.inject.Inject;
-import com.sun.jersey.api.client.Client;
 
 abstract class AbstractDescribeCommand
     extends BaseTool
@@ -45,23 +43,6 @@ abstract class AbstractDescribeCommand
 
     @Parameter( description = "The image identification as returned by the upload command" )
     protected List<String> id = new LinkedList<String>();
-
-    // injected
-
-    @Inject
-    protected Client restClient;
-
-    protected String serviceUrl;
-
-    public void setRestClient( Client restClient )
-    {
-        this.restClient = restClient;
-    }
-
-    public void setServiceUrl( String serviceUrl )
-    {
-        this.serviceUrl = serviceUrl;
-    }
 
     protected final <T> void log( Collection<T> items )
         throws Exception

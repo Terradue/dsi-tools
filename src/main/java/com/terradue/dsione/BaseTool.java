@@ -26,6 +26,8 @@ import ch.qos.logback.core.joran.spi.JoranException;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.google.inject.Inject;
+import com.sun.jersey.api.client.Client;
 import com.terradue.dsione.restclient.RestClientModule;
 
 abstract class BaseTool
@@ -54,6 +56,23 @@ abstract class BaseTool
     private String password;
 
     private File dsiCertificate;
+
+    // injected
+
+    @Inject
+    protected Client restClient;
+
+    protected String serviceUrl;
+
+    public void setRestClient( Client restClient )
+    {
+        this.restClient = restClient;
+    }
+
+    public void setServiceUrl( String serviceUrl )
+    {
+        this.serviceUrl = serviceUrl;
+    }
 
     @Override
     public final int execute( String... args )

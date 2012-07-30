@@ -225,7 +225,7 @@ abstract class BaseTool
     private static void printVersionInfo()
     {
         Properties properties = new Properties();
-        InputStream input = DsiOneTools.class.getClassLoader().getResourceAsStream( "META-INF/maven/com.terradue/ondsi-tools/pom.properties" );
+        InputStream input = BaseTool.class.getClassLoader().getResourceAsStream( "META-INF/maven/com.terradue/ondsi-tools/pom.properties" );
 
         if ( input != null )
         {

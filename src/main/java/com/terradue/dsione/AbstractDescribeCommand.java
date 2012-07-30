@@ -43,7 +43,7 @@ abstract class AbstractDescribeCommand
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     protected boolean headers = false;
 
-    @Parameter( arity = 1, description = "The image identification as returned by the upload command" )
+    @Parameter( description = "The image identification as returned by the upload command" )
     protected List<String> id = new LinkedList<String>();
 
     // injected

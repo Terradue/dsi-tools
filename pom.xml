@@ -146,6 +146,10 @@
               <name>dsi-upload-image</name>
             </program>
             <program>
+              <mainClass>com.terradue.dsione.DescribeImages</mainClass>
+              <name>dsi-describe-images</name>
+            </program>
+            <program>
               <mainClass>com.terradue.dsione.DescribeInstances</mainClass>
               <name>dsi-describe-instances</name>
             </program>

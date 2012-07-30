@@ -33,6 +33,8 @@ abstract class BaseTool
     implements Tool
 {
 
+    protected final Logger logger = getLogger( getClass() );
+
     @Parameter( names = { "-h", "--help" }, description = "Display help information." )
     private boolean printHelp;
 
@@ -117,8 +119,6 @@ abstract class BaseTool
             return printAndExit( "DSI certificate %s does not exist, put %s.pem certificate under %s/certs directory",
                                  dsiCertificate, username, getProperty( "basedir" ) );
         }
-
-        Logger logger = getLogger( getClass() );
 
         logger.info( "" );
         logger.info( "------------------------------------------------------------------------" );

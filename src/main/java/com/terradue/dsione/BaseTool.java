@@ -118,18 +118,11 @@ abstract class BaseTool
                                  dsiCertificate, username, getProperty( "basedir" ) );
         }
 
-        String parsedCommand = commander.getParsedCommand();
-        if ( parsedCommand == null )
-        {
-            return printAndExit( "No known command in input. Please type `%s -h` for the usage.",
-                               getProperty( "app.name" ) );
-        }
-
         Logger logger = getLogger( getClass() );
 
         logger.info( "" );
         logger.info( "------------------------------------------------------------------------" );
-        logger.info( "{}: {}", getProperty( "app.name" ), parsedCommand );
+        logger.info( "DSI-ONE: {}", getProperty( "app.name" ) );
         logger.info( "------------------------------------------------------------------------" );
         logger.info( "" );
 

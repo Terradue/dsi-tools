@@ -24,7 +24,7 @@ import org.kohsuke.MetaInfServices;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
-@MetaInfServices
+@MetaInfServices( Tool.class )
 @Parameters( commandDescription = "Terminate the selected running instance" )
 public final class StopInstances
     extends BaseTool

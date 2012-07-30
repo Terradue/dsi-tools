@@ -39,7 +39,7 @@ import com.google.inject.name.Named;
 import com.sun.jersey.api.client.Client;
 import com.terradue.dsione.model.UploadTicket;
 
-@MetaInfServices
+@MetaInfServices( Tool.class )
 @Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class UploadImage
     extends BaseTool

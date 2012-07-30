@@ -21,7 +21,7 @@ import org.kohsuke.MetaInfServices;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
-@MetaInfServices
+@MetaInfServices( Tool.class )
 @Parameters( commandDescription = "Runs an instance of a particular image." )
 public final class StartInstances
     extends BaseTool

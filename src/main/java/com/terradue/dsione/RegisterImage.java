@@ -21,7 +21,7 @@ import org.kohsuke.MetaInfServices;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
-@MetaInfServices
+@MetaInfServices( Tool.class )
 @Parameters( commandDescription = "Register a previously uploaded image for use with an OpenNebula Cloud." )
 public final class RegisterImage
     extends BaseTool

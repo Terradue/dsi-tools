@@ -16,11 +16,8 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import org.kohsuke.MetaInfServices;
-
 import com.beust.jcommander.Parameters;
 
-@MetaInfServices( Tool.class )
 @Parameters( commandDescription = "Creates an instance snapshot." )
 public final class CreateTags
     extends BaseTool

@@ -7,7 +7,6 @@ import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.getProperty;
 import static java.lang.System.setProperty;
-import static java.util.ServiceLoader.load;
 import static org.nnsoft.guice.rocoto.Rocoto.expandVariables;
 import static org.slf4j.LoggerFactory.getILoggerFactory;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -16,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Properties;
 
 import org.nnsoft.guice.rocoto.configuration.ConfigurationModule;
@@ -60,12 +58,6 @@ abstract class BaseTool
     {
         final JCommander commander = new JCommander( this );
         commander.setProgramName( getProperty( "app.name" ) );
-
-        Iterator<Tool> commands = load( Tool.class ).iterator();
-        while ( commands.hasNext() )
-        {
-            commander.addCommand( commands.next() );
-        }
 
         commander.parse( args );
 

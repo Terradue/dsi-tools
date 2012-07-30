@@ -20,8 +20,6 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 
 import java.util.Collection;
 
-import org.kohsuke.MetaInfServices;
-
 import com.beust.jcommander.Parameters;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -29,7 +27,6 @@ import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.terradue.dsione.model.Appliance;
 
-@MetaInfServices( value = Tool.class )
 @Parameters( commandDescription = "List and describe previously uploaded images of a user to be used with an OpenNebula Cloud." )
 public final class DescribeImages
     extends AbstractDescribeCommand

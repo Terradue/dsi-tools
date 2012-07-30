@@ -19,12 +19,9 @@ package com.terradue.dsione;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.kohsuke.MetaInfServices;
-
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
-@MetaInfServices( Tool.class )
 @Parameters( commandDescription = "Terminate the selected running instance" )
 public final class StopInstances
     extends BaseTool

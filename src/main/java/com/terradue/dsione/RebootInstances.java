@@ -16,12 +16,9 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import org.kohsuke.MetaInfServices;
-
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
-@MetaInfServices( Tool.class )
 @Parameters( commandDescription = "Reboot an instance of a particular image." )
 public final class RebootInstances
     extends BaseTool

@@ -16,11 +16,8 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import org.kohsuke.MetaInfServices;
-
 import com.beust.jcommander.Parameters;
 
-@MetaInfServices( Tool.class )
 @Parameters( commandDescription = "Adds a user to an account." )
 public final class Authorize
     extends BaseTool

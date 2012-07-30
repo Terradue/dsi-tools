@@ -28,7 +28,6 @@ import java.io.InputStream;
 import java.net.URI;
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.kohsuke.MetaInfServices;
 import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
@@ -39,7 +38,6 @@ import com.google.inject.name.Named;
 import com.sun.jersey.api.client.Client;
 import com.terradue.dsione.model.UploadTicket;
 
-@MetaInfServices( Tool.class )
 @Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class UploadImage
     extends BaseTool

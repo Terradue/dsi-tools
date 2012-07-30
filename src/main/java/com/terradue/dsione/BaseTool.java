@@ -188,7 +188,7 @@ abstract class BaseTool
         throws Exception;
 
     @Override
-    protected void bindConfigurations()
+    protected final void bindConfigurations()
     {
         bindSystemProperties();
 

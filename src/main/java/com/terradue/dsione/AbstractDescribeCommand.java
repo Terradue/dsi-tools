@@ -41,8 +41,8 @@ abstract class AbstractDescribeCommand
     @Parameter( names = { "--headers" }, description = "Display column headers" )
     protected boolean headers = false;
 
-    @Parameter( description = "The image identification as returned by the upload command" )
-    protected List<String> id = new LinkedList<String>();
+    @Parameter( description = "The image identificator(s) as returned by the upload command" )
+    protected List<String> ids = new LinkedList<String>();
 
     protected final <T> void log( Collection<T> items )
         throws Exception

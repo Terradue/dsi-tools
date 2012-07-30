@@ -49,22 +49,25 @@ public final class DescribeInstances
     public void execute()
         throws Exception
     {
-        if ( !id.isEmpty() )
+        if ( !ids.isEmpty() )
         {
-            try
+            for ( String id : ids )
             {
-                log( restClient.resource( new StringBuilder( serviceUrl )
-                                         .append( '/' )
-                                         .append( id.iterator().next() )
-                                         .toString() )
-                               .get( Deployment.class ),
-                     headers );
-            }
-            catch ( UniformInterfaceException e )
-            {
-                if ( HTTP_NOT_FOUND == e.getResponse().getClientResponseStatus().getStatusCode() )
+                try
                 {
-                    logger.info( "Instance {} not found ", id.iterator().next() );
+                    log( restClient.resource( new StringBuilder( serviceUrl )
+                                             .append( '/' )
+                                             .append( id )
+                                             .toString() )
+                                   .get( Deployment.class ),
+                         headers );
+                }
+                catch ( UniformInterfaceException e )
+                {
+                    if ( HTTP_NOT_FOUND == e.getResponse().getClientResponseStatus().getStatusCode() )
+                    {
+                        logger.info( "Instance {} not found ", id );
+                    }
                 }
             }
         }

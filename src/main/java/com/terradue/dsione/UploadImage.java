@@ -124,11 +124,6 @@ public final class UploadImage
                          .queryParam( "applianceOS", applianceOS )
                          .build();
 
-        if ( logger.isDebugEnabled() )
-        {
-            logger.debug( "Uploading ticket via HTTP: {}", serviceUri );
-        }
-
         UploadTicket uploadTicket = restClient.resource( serviceUri ).get( UploadTicket.class );
 
         logger.info( "Uploading image: {} on {} (expires on)...",

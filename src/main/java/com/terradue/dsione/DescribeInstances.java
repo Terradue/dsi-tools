@@ -51,6 +51,8 @@ public final class DescribeInstances
     {
         if ( !ids.isEmpty() )
         {
+            boolean first = true;
+
             for ( String id : ids )
             {
                 try
@@ -60,7 +62,7 @@ public final class DescribeInstances
                                              .append( id )
                                              .toString() )
                                    .get( Deployment.class ),
-                         headers );
+                         headers && first );
                 }
                 catch ( UniformInterfaceException e )
                 {
@@ -68,6 +70,11 @@ public final class DescribeInstances
                     {
                         logger.info( "Instance {} not found ", id );
                     }
+                }
+
+                if ( first )
+                {
+                    first = false;
                 }
             }
         }

@@ -51,6 +51,8 @@ public final class DescribeImages
     {
         if ( !ids.isEmpty() )
         {
+            boolean first = true;
+
             for ( String id : ids )
             {
                 try
@@ -60,7 +62,7 @@ public final class DescribeImages
                                              .append( id )
                                              .toString() )
                                    .get( Appliance.class ),
-                         headers );
+                         headers && first );
                 }
                 catch ( UniformInterfaceException e )
                 {
@@ -68,6 +70,11 @@ public final class DescribeImages
                     {
                         logger.info( "Image {} not found ", id );
                     }
+                }
+
+                if ( first )
+                {
+                    first = false;
                 }
             }
         }

@@ -149,31 +149,31 @@
           <extraJvmArguments>-Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
           <programs>
             <program>
-              <mainClass>TBD</mainClass>
-              <name>dsi-upload-instance</name>
+              <mainClass>com.terradue.dsione.UploadImage</mainClass>
+              <name>dsi-upload-image</name>
             </program>
             <program>
-              <mainClass>TBD</mainClass>
+              <mainClass>com.terradue.dsione.DescribeInstances</mainClass>
               <name>dsi-describe-instances</name>
             </program>
             <program>
-              <mainClass>TBD</mainClass>
+              <mainClass>com.terradue.dsione.Authorize</mainClass>
               <name>dsi-authorize</name>
             </program>
             <program>
-              <mainClass>TBD</mainClass>
+              <mainClass>com.terradue.dsione.RebootInstances</mainClass>
               <name>dsi-reboot-instances</name>
             </program>
             <program>
-              <mainClass>TBD</mainClass>
+              <mainClass>com.terradue.dsione.StopInstances</mainClass>
               <name>dsi-stop-instances</name>
             </program>
             <program>
-              <mainClass>TBD</mainClass>
+              <mainClass>com.terradue.dsione.StartInstances</mainClass>
               <name>dsi-start-instances</name>
             </program>
             <program>
-              <mainClass>TBD</mainClass>
+              <mainClass>com.terradue.dsione.CreateTags</mainClass>
               <name>dsi-create-tags</name>
             </program>
           </programs>

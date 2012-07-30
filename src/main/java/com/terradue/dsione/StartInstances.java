@@ -16,6 +16,8 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.lang.System.exit;
+
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
@@ -23,6 +25,11 @@ import com.beust.jcommander.Parameters;
 public final class StartInstances
     extends BaseTool
 {
+
+    public static void main( String[] args )
+    {
+        exit( new StartInstances().execute( args ) );
+    }
 
     @Parameter( names = { "-H", "--headers" }, description = "Display column headers" )
     private boolean headers = false;

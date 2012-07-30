@@ -16,12 +16,19 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.lang.System.exit;
+
 import com.beust.jcommander.Parameters;
 
 @Parameters( commandDescription = "Creates an instance snapshot." )
 public final class CreateTags
     extends BaseTool
 {
+
+    public static void main( String[] args )
+    {
+        exit( new CreateTags().execute( args ) );
+    }
 
     @Override
     public void execute()

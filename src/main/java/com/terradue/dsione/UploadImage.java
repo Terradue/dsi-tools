@@ -17,6 +17,7 @@ package com.terradue.dsione;
  */
 
 import static java.lang.String.format;
+import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
 import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -42,6 +43,11 @@ import com.terradue.dsione.model.UploadTicket;
 public final class UploadImage
     extends BaseTool
 {
+
+    public static void main( String[] args )
+    {
+        exit( new UploadImage().execute( args ) );
+    }
 
     private final Logger logger = getLogger( getClass() );
 

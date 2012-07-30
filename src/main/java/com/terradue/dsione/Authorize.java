@@ -16,12 +16,19 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.lang.System.exit;
+
 import com.beust.jcommander.Parameters;
 
 @Parameters( commandDescription = "Adds a user to an account." )
 public final class Authorize
     extends BaseTool
 {
+
+    public static void main( String[] args )
+    {
+        exit( new Authorize().execute( args ) );
+    }
 
     @Override
     public void execute()

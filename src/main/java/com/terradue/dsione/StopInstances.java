@@ -16,6 +16,8 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.lang.System.exit;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +28,11 @@ import com.beust.jcommander.Parameters;
 public final class StopInstances
     extends BaseTool
 {
+
+    public static void main( String[] args )
+    {
+        exit( new StopInstances().execute( args ) );
+    }
 
     @Parameter( arity = 1, description = "The instance identification as returned by the run-instances command" )
     private List<String> imageId = new LinkedList<String>();

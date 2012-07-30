@@ -16,6 +16,7 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.lang.System.exit;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 
 import java.util.Collection;
@@ -31,6 +32,11 @@ import com.terradue.dsione.model.Deployment;
 public final class DescribeInstances
     extends AbstractDescribeCommand
 {
+
+    public static void main( String[] args )
+    {
+        exit( new DescribeInstances().execute( args ) );
+    }
 
     @Inject
     @Override

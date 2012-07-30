@@ -188,7 +188,7 @@ abstract class BaseTool
         throws Exception;
 
     @Override
-    protected void bindConfigurations()
+    protected final void bindConfigurations()
     {
         bindSystemProperties();
 
@@ -203,6 +203,7 @@ abstract class BaseTool
         bindProperty( "service.appliances" ).toValue( "${service.url}/appliances" );
         bindProperty( "service.upload" ).toValue( "${service.appliances}/uploadTicket" );
         bindProperty( "service.deployments" ).toValue( "${service.url}/deployments" );
+        bindProperty( "service.accounts" ).toValue( "${service.url}/accounts" );
 
         // certificate
         bind( File.class ).annotatedWith( named( "user.certificate" ) ).toInstance( dsiCertificate );

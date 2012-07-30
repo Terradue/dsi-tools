@@ -22,7 +22,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 @MetaInfServices
-@Parameters( commandNames = "run", commandDescription = "Runs an instance of a particular image." )
+@Parameters( commandDescription = "Runs an instance of a particular image." )
 public final class RunInstances
     extends BaseTool
 {

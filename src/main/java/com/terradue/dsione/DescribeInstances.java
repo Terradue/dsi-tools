@@ -30,7 +30,7 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.terradue.dsione.model.Deployment;
 
 @MetaInfServices( value = Tool.class )
-@Parameters( commandNames = "desinst", commandDescription = "List and describe running instances" )
+@Parameters( commandDescription = "List and describe running instances" )
 public final class DescribeInstances
     extends AbstractDescribeCommand
 {

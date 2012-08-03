@@ -34,6 +34,8 @@ abstract class AbstractDescribeCommand
     extends BaseTool
 {
 
+    private static final String CLASS = "class";
+
     protected final Logger logger = getLogger( getClass() );
 
     // CLI Parameters
@@ -77,7 +79,10 @@ abstract class AbstractDescribeCommand
 
             for ( PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors() )
             {
-                append( propertyDescriptor.getName(), header );
+                if ( !CLASS.equals( propertyDescriptor.getName() ) )
+                {
+                    append( propertyDescriptor.getName(), header );
+                }
             }
 
             logger.info( header.toString() );
@@ -86,7 +91,10 @@ abstract class AbstractDescribeCommand
         Formatter line = new Formatter();
         for ( PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors() )
         {
-            append( propertyDescriptor.getReadMethod().invoke( item ), line );
+            if ( !CLASS.equals( propertyDescriptor.getName() ) )
+            {
+                append( propertyDescriptor.getReadMethod().invoke( item ), line );
+            }
         }
 
         logger.info( line.toString() );

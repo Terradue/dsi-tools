@@ -102,7 +102,7 @@ abstract class AbstractDescribeCommand
 
     private static <E> void append( E element, Formatter formatter )
     {
-        formatter.format( "| %-10s |", element );
+        formatter.format( "| %-20s |", element );
     }
 
 }

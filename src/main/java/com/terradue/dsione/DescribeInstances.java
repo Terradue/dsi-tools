@@ -68,7 +68,7 @@ public final class DescribeInstances
                 {
                     if ( HTTP_NOT_FOUND == e.getResponse().getClientResponseStatus().getStatusCode() )
                     {
-                        logger.info( "Instance {} not found ", id );
+                        logger.warn( "Instance {} not found ", id );
                     }
                 }
 

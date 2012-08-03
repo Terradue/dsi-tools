@@ -68,7 +68,7 @@ public final class DescribeImages
                 {
                     if ( HTTP_NOT_FOUND == e.getResponse().getClientResponseStatus().getStatusCode() )
                     {
-                        logger.info( "Image {} not found ", id );
+                        logger.warn( "Image {} not found ", id );
                     }
                 }
 

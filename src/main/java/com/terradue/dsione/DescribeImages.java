@@ -16,10 +16,13 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.util.Arrays.asList;
+
 import static java.lang.System.exit;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.beust.jcommander.Parameters;
 import com.google.inject.Inject;
@@ -43,6 +46,12 @@ public final class DescribeImages
     public void setServiceUrl( @Named( "service.appliances" ) String serviceUrl )
     {
         super.setServiceUrl( serviceUrl );
+    }
+
+    @Override
+    protected List<String> getDefaultFields()
+    {
+        return asList( "id", "architecture", "custom", "description", "name", "operatingSystem", "usageCount", "virtualMachineType", "deprecated" );
     }
 
     @Override

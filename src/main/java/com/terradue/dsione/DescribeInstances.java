@@ -18,8 +18,10 @@ package com.terradue.dsione;
 
 import static java.lang.System.exit;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static java.util.Arrays.asList;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.beust.jcommander.Parameters;
 import com.google.inject.Inject;
@@ -36,6 +38,12 @@ public final class DescribeInstances
     public static void main( String[] args )
     {
         exit( new DescribeInstances().execute( args ) );
+    }
+
+    @Override
+    protected List<String> getDefaultFields()
+    {
+        return asList( "id", "active", "applianceId", "cpuNumber", "createdBy", "locationId", "memorySize", "name" );
     }
 
     @Inject

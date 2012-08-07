@@ -38,8 +38,13 @@ abstract class AbstractDescribeCommand
     @Parameter( names = { "--headers" }, description = "Display column headers" )
     protected boolean headers = false;
 
+    @Parameter( names = { "--fields" }, description = "Comma separated fields list that have to be shown" )
+    private List<String> fields = getDefaultFields();
+
     @Parameter( description = "The image identificator(s) as returned by the upload command" )
     protected List<String> ids = new LinkedList<String>();
+
+    protected abstract List<String> getDefaultFields();
 
     protected final <T> void log( Collection<T> items )
         throws Exception

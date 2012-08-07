@@ -71,6 +71,11 @@ public final class DescribeInstances
                                              .toString() )
                                    .get( Deployment.class ),
                          headers && first );
+
+                    if ( first )
+                    {
+                        first = false;
+                    }
                 }
                 catch ( UniformInterfaceException e )
                 {
@@ -78,11 +83,6 @@ public final class DescribeInstances
                     {
                         logger.warn( "Instance {} not found ", id );
                     }
-                }
-
-                if ( first )
-                {
-                    first = false;
                 }
             }
         }

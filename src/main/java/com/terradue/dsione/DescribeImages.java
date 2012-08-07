@@ -72,6 +72,11 @@ public final class DescribeImages
                                              .toString() )
                                    .get( Appliance.class ),
                          headers && first );
+
+                    if ( first )
+                    {
+                        first = false;
+                    }
                 }
                 catch ( UniformInterfaceException e )
                 {
@@ -79,11 +84,6 @@ public final class DescribeImages
                     {
                         logger.warn( "Image {} not found ", id );
                     }
-                }
-
-                if ( first )
-                {
-                    first = false;
                 }
             }
         }

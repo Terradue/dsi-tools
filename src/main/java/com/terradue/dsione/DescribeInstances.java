@@ -43,7 +43,7 @@ public final class DescribeInstances
     @Override
     protected List<String> getDefaultFields()
     {
-        return asList( "id", "active", "applianceId", "cpuNumber", "createdBy", "locationId", "memorySize", "name" );
+        return asList( "id", "name", "active", "applianceId", "cpuNumber", "createdBy", "locationId", "memorySize" );
     }
 
     @Inject

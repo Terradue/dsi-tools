@@ -51,7 +51,7 @@ public final class DescribeImages
     @Override
     protected List<String> getDefaultFields()
     {
-        return asList( "id", "architecture", "custom", "description", "name", "operatingSystem", "usageCount", "virtualMachineType", "deprecated" );
+        return asList( "id", "name", "architecture", "custom", "description", "operatingSystem", "usageCount", "virtualMachineType", "deprecated" );
     }
 
     @Override

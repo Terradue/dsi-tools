@@ -18,6 +18,11 @@ package com.terradue.dsione;
 
 import static java.lang.System.exit;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
@@ -31,14 +36,36 @@ public final class RebootInstances
         exit( new RebootInstances().execute( args ) );
     }
 
-    @Parameter( names = { "--headers" }, description = "Display column headers" )
-    private boolean headers = false;
+    @Parameter( description = "The image identificator(s) as returned by the upload command" )
+    protected List<String> ids = new LinkedList<String>();
+
+    @Inject
+    private StopInstances stopInstances;
+
+    @Inject
+    private StartInstances startInstances;
+
+    public void setStopInstances( StopInstances stopInstances )
+    {
+        this.stopInstances = stopInstances;
+    }
+
+    public void setStartInstances( StartInstances startInstances )
+    {
+        this.startInstances = startInstances;
+    }
 
     @Override
     public void execute()
         throws Exception
     {
-        // TODO
+        for ( String id : ids )
+        {
+            if ( stopInstances.stopInstance( id ) )
+            {
+                startInstances.startInstance( id );
+            }
+        }
     }
 
 }

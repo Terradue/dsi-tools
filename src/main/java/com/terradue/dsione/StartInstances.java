@@ -18,8 +18,14 @@ package com.terradue.dsione;
 
 import static java.lang.System.exit;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import com.sun.jersey.api.client.UniformInterfaceException;
 
 @Parameters( commandDescription = "Runs an instance of a particular image." )
 public final class StartInstances
@@ -31,14 +37,42 @@ public final class StartInstances
         exit( new StartInstances().execute( args ) );
     }
 
-    @Parameter( names = { "--headers" }, description = "Display column headers" )
-    private boolean headers = false;
+    @Parameter( description = "The image identificator(s) as returned by the upload command" )
+    protected List<String> ids = new LinkedList<String>();
+
+    @Inject
+    @Override
+    public void setServiceUrl( @Named( "service.deployments" ) String serviceUrl )
+    {
+        super.setServiceUrl( serviceUrl );
+    }
 
     @Override
     public void execute()
         throws Exception
     {
-        // TODO
+        for ( String id : ids )
+        {
+            startInstance( id );
+        }
+    }
+
+    void startInstance( String id )
+    {
+        try
+        {
+            restClient.resource( new StringBuilder( serviceUrl )
+                                .append( '/' )
+                                .append( id )
+                                .append( "/start" )
+                                .toString() )
+                      .post();
+        }
+        catch ( UniformInterfaceException e )
+        {
+            logger.warn( "An error occurred while starting instance {}, server replied: {}",
+                         id, e.getResponse().getClientResponseStatus() );
+        }
     }
 
 }

@@ -59,6 +59,7 @@ public final class StartInstances
 
     boolean startInstance( String id )
     {
+        logger.info( "Starting instance {} ...", id );
         try
         {
             restClient.resource( new StringBuilder( serviceUrl )
@@ -67,6 +68,7 @@ public final class StartInstances
                                 .append( "/start" )
                                 .toString() )
                       .post();
+            logger.info( "Instance {} successfully started", id );
             return true;
         }
         catch ( UniformInterfaceException e )

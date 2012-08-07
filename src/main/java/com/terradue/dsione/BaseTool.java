@@ -1,5 +1,23 @@
 package com.terradue.dsione;
 
+/*
+ *  Copyright 2012 Terradue srl
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+import static org.apache.logging.log4j.LogManager.getLogger;
+
 import static com.google.inject.Guice.createInjector;
 import static com.google.inject.name.Names.named;
 import static java.lang.Runtime.getRuntime;
@@ -8,8 +26,6 @@ import static java.lang.System.currentTimeMillis;
 import static java.lang.System.getProperty;
 import static java.lang.System.setProperty;
 import static org.nnsoft.guice.rocoto.Rocoto.expandVariables;
-import static org.slf4j.LoggerFactory.getILoggerFactory;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,12 +33,8 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
+import org.apache.logging.log4j.Logger;
 import org.nnsoft.guice.rocoto.configuration.ConfigurationModule;
-import org.slf4j.Logger;
-
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.core.joran.spi.JoranException;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -35,7 +47,7 @@ abstract class BaseTool
     implements Tool
 {
 
-    protected final Logger logger = getLogger( getClass() );
+    protected final Logger logger = getLogger( getClass().getName() );
 
     @Parameter( names = { "-h", "--help" }, description = "Display help information." )
     private boolean printHelp;
@@ -101,23 +113,6 @@ abstract class BaseTool
         else
         {
             setProperty( "log.level", "INFO" );
-        }
-
-        // assume SLF4J is bound to logback in the current environment
-        final LoggerContext lc = (LoggerContext) getILoggerFactory();
-
-        try
-        {
-            JoranConfigurator configurator = new JoranConfigurator();
-            configurator.setContext( lc );
-            // the context was probably already configured by default configuration
-            // rules
-            lc.reset();
-            configurator.doConfigure( getClass().getClassLoader().getResourceAsStream( "logback-config.xml" ) );
-        }
-        catch ( JoranException je )
-        {
-            // StatusPrinter should handle this
         }
 
         // validation

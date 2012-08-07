@@ -20,7 +20,6 @@ import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
 import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,7 +28,6 @@ import java.io.InputStream;
 import java.net.URI;
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
@@ -48,8 +46,6 @@ public final class UploadImage
     {
         exit( new UploadImage().execute( args ) );
     }
-
-    private final Logger logger = getLogger( getClass() );
 
     @Parameter( names = { "-A", "--appliance" }, description = "The DSI applicance name" )
     private String applianceName;
@@ -126,8 +122,8 @@ public final class UploadImage
 
         UploadTicket uploadTicket = restClient.resource( serviceUri ).get( UploadTicket.class );
 
-        logger.info( "Uploading image: {} on {} (expires on)...",
-                     new String[]
+        logger.info( "Uploading image: {} on {} (expires on {})...",
+                     new Object[]
                      {
                          image.getAbsolutePath(),
                          uploadTicket.getFtpLocation().toString(),

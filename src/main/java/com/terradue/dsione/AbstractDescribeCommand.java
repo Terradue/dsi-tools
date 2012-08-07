@@ -17,7 +17,6 @@ package com.terradue.dsione;
  */
 
 import static java.beans.Introspector.getBeanInfo;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
@@ -26,8 +25,6 @@ import java.util.Formatter;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.slf4j.Logger;
-
 import com.beust.jcommander.Parameter;
 
 abstract class AbstractDescribeCommand
@@ -35,8 +32,6 @@ abstract class AbstractDescribeCommand
 {
 
     private static final String CLASS = "class";
-
-    protected final Logger logger = getLogger( getClass() );
 
     // CLI Parameters
 

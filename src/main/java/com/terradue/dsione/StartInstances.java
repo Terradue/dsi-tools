@@ -57,7 +57,7 @@ public final class StartInstances
         }
     }
 
-    void startInstance( String id )
+    boolean startInstance( String id )
     {
         try
         {
@@ -67,11 +67,13 @@ public final class StartInstances
                                 .append( "/start" )
                                 .toString() )
                       .post();
+            return true;
         }
         catch ( UniformInterfaceException e )
         {
             logger.warn( "An error occurred while starting instance {}, server replied: {}",
                          id, e.getResponse().getClientResponseStatus() );
+            return false;
         }
     }
 

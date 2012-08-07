@@ -16,9 +16,6 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
-import static java.beans.Introspector.getBeanInfo;
-
-import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
 import java.util.Collection;
 import java.util.Formatter;
@@ -30,8 +27,6 @@ import com.beust.jcommander.Parameter;
 abstract class AbstractDescribeCommand
     extends BaseTool
 {
-
-    private static final String CLASS = "class";
 
     // CLI Parameters
 
@@ -71,29 +66,29 @@ abstract class AbstractDescribeCommand
     protected final <T> void log( T item, boolean printHeaders )
         throws Exception
     {
-        BeanInfo beanInfo = getBeanInfo( item.getClass() );
-
         if ( printHeaders )
         {
             Formatter header = new Formatter();
 
-            for ( PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors() )
+            for ( String field : fields )
             {
-                if ( !CLASS.equals( propertyDescriptor.getName() ) )
-                {
-                    append( propertyDescriptor.getName(), header );
-                }
+                append( field, header );
             }
 
             logger.info( header.toString() );
         }
 
         Formatter line = new Formatter();
-        for ( PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors() )
+        for ( String field : fields )
         {
-            if ( !CLASS.equals( propertyDescriptor.getName() ) )
+            try
             {
+                PropertyDescriptor propertyDescriptor = new PropertyDescriptor( field, item.getClass() );
                 append( propertyDescriptor.getReadMethod().invoke( item ), line );
+            }
+            catch ( Exception e )
+            {
+                append( "-- NA --", line );
             }
         }
 

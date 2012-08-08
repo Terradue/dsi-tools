@@ -45,7 +45,6 @@
   <properties>
     <javac.src.version>1.6</javac.src.version>
     <javac.target.version>1.6</javac.target.version>
-    <log4j.version>2.0-alpha1</log4j.version>
   </properties>
 
   <dependencies>
@@ -53,16 +52,15 @@
      | logging stuff
     -->
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>${log4j.version}</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.6.4</version>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>${log4j.version}</version>
-      <scope>runtime</scope>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.0.6</version>
     </dependency>
 
     <!--

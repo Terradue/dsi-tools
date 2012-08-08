@@ -1,4 +1,4 @@
-package com.terradue.dsione;
+package com.terradue.dsi;
 
 /*
  *  Copyright 2012 Terradue srl
@@ -16,9 +16,10 @@ package com.terradue.dsione;
  *  limitations under the License.
  */
 
+import static java.util.Arrays.asList;
+
 import static java.lang.System.exit;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
-import static java.util.Arrays.asList;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,29 +29,29 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.UniformInterfaceException;
-import com.terradue.dsione.model.Deployment;
+import com.terradue.dsi.model.Appliance;
 
-@Parameters( commandDescription = "List and describe running instances" )
-public final class DescribeInstances
+@Parameters( commandDescription = "List and describe previously uploaded images of a user to be used with an OpenNebula Cloud." )
+public final class DescribeImages
     extends AbstractDescribeCommand
 {
 
     public static void main( String[] args )
     {
-        exit( new DescribeInstances().execute( args ) );
+        exit( new DescribeImages().execute( args ) );
+    }
+
+    @Inject
+    @Override
+    public void setServiceUrl( @Named( "service.appliances" ) String serviceUrl )
+    {
+        super.setServiceUrl( serviceUrl );
     }
 
     @Override
     protected List<String> getDefaultFields()
     {
-        return asList( "id", "name", "active", "applianceId", "cpuNumber", "createdBy", "locationId", "memorySize" );
-    }
-
-    @Inject
-    @Override
-    public void setServiceUrl( @Named( "service.deployments" ) String serviceUrl )
-    {
-        super.setServiceUrl( serviceUrl );
+        return asList( "id", "name", "architecture", "custom", "description", "operatingSystem", "usageCount", "virtualMachineType", "deprecated" );
     }
 
     @Override
@@ -69,7 +70,7 @@ public final class DescribeInstances
                                              .append( '/' )
                                              .append( id )
                                              .toString() )
-                                   .get( Deployment.class ),
+                                   .get( Appliance.class ),
                          headers && first );
 
                     if ( first )
@@ -81,14 +82,14 @@ public final class DescribeInstances
                 {
                     if ( HTTP_NOT_FOUND == e.getResponse().getClientResponseStatus().getStatusCode() )
                     {
-                        logger.warn( "Instance {} not found ", id );
+                        logger.warn( "Image {} not found ", id );
                     }
                 }
             }
         }
         else
         {
-            log( restClient.resource( serviceUrl ).get( new GenericType<Collection<Deployment>>(){} ) );
+            log( restClient.resource( serviceUrl ).get( new GenericType<Collection<Appliance>>(){} ) );
         }
     }
 

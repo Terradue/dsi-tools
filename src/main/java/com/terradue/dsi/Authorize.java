@@ -1,4 +1,4 @@
-package com.terradue.dsione;
+package com.terradue.dsi;
 
 /*
  *  Copyright 2012 Terradue srl
@@ -20,14 +20,14 @@ import static java.lang.System.exit;
 
 import com.beust.jcommander.Parameters;
 
-@Parameters( commandDescription = "Creates an instance snapshot." )
-public final class CreateTags
+@Parameters( commandDescription = "Adds a user to an account." )
+public final class Authorize
     extends BaseTool
 {
 
     public static void main( String[] args )
     {
-        exit( new CreateTags().execute( args ) );
+        exit( new Authorize().execute( args ) );
     }
 
     @Override

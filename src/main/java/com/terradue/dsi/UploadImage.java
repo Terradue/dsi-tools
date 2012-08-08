@@ -1,4 +1,4 @@
-package com.terradue.dsione;
+package com.terradue.dsi;
 
 /*
  *  Copyright 2012 Terradue srl
@@ -35,7 +35,7 @@ import com.beust.jcommander.converters.FileConverter;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.client.Client;
-import com.terradue.dsione.model.UploadTicket;
+import com.terradue.dsi.model.UploadTicket;
 
 @Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class UploadImage

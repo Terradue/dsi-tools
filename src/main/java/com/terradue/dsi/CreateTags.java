@@ -1,7 +1,4 @@
-/**
- * A collection of tools to interact with DSI/T-System server.
- */
-package com.terradue.dsione;
+package com.terradue.dsi;
 
 /*
  *  Copyright 2012 Terradue srl
@@ -18,3 +15,26 @@ package com.terradue.dsione;
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
+import static java.lang.System.exit;
+
+import com.beust.jcommander.Parameters;
+
+@Parameters( commandDescription = "Creates an instance snapshot." )
+public final class CreateTags
+    extends BaseTool
+{
+
+    public static void main( String[] args )
+    {
+        exit( new CreateTags().execute( args ) );
+    }
+
+    @Override
+    public void execute()
+        throws Exception
+    {
+        // TODO
+    }
+
+}

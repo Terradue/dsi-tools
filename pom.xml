@@ -23,10 +23,10 @@
     <version>3</version>
   </parent>
 
-  <artifactId>dsione-tools</artifactId>
+  <artifactId>dsi-tools</artifactId>
   <version>0.1-SNAPSHOT</version>
 
-  <name>DSI OpenNebula- Tools</name>
+  <name>DSI Tools</name>
   <description>TODO - fill me</description>
   <url>http://terradue.github.com/dsione-tools/</url>
 
@@ -157,35 +157,35 @@
           <extraJvmArguments>-Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
           <programs>
             <program>
-              <mainClass>com.terradue.dsione.UploadImage</mainClass>
+              <mainClass>com.terradue.dsi.UploadImage</mainClass>
               <name>dsi-upload-image</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsione.DescribeImages</mainClass>
+              <mainClass>com.terradue.dsi.DescribeImages</mainClass>
               <name>dsi-describe-images</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsione.DescribeInstances</mainClass>
+              <mainClass>com.terradue.dsi.DescribeInstances</mainClass>
               <name>dsi-describe-instances</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsione.Authorize</mainClass>
+              <mainClass>com.terradue.dsi.Authorize</mainClass>
               <name>dsi-authorize</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsione.RebootInstances</mainClass>
+              <mainClass>com.terradue.dsi.RebootInstances</mainClass>
               <name>dsi-reboot-instances</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsione.StopInstances</mainClass>
+              <mainClass>com.terradue.dsi.StopInstances</mainClass>
               <name>dsi-stop-instances</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsione.StartInstances</mainClass>
+              <mainClass>com.terradue.dsi.StartInstances</mainClass>
               <name>dsi-start-instances</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsione.CreateTags</mainClass>
+              <mainClass>com.terradue.dsi.CreateTags</mainClass>
               <name>dsi-create-tags</name>
             </program>
           </programs>

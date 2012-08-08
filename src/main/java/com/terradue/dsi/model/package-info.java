@@ -1,4 +1,7 @@
-package com.terradue.dsione;
+/**
+ * Contains the in-memory model that reflects the DSI entities described in XML.
+ */
+package com.terradue.dsi.model;
 
 /*
  *  Copyright 2012 Terradue srl
@@ -15,10 +18,3 @@ package com.terradue.dsione;
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
-public interface Tool
-{
-
-    int execute(  String...args );
-
-}

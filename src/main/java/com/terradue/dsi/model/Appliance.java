@@ -1,4 +1,4 @@
-package com.terradue.dsione.model;
+package com.terradue.dsi.model;
 
 /*
  *  Copyright 2012 Terradue srl

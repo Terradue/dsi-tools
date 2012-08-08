@@ -1,4 +1,4 @@
-package com.terradue.dsione;
+package com.terradue.dsi;
 
 /*
  *  Copyright 2012 Terradue srl
@@ -27,14 +27,14 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.client.UniformInterfaceException;
 
-@Parameters( commandDescription = "Runs an instance of a particular image." )
-public final class StartInstances
+@Parameters( commandDescription = "Terminate the selected running instance" )
+public final class StopInstances
     extends BaseTool
 {
 
     public static void main( String[] args )
     {
-        exit( new StartInstances().execute( args ) );
+        exit( new StopInstances().execute( args ) );
     }
 
     @Parameter( description = "The image identificator(s) as returned by the upload command" )
@@ -53,13 +53,13 @@ public final class StartInstances
     {
         for ( String id : ids )
         {
-            startInstance( id );
+            stopInstance( id );
         }
     }
 
-    void startInstance( String id )
+    boolean stopInstance( String id )
     {
-        logger.info( "Starting instance {} ...", id );
+        logger.info( "Stopping instance {} ...", id );
         try
         {
             restClient.resource( new StringBuilder( serviceUrl )
@@ -68,12 +68,14 @@ public final class StartInstances
                                 .append( "/start" )
                                 .toString() )
                       .post();
-            logger.info( "Instance {} successfully started", id );
+            logger.info( "Instance {} successfully stopped", id );
+            return true;
         }
         catch ( UniformInterfaceException e )
         {
-            logger.warn( "An error occurred while starting instance {}, server replied: {}",
+            logger.warn( "An error occurred while stopping instance {}, server replied: {}",
                          id, e.getResponse().getClientResponseStatus() );
+            return false;
         }
     }
 

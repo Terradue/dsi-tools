@@ -1,4 +1,4 @@
-package com.terradue.dsione;
+package com.terradue.dsi;
 
 /*
  *  Copyright 2012 Terradue srl
@@ -44,7 +44,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.google.inject.Inject;
 import com.sun.jersey.api.client.Client;
-import com.terradue.dsione.restclient.RestClientModule;
+import com.terradue.dsi.restclient.RestClientModule;
 
 abstract class BaseTool
     extends ConfigurationModule

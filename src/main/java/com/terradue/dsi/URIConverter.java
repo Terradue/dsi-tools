@@ -1,7 +1,4 @@
-/**
- * Contains the in-memory model that reflects the DSI entities described in XML.
- */
-package com.terradue.dsione.model;
+package com.terradue.dsi;
 
 /*
  *  Copyright 2012 Terradue srl
@@ -18,3 +15,30 @@ package com.terradue.dsione.model;
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
+import static java.lang.String.format;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import com.beust.jcommander.IStringConverter;
+import com.beust.jcommander.ParameterException;
+
+public final class URIConverter
+    implements IStringConverter<URI>
+{
+
+    @Override
+    public URI convert( String value )
+    {
+        try
+        {
+            return new URI( value );
+        }
+        catch ( URISyntaxException e )
+        {
+            throw new ParameterException( format( "%s is not a valid URI: %s", value, e.getMessage() ) );
+        }
+    }
+
+}

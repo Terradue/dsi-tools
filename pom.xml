@@ -27,7 +27,7 @@
   <version>0.1-SNAPSHOT</version>
 
   <name>DSI Tools</name>
-  <description>TODO - fill me</description>
+  <description>A set of Command Line Tools to interact with Zymory/T-Systems cloud REST server</description>
   <url>http://terradue.github.com/dsione-tools/</url>
 
   <scm>

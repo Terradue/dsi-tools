@@ -27,7 +27,7 @@
   <version>0.1-SNAPSHOT</version>
 
   <name>DSITools</name>
-  <description>A set of Command Line Tools to interact with Zymory/T-Systems cloud REST server</description>
+  <description>A set of Command Line Tools to interact with Zimory/T-Systems cloud REST server</description>
   <url>http://terradue.github.com/dsi-tools</url>
 
   <scm>

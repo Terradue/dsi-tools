@@ -24,21 +24,15 @@
 Welcome to Terradue ${project.name}!!
 
   Terradue ${project.name} is a set of command line tools to interact with DSI REST APIs for enabling the creation of
-  public clouds managed by OpenNebula.
+  public clouds.
+
+* Download
+
+  See the {{{./download.html}download}} page to download the package you need.
+
+* Installation
 
   ${project.name} is a Java tool, so you must have Java installed in order to proceed. Users need at least the
   Java Runtime Environment (JRE), the Java Development Kit (JDK) is a plus.
 
-Installation
-
-  [[1]] Download the <<<${project.build.finalName}.tar.gz>>> distribution archive to the
-        <<<OPEN_NEBULA_HOME/src/cloud>>> directory.
-
-  [[2]] Add ${project.name} to your path, e.g.
-
-+---+
-export PATH=OPEN_NEBULA_HOME/src/cloud/${project.build.finalName}/bin:$PATH
-+---+
-
-  [[3]] Make sure that <<<JAVA_HOME>>> is set to the location of your JDK, e.g. <<<export JAVA_HOME=/usr/java/jdk1.6.0_29>>>
-        and that <<<$JAVA_HOME/bin>>> is in your <<<PATH>>> environment variable.
+  See {{{./installation.html}installation}} instructions how to proper install the tools.

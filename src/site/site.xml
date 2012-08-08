@@ -38,6 +38,7 @@
   <body>
     <menu name="User guide">
       <item name="Home" href="index.html" />
+      <item name="Download" href="download.html" />
       <item name="Installation" href="installation.html" />
     </menu>
 

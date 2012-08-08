@@ -211,6 +211,7 @@
           <appendAssemblyId>true</appendAssemblyId>
           <descriptors>
             <descriptor>${basedir}/src/main/assembly/bin.xml</descriptor>
+            <descriptor>${basedir}/src/main/assembly/src.xml</descriptor>
           </descriptors>
         </configuration>
       </plugin>

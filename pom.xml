@@ -28,17 +28,17 @@
 
   <name>DSI Tools</name>
   <description>A set of Command Line Tools to interact with Zymory/T-Systems cloud REST server</description>
-  <url>http://terradue.github.com/dsione-tools/</url>
+  <url>http://terradue.github.com/dsi-tools/</url>
 
   <scm>
-    <connection>scm:git:ssh://github.com/Terradue/dsione-tools.git</connection>
-    <developerConnection>scm:git:git+ssh://git@github.com/Terradue/dsione-tools.git</developerConnection>
-    <url>https://github.com/Terradue/dsione-tools</url>
+    <connection>scm:git:ssh://github.com/Terradue/dsi-tools.git</connection>
+    <developerConnection>scm:git:git+ssh://git@github.com/Terradue/dsi-tools.git</developerConnection>
+    <url>https://github.com/Terradue/dsi-tools</url>
   </scm>
   <distributionManagement>
     <site>
       <id>github</id>
-      <url>gitsite:git@github.com/Terradue/dsione-tools.git</url>
+      <url>gitsite:git@github.com/Terradue/dsi-tools.git</url>
     </site>
   </distributionManagement>
 

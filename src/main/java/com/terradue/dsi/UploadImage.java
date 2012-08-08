@@ -16,6 +16,8 @@ package com.terradue.dsi;
  *  limitations under the License.
  */
 
+import static com.google.inject.Scopes.SINGLETON;
+
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
@@ -37,6 +39,7 @@ import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
 import com.sun.jersey.api.client.Client;
 import com.terradue.dsi.model.UploadTicket;
+import com.terradue.dsi.wire.FTPSClientProvider;
 
 @Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
 public final class UploadImage
@@ -102,6 +105,13 @@ public final class UploadImage
     public void setPassword( String password )
     {
         this.password = password;
+    }
+
+    @Override
+    protected void bindConfigurations()
+    {
+        super.bindConfigurations();
+        bind( FTPSClient.class ).toProvider( FTPSClientProvider.class ).in( SINGLETON );
     }
 
     @Override

@@ -47,7 +47,7 @@ ${project.name} ${project.version}
 
 ** Windows 2000/XP
 
-  1) Unzip the distribution archive, i.e. ${project.build.finalName}.zip to the directory you wish to
+  1) Unzip the distribution archive, i.e. ${project.build.finalName}-bin.zip to the directory you wish to
         install ${project.name} ${project.version}.
         These instructions assume you chose C:\Program Files\Terradue.
         The subdirectory ${project.build.finalName} will be created from the archive.

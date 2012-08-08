@@ -27,13 +27,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
-import org.apache.commons.net.ftp.FTPClient;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.apache.commons.net.ftp.FTPSClient;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.sun.jersey.api.client.Client;
 import com.terradue.dsi.model.UploadTicket;
 
@@ -79,6 +80,9 @@ public final class UploadImage
     @Inject
     @Named( "dsi.password" )
     private String password;
+
+    @Inject
+    private FTPSClient ftpsClient;
 
     public void setUploadService( String uploadService )
     {
@@ -130,29 +134,27 @@ public final class UploadImage
                          uploadTicket.getExpirationDate()
                      } );
 
-        FTPClient ftpClient = new FTPClient();
-        ftpClient.connect( uploadTicket.getFtpLocation().getHost() );
+        ftpsClient.connect( uploadTicket.getFtpLocation().getHost() );
 
         InputStream imageStream = null;
         try
         {
             imageStream = new FileInputStream( image );
-            ftpClient.login( username, password );
-            int reply = ftpClient.getReplyCode();
+            int reply = ftpsClient.getReplyCode();
 
             if ( !isPositiveCompletion( reply ) )
             {
                 throw new RuntimeException( uploadTicket.getFtpLocation() + " refused connection" );
             }
 
-            if ( !ftpClient.changeWorkingDirectory( uploadTicket.getFtpLocation().getPath() ) )
+            if ( !ftpsClient.changeWorkingDirectory( uploadTicket.getFtpLocation().getPath() ) )
             {
                 throw new RuntimeException( format( "Impossible to access to %s directory on %s, contact the DSI OPS",
                                                     uploadTicket.getFtpLocation().getPath(),
                                                     uploadTicket.getFtpLocation().getHost() ) );
             }
 
-            if ( ftpClient.storeUniqueFile( imageStream ) )
+            if ( ftpsClient.storeUniqueFile( imageStream ) )
             {
                 logger.info( "Image {} successfully stored", image );
             }
@@ -164,8 +166,7 @@ public final class UploadImage
         }
         finally
         {
-            ftpClient.logout();
-            ftpClient.disconnect();
+            ftpsClient.disconnect();
 
             if ( imageStream != null )
             {

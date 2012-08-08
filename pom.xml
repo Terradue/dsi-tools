@@ -208,7 +208,7 @@
         <configuration>
           <attach>true</attach>
           <tarLongFileMode>gnu</tarLongFileMode>
-          <appendAssemblyId>false</appendAssemblyId>
+          <appendAssemblyId>true</appendAssemblyId>
           <descriptors>
             <descriptor>${basedir}/src/main/assembly/bin.xml</descriptor>
           </descriptors>

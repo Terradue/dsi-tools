@@ -41,7 +41,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.google.inject.Inject;
 import com.sun.jersey.api.client.Client;
-import com.terradue.dsi.restclient.RestClientModule;
+import com.terradue.dsi.wire.RestClientModule;
 
 abstract class BaseTool
     extends ConfigurationModule

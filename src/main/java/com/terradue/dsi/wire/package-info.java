@@ -1,7 +1,7 @@
 /**
  * All needed stuff to obtain a Rest Client for T-Systems server.
  */
-package com.terradue.dsi.restclient;
+package com.terradue.dsi.wire;
 
 /*
  *  Copyright 2012 Terradue srl

@@ -1,4 +1,4 @@
-package com.terradue.dsi.restclient;
+package com.terradue.dsi.wire;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

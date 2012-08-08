@@ -1,4 +1,4 @@
-package com.terradue.dsi.restclient;
+package com.terradue.dsi.wire;
 
 /*
  *  Copyright 2012 Terradue srl

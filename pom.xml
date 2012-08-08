@@ -26,7 +26,7 @@
   <artifactId>dsi-tools</artifactId>
   <version>0.1-SNAPSHOT</version>
 
-  <name>DSI Tools</name>
+  <name>DSITools</name>
   <description>A set of Command Line Tools to interact with Zymory/T-Systems cloud REST server</description>
   <url>http://terradue.github.com/dsi-tools/</url>
 
@@ -134,7 +134,7 @@
     <resources>
       <resource>
         <directory>${basedir}/src/main/resources</directory>
-        <filtering>true</filtering>
+        <filtering>false</filtering>
       </resource>
     </resources>
 
@@ -154,7 +154,7 @@
         <configuration>
           <repositoryLayout>flat</repositoryLayout>
           <repositoryName>lib</repositoryName>
-          <extraJvmArguments>-Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
+          <extraJvmArguments>-Dproject.name=${project.name} -Dproject.version=${project.version} -Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
           <programs>
             <program>
               <mainClass>com.terradue.dsi.UploadImage</mainClass>

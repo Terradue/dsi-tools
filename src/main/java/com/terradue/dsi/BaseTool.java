@@ -28,10 +28,7 @@ import static org.slf4j.LoggerFactory.getILoggerFactory;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
-import java.util.Properties;
 
 import org.nnsoft.guice.rocoto.configuration.ConfigurationModule;
 import org.slf4j.Logger;
@@ -245,36 +242,9 @@ abstract class BaseTool
 
     private static void printVersionInfo()
     {
-        Properties properties = new Properties();
-        InputStream input = BaseTool.class.getClassLoader().getResourceAsStream( "META-INF/maven/com.terradue/dsione-tools/pom.properties" );
-
-        if ( input != null )
-        {
-            try
-            {
-                properties.load( input );
-            }
-            catch ( IOException e )
-            {
-                // ignore, just don't load the properties
-            }
-            finally
-            {
-                try
-                {
-                    input.close();
-                }
-                catch ( IOException e )
-                {
-                    // close quietly
-                }
-            }
-        }
-
-        System.out.printf( "%s %s (%s)%n",
-                           properties.getProperty( "name" ),
-                           properties.getProperty( "version" ),
-                           properties.getProperty( "build" ) );
+        System.out.printf( "%s %s%n",
+                           getProperty( "project.name" ),
+                           getProperty( "project.version" ) );
         System.out.printf( "Java version: %s, vendor: %s%n",
                            getProperty( "java.version" ),
                            getProperty( "java.vendor" ) );

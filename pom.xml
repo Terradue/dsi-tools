@@ -28,7 +28,7 @@
 
   <name>DSITools</name>
   <description>A set of Command Line Tools to interact with Zymory/T-Systems cloud REST server</description>
-  <url>http://terradue.github.com/dsi-tools/</url>
+  <url>http://terradue.github.com/dsi-tools</url>
 
   <scm>
     <connection>scm:git:ssh://github.com/Terradue/dsi-tools.git</connection>

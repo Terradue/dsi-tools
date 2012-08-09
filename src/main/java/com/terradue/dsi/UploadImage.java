@@ -51,22 +51,22 @@ public final class UploadImage
         exit( new UploadImage().execute( args ) );
     }
 
-    @Parameter( names = { "-A", "--appliance" }, description = "The DSI applicance name" )
+    @Parameter( names = { "--appliance" }, description = "The DSI applicance name" )
     private String applianceName;
 
-    @Parameter( names = { "-D", "--appliance-description" }, description = "The DSI applicance name" )
+    @Parameter( names = { "--description" }, description = "The DSI applicance name" )
     private String applianceDescription;
 
-    @Parameter( names = { "-P", "--provider" }, description = "The DSI provider ID" )
+    @Parameter( names = { "--provider" }, description = "The DSI provider ID" )
     private String providerId;
 
-    @Parameter( names = { "-Q", "--qualifier" }, description = "The DSI qualifier ID" )
+    @Parameter( names = { "--qualifier" }, description = "The DSI qualifier ID" )
     private String qualifierId;
 
-    @Parameter( names = { "-O", "--operating-system" }, description = "The DSI applicance Operating System (optional)" )
+    @Parameter( names = { "--operating-system" }, description = "The DSI applicance Operating System (optional)" )
     private String applianceOS = "Linux";
 
-    @Parameter( names = { "-I", "--image" }, description = "Path to the image to upload", converter = FileConverter.class )
+    @Parameter( names = { "--image" }, description = "Path to the image to upload", converter = FileConverter.class )
     private File image;
 
     @Inject

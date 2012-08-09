@@ -177,6 +177,10 @@
               <name>dsi-reboot-instances</name>
             </program>
             <program>
+              <mainClass>com.terradue.dsi.RegisterImage</mainClass>
+              <name>dsi-regster-image</name>
+            </program>
+            <program>
               <mainClass>com.terradue.dsi.StopInstances</mainClass>
               <name>dsi-stop-instances</name>
             </program>

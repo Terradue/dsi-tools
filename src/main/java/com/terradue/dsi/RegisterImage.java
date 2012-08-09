@@ -18,10 +18,16 @@ package com.terradue.dsi;
 
 import static java.lang.System.exit;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.google.inject.name.Named;
+import com.terradue.dsi.model.DeploymentCreation;
 
-@Parameters( commandDescription = "Register a previously uploaded image for use with an OpenNebula Cloud." )
+@Parameters( commandDescription = "Register a previously uploaded image for use." )
 public final class RegisterImage
     extends BaseTool
 {
@@ -31,14 +37,80 @@ public final class RegisterImage
         exit( new RegisterImage().execute( args ) );
     }
 
-    @Parameter( names = { "--headers" }, description = "Display column headers" )
-    private boolean headers = false;
+    @Parameter( names = { "--appliance" }, description = "The DSI applicance ID" )
+    private int applianceId;
+
+    @Parameter( names = { "--name" }, description = "The deployment name" )
+    private String name;
+
+    @Parameter( names = { "--description" }, description = "The DSI deployment description" )
+    private String description;
+
+    @Parameter( names = { "--cluster" }, description = "The DSI deployment cluster ID" )
+    private String deploymentClusterId;
+
+    @Parameter( names = { "--perf" }, description = "The performance unit" )
+    private int performanceUnit;
+
+    @Parameter( names = { "--memory" }, description = "The memory (in Mb)" )
+    private int memoryMb;
+
+    @Parameter( names = { "--virtual-cpu" }, description = "The number of virtual CPUs" )
+    private int virtualCPUs;
+
+    @Parameter( names = { "--external-ip" }, description = "Flag to use the external IP" )
+    private boolean useExternalIp;
+
+    @Parameter( names = { "--permanent-ip" }, description = "Flag to use the permanent IP" )
+    private boolean permanentIp;
+
+    @Parameter( names = { "--network" }, description = "The DSI Network ID" )
+    private String networkId;
+
+    @Parameter( names = { "--users" }, description = "The users ID allowed to use the deployment" )
+    private List<String> userDelegates;
+
+    @Parameter( names = { "--end" }, description = "The end date (in yyyy-MM-ddThh:mm:ssZ format)" )
+    private String endDate;
+
+    @Parameter( names = { "--provider" }, description = "The DSI provider ID" )
+    private String providerId;
+
+    @Parameter( names = { "--qualifier" }, description = "The DSI qualifier ID" )
+    private String qualifierId;
+
+    @Parameter( names = { "--reservation" }, description = "The DSI reservation ID" )
+    private String reservationId;
+
+    @Inject
+    @Override
+    public void setServiceUrl( @Named( "service.deployments" ) String serviceUrl )
+    {
+        super.setServiceUrl( serviceUrl );
+    }
 
     @Override
     public void execute()
         throws Exception
     {
-        // TODO
+        logger.info( "Registering appliance {} ...", applianceId );
+        restClient.resource( serviceUrl ).post( new DeploymentCreation.Builder()
+                                                .withApplianceId( applianceId )
+                                                .withDeploymentClusterId( deploymentClusterId )
+                                                .withDescription( description )
+                                                .withEndDate( endDate )
+                                                .withMemoryMb( memoryMb )
+                                                .withName( name )
+                                                .withNetwork( networkId )
+                                                .withPerformanceUnit( performanceUnit )
+                                                .withPermanentIp( permanentIp )
+                                                .withProviderId( providerId )
+                                                .withQualifierId( qualifierId )
+                                                .withReservationId( reservationId )
+                                                .withUseExternalIp( useExternalIp )
+                                                .withUserDelegates( userDelegates )
+                                                .withVirtualCPUs( virtualCPUs )
+                                                .build() );
     }
 
 }

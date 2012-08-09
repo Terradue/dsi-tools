@@ -16,8 +16,12 @@ package com.terradue.dsi.model;
  *  limitations under the License.
  */
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+@XmlAccessorType( FIELD )
 public class Network
 {
 

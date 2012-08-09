@@ -17,7 +17,6 @@ package com.terradue.dsi;
  */
 
 import static com.google.inject.Scopes.SINGLETON;
-
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
@@ -37,11 +36,10 @@ import org.apache.commons.net.ftp.FTPSClient;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
-import com.sun.jersey.api.client.Client;
 import com.terradue.dsi.model.UploadTicket;
 import com.terradue.dsi.wire.FTPSClientProvider;
 
-@Parameters( commandDescription = "Uploads an image for use with an OpenNebula Cloud" )
+@Parameters( commandDescription = "Uploads an image on DSI Cloud" )
 public final class UploadImage
     extends BaseTool
 {
@@ -70,41 +68,18 @@ public final class UploadImage
     private File image;
 
     @Inject
-    @Named( "service.upload" )
-    private String uploadService;
-
-    @Inject
-    private Client restClient;
-
-    @Inject
-    @Named( "dsi.username" )
-    private String username;
-
-    @Inject
-    @Named( "dsi.password" )
-    private String password;
-
-    @Inject
     private FTPSClient ftpsClient;
 
-    public void setUploadService( String uploadService )
+    @Inject
+    @Override
+    public void setServiceUrl( @Named( "service.upload" ) String serviceUrl )
     {
-        this.uploadService = uploadService;
+        super.setServiceUrl( serviceUrl );
     }
 
-    public void setRestClient( Client restClient )
+    public void setFtpsClient( FTPSClient ftpsClient )
     {
-        this.restClient = restClient;
-    }
-
-    public void setUsername( String username )
-    {
-        this.username = username;
-    }
-
-    public void setPassword( String password )
-    {
-        this.password = password;
+        this.ftpsClient = ftpsClient;
     }
 
     @Override
@@ -126,7 +101,7 @@ public final class UploadImage
 
         logger.info( "Requesting FTP location where uploading images..." );
 
-        URI serviceUri = fromUri( uploadService )
+        URI serviceUri = fromUri( serviceUrl )
                          .queryParam( "providerId", providerId )
                          .queryParam( "qualifierId", qualifierId )
                          .queryParam( "applianceName", applianceName )

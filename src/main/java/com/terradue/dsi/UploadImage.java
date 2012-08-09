@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -101,15 +100,13 @@ public final class UploadImage
 
         logger.info( "Requesting FTP location where uploading images..." );
 
-        URI serviceUri = fromUri( serviceUrl )
-                         .queryParam( "providerId", providerId )
-                         .queryParam( "qualifierId", qualifierId )
-                         .queryParam( "applianceName", applianceName )
-                         .queryParam( "applianceDescription", applianceDescription )
-                         .queryParam( "applianceOS", applianceOS )
-                         .build();
-
-        UploadTicket uploadTicket = restClient.resource( serviceUri ).get( UploadTicket.class );
+        UploadTicket uploadTicket = restClient.resource( fromUri( serviceUrl )
+                                                         .queryParam( "providerId", providerId )
+                                                         .queryParam( "qualifierId", qualifierId )
+                                                         .queryParam( "applianceName", applianceName )
+                                                         .queryParam( "applianceDescription", applianceDescription )
+                                                         .queryParam( "applianceOS", applianceOS )
+                                                         .build() ).get( UploadTicket.class );
 
         logger.info( "Uploading image: {} on {} (expires on {})...",
                      new Object[]

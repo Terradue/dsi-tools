@@ -116,7 +116,11 @@ public final class UploadImage
                          uploadTicket.getExpirationDate()
                      } );
 
+        logger.info( "Connecting to {}...", uploadTicket.getFtpLocation().getHost() );
+
         ftpsClient.connect( uploadTicket.getFtpLocation().getHost() );
+
+        logger.info( "Connection extabilished!" );
 
         InputStream imageStream = null;
         try
@@ -135,6 +139,8 @@ public final class UploadImage
                                                     uploadTicket.getFtpLocation().getPath(),
                                                     uploadTicket.getFtpLocation().getHost() ) );
             }
+
+            logger.info( "Storing image..." );
 
             if ( ftpsClient.storeUniqueFile( imageStream ) )
             {

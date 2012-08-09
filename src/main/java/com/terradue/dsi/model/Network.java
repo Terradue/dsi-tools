@@ -38,24 +38,4 @@ public class Network
         this.id = id;
     }
 
-    public static class Builder
-    {
-
-        private String id;
-
-        public Builder setId( String id )
-        {
-            this.id = id;
-            return this;
-        }
-
-        public Network build()
-        {
-            Network network = new Network();
-            network.setId( id );
-            return network;
-        }
-
-    }
-
 }

@@ -154,7 +154,7 @@ abstract class BaseTool
 
         logger.info( "" );
         logger.info( "------------------------------------------------------------------------" );
-        logger.info( "DSI-ONE: {}", getProperty( "app.name" ) );
+        logger.info( "{}", getProperty( "app.name" ) );
         logger.info( "------------------------------------------------------------------------" );
         logger.info( "" );
 

@@ -60,7 +60,7 @@ public final class UploadImage
     @Parameter( names = { "--qualifier" }, description = "The DSI qualifier ID" )
     private String qualifierId;
 
-    @Parameter( names = { "--operating-system" }, description = "The DSI applicance Operating System (optional)" )
+    @Parameter( names = { "--operating-system" }, description = "The DSI applicance Operating System [OPTIONAL]" )
     private String applianceOS = "Linux";
 
     @Parameter( names = { "--appliance-id" }, description = "The DSI applicance OS ID" )

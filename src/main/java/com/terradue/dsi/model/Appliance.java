@@ -55,6 +55,9 @@ public final class Appliance
     @XmlElement
     private boolean deprecated;
 
+    @XmlElement
+    private String osId;
+
     public int getId()
     {
         return id;
@@ -143,6 +146,16 @@ public final class Appliance
     public void setDeprecated( boolean deprecated )
     {
         this.deprecated = deprecated;
+    }
+
+    public String getOsId()
+    {
+        return osId;
+    }
+
+    public void setOsId( String osId )
+    {
+        this.osId = osId;
     }
 
 }

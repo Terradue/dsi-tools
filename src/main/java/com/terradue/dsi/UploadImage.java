@@ -63,6 +63,9 @@ public final class UploadImage
     @Parameter( names = { "--operating-system" }, description = "The DSI applicance Operating System (optional)" )
     private String applianceOS = "Linux";
 
+    @Parameter( names = { "--appliance-id" }, description = "The DSI applicance OS ID" )
+    private String applianceOsId;
+
     @Parameter( names = { "--image" }, description = "Path to the image to upload", converter = FileConverter.class )
     private File image;
 
@@ -106,6 +109,7 @@ public final class UploadImage
                                                          .queryParam( "applianceName", applianceName )
                                                          .queryParam( "applianceDescription", applianceDescription )
                                                          .queryParam( "applianceOS", applianceOS )
+                                                         .queryParam( "applianceOsId", applianceOsId )
                                                          .build() ).get( UploadTicket.class );
 
         logger.info( "Uploading image: {} on {} (expires on {})...",

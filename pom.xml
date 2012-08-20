@@ -161,6 +161,10 @@
               <name>dsi-upload-image</name>
             </program>
             <program>
+              <mainClass>com.terradue.dsi.DescribeClouds</mainClass>
+              <name>dsi-describe-clouds</name>
+            </program>
+            <program>
               <mainClass>com.terradue.dsi.DescribeImages</mainClass>
               <name>dsi-describe-images</name>
             </program>

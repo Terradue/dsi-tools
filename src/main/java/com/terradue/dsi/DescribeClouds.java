@@ -42,34 +42,34 @@ public final class DescribeClouds
         exit( new DescribeClouds().execute( args ) );
     }
 
-    @Parameter( description = "filter the results by 'providerId' [OPTIONAL]" )
+    @Parameter( names = { "--providerId" }, description = "filter the results by 'providerId' [OPTIONAL]" )
     private String providerId;
 
-    @Parameter( description = "filter the results by 'locationId' [OPTIONAL]" )
+    @Parameter( names = { "--locationId" }, description = "filter the results by 'locationId' [OPTIONAL]" )
     private String locationId;
 
-    @Parameter( description = "filter the results by 'applianceId' [OPTIONAL]" )
+    @Parameter( names = { "--applianceId" }, description = "filter the results by 'applianceId' [OPTIONAL]" )
     private String applianceId;
 
-    @Parameter( description = "filter the results by 'qualityClassId' [OPTIONAL]" )
+    @Parameter( names = { "--qualityClassId" }, description = "filter the results by 'qualityClassId' [OPTIONAL]" )
     private String qualityClassId;
 
-    @Parameter( description = "filter the results by 'architecture' [OPTIONAL]" )
+    @Parameter( names = { "--architecture" }, description = "filter the results by 'architecture' [OPTIONAL]" )
     private String architecture;
 
-    @Parameter( description = "filter the results by 'vmType' [OPTIONAL]" )
+    @Parameter( names = { "--vmType" }, description = "filter the results by 'vmType' [OPTIONAL]" )
     private String vmType;
 
-    @Parameter( description = "filter the results by 'mem' [OPTIONAL]" )
+    @Parameter( names = { "--mem" }, description = "filter the results by 'mem' [OPTIONAL]" )
     private String mem;
 
-    @Parameter( description = "filter the results by 'cpu' [OPTIONAL]" )
+    @Parameter( names = { "--cpu" }, description = "filter the results by 'cpu' [OPTIONAL]" )
     private String cpu;
 
-    @Parameter( description = "filter the results by 'group' [OPTIONAL]" )
+    @Parameter( names = { "--group" }, description = "filter the results by 'group' [OPTIONAL]" )
     private String group;
 
-    @Parameter( description = "filter the results by 'perfomanceUnit' [OPTIONAL]" )
+    @Parameter( names = { "--perfomanceUnit" }, description = "filter the results by 'perfomanceUnit' [OPTIONAL]" )
     private String perfomanceUnit;
 
     @Inject

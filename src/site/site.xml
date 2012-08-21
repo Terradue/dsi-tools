@@ -37,10 +37,10 @@
 
   <body>
     <menu name="User guide">
-      <item name="Home" href="index.html" />
-      <item name="Download" href="download.html" />
-      <item name="Installation" href="installation.html" />
-      <item name="Usage" href="usage.html" />
+      <item name="Home" href="./index.html" />
+      <item name="Download" href="./download.html" />
+      <item name="Installation" href="./installation.html" />
+      <item name="Usage" href="./usage.html" />
     </menu>
 
     <menu ref="reports" inherit="bottom" />

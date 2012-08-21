@@ -182,7 +182,7 @@
             </program>
             <program>
               <mainClass>com.terradue.dsi.RegisterImage</mainClass>
-              <name>dsi-regster-image</name>
+              <name>dsi-register-image</name>
             </program>
             <program>
               <mainClass>com.terradue.dsi.StopInstances</mainClass>

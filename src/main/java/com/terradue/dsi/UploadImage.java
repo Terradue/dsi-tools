@@ -20,6 +20,7 @@ import static com.google.inject.Scopes.SINGLETON;
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
+import static org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE;
 import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 
 import java.io.File;
@@ -123,20 +124,22 @@ public final class UploadImage
         logger.info( "Connecting to {}...", uploadTicket.getFtpLocation().getHost() );
 
         ftpsClient.connect( uploadTicket.getFtpLocation().getHost() );
+        ftpsClient.enterLocalPassiveMode();
+        ftpsClient.setUseEPSVwithIPv4( true );
         ftpsClient.login( "anonymous", "" );
 
         logger.info( "Connection extabilished!" );
 
-        InputStream imageStream = null;
         try
         {
-            imageStream = new FileInputStream( image );
             int reply = ftpsClient.getReplyCode();
 
             if ( !isPositiveCompletion( reply ) )
             {
                 throw new RuntimeException( uploadTicket.getFtpLocation() + " refused connection" );
             }
+
+            logger.info( "Moving to working directory {}", uploadTicket.getFtpLocation().getPath() );
 
             if ( !ftpsClient.changeWorkingDirectory( uploadTicket.getFtpLocation().getPath() ) )
             {
@@ -145,27 +148,44 @@ public final class UploadImage
                                                     uploadTicket.getFtpLocation().getHost() ) );
             }
 
-            logger.info( "Storing image..." );
+            transferFile( image, BINARY_FILE_TYPE );
+        }
+        finally
+        {
+            logger.info( "Disconnecting from {} server...", uploadTicket.getFtpLocation().getHost() );
+            ftpsClient.disconnect();
+            logger.info( "Connnection closed, bye." );
+        }
+    }
 
-            if ( ftpsClient.storeUniqueFile( imageStream ) )
+    private void transferFile( File toBeTransfered, int fileType )
+        throws Exception
+    {
+        logger.info( "Storing {} file...", toBeTransfered.getName() );
+
+        ftpsClient.setFileType( fileType );
+
+        InputStream transferStream = null;
+        try
+        {
+            transferStream = new FileInputStream( toBeTransfered );
+
+            if ( ftpsClient.storeFile( image.getName(), transferStream ) )
             {
-                logger.info( "Image {} successfully stored", image );
+                logger.info( "File {} successfully stored", toBeTransfered.getName() );
             }
             else
             {
                 throw new RuntimeException( "Impossible to store the image, contact the DSI support team" );
             }
-
         }
         finally
         {
-            ftpsClient.disconnect();
-
-            if ( imageStream != null )
+            if ( transferStream != null )
             {
                 try
                 {
-                    imageStream.close();
+                    transferStream.close();
                 }
                 catch ( IOException e )
                 {

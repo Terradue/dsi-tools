@@ -23,3 +23,25 @@
 ~~
 
 How to use ${project.name}
+
+  <${project.name} ${project.version}> offers a list of command line tools to interact with Zimory/DSI REST Server:
+
+  * <<<dsi-upload-image>>>: Uploads an image on DSI Cloud;
+
+  * <<<dsi-stop-instances>>>: Terminate the selected running instance;
+
+  * <<<dsi-start-instances>>>: 
+
+  * <<<dsi-register-image>>>: 
+
+  * <<<dsi-reboot-instances>>>: 
+
+  * <<<dsi-describe-instances>>>: 
+
+  * <<<dsi-describe-images>>>: 
+
+  * <<<dsi-describe-clouds>>>: 
+
+  * <<<dsi-create-tags>>>: 
+
+  * <<<dsi-authorize>>>: 

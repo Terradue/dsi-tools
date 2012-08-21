@@ -87,3 +87,18 @@ How to install ${project.name}
         export JAVA_HOME=/usr/java/jdk1.6.0_33 and that $JAVA_HOME/bin is in your PATH environment variable.
 
   [[7]] Run one of any ${project.name} command, i.e. dsi-describe-images --version to verify that it is correctly installed.
+
+* Managing DSI certificates
+
+  Zimory usually provides certificates in <<<username.pfx>>> format, while ${project.name} supports OpenSSL formats only,
+  so in order to use ${project.name} certificates need to be converted.
+
+  We suggest you using the <<<openssl>>> command line tool to perform that conversion:
+
+------------------
+openssl pkcs12 -in username.pfx -clcerts -nokeys -out username.pem
+------------------
+
+  <NOTE> in order to avoid confusion, we strongly suggest to keep the original <<<pfx>>> password
+
+  Once obtained the <<<pem>>> certificate, just put it under <<</usr/local/terradue/${project.build.finalName}/certs>>>

@@ -1,36 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2012-02-01T11:21:23.180">
-<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java/com/terradue/dsione/AbstractCommand.java">
-<violation beginline="1" endline="369" begincolumn="1" endcolumn="2" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="com.terradue.dsione" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
+<pmd version="4.2.5" timestamp="2012-08-21T17:29:50.813">
+<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java/com/terradue/dsi/BaseTool.java">
+<violation beginline="1" endline="313" begincolumn="1" endcolumn="2" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="com.terradue.dsi" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
 Too many static imports may lead to messy code
 </violation>
-<violation beginline="131" endline="134" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.terradue.dsione" class="AbstractCommand" method="execute" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
-Avoid empty catch blocks
-</violation>
-<violation beginline="284" endline="287" begincolumn="13" endcolumn="13" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.terradue.dsione" class="AbstractCommand" method="printVersionInfo" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
-Avoid empty catch blocks
-</violation>
-<violation beginline="294" endline="297" begincolumn="17" endcolumn="17" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.terradue.dsione" class="AbstractCommand" method="printVersionInfo" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+<violation beginline="131" endline="134" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.terradue.dsi" class="BaseTool" method="execute" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java/com/terradue/dsione/Register.java">
-<violation beginline="33" endline="33" begincolumn="21" endcolumn="27" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.terradue.dsione" class="Register" variable="headers" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
-Avoid unused private fields such as 'headers'.
+<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java/com/terradue/dsi/UploadImage.java">
+<violation beginline="1" endline="198" begincolumn="1" endcolumn="2" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="com.terradue.dsi" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
+Too many static imports may lead to messy code
 </violation>
-</file>
-<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java/com/terradue/dsione/RunInstances.java">
-<violation beginline="33" endline="33" begincolumn="21" endcolumn="27" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.terradue.dsione" class="RunInstances" variable="headers" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
-Avoid unused private fields such as 'headers'.
-</violation>
-</file>
-<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java/com/terradue/dsione/TerminateInstances.java">
-<violation beginline="36" endline="36" begincolumn="26" endcolumn="32" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.terradue.dsione" class="TerminateInstances" variable="imageId" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
-Avoid unused private fields such as 'imageId'.
-</violation>
-</file>
-<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java/com/terradue/dsione/Upload.java">
-<violation beginline="139" endline="142" begincolumn="17" endcolumn="17" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.terradue.dsione" class="Upload" method="execute" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+<violation beginline="190" endline="193" begincolumn="17" endcolumn="17" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.terradue.dsi" class="UploadImage" method="transferFile" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
 </file>

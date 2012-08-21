@@ -2,20 +2,20 @@
 
 <rss version="0.91">
   <channel>
-    <title>DSI OpenNebula- Tools - Checkstyle report</title>
-    <link>http://terradue.github.com/dsione-tools/</link>
-    <description>DSI OpenNebula- Tools - Checkstyle report</description>
+    <title>DSITools - Checkstyle report</title>
+    <link>http://terradue.github.com/dsi-tools</link>
+    <description>DSITools - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2011 - 2012 Terradue s.r.l.</copyright>
     <item>
-      <title>File: 15,
-             Errors: 68,
-             Warnings: 102,
-             Infos: 10
+      <title>File: 32,
+             Errors: 152,
+             Warnings: 202,
+             Infos: 6
       </title>
-            <link>http://terradue.github.com/dsione-tools//checkstyle.html</link>
+            <link>http://terradue.github.com/dsi-tools/checkstyle.html</link>
       <description>
-        <p>Click <a href="http://terradue.github.com/dsione-tools//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="http://terradue.github.com/dsi-tools/checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -29,13 +29,41 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.DescribeImages.java">com/terradue/dsione/DescribeImages.java</a>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.CreateTags.java">com/terradue/dsi/CreateTags.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
                   2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.StartInstances.java">com/terradue/dsi/StartInstances.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.model.DeploymentCreation.java">com/terradue/dsi/model/DeploymentCreation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  66
                 </td>
                 <td>
                   6
@@ -43,133 +71,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.model.UploadTicket.java">com/terradue/dsione/model/UploadTicket.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  12
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.DescribeInstances.java">com/terradue/dsione/DescribeInstances.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.URIConverter.java">com/terradue/dsione/URIConverter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.TerminateInstances.java">com/terradue/dsione/TerminateInstances.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.Upload.java">com/terradue/dsione/Upload.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.Command.java">com/terradue/dsione/Command.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.Register.java">com/terradue/dsione/Register.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.LoggingStackAction.java">com/terradue/dsione/LoggingStackAction.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.XmlLoggingHandler.java">com/terradue/dsione/XmlLoggingHandler.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.model.Deployment.java">com/terradue/dsione/model/Deployment.java</a>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.model.Deployment.java">com/terradue/dsi/model/Deployment.java</a>
                 </td>
                 <td>
                   0
@@ -183,7 +85,77 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.RunInstances.java">com/terradue/dsione/RunInstances.java</a>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.UploadImage.java">com/terradue/dsi/UploadImage.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.BaseTool.java">com/terradue/dsi/BaseTool.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.model.package-info.java">com/terradue/dsi/model/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.KeyManagerProvider.java">com/terradue/dsi/wire/KeyManagerProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.DescribeImages.java">com/terradue/dsi/DescribeImages.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.Tool.java">com/terradue/dsi/Tool.java</a>
                 </td>
                 <td>
                   0
@@ -197,7 +169,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.Server.java">com/terradue/dsione/Server.java</a>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.Authorize.java">com/terradue/dsi/Authorize.java</a>
                 </td>
                 <td>
                   0
@@ -211,27 +183,293 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.AbstractCommand.java">com/terradue/dsione/AbstractCommand.java</a>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.model.Cloud.java">com/terradue/dsi/model/Cloud.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.model.Network.java">com/terradue/dsi/model/Network.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.package-info.java">com/terradue/dsi/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.DescribeInstances.java">com/terradue/dsi/DescribeInstances.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.model.Appliance.java">com/terradue/dsi/model/Appliance.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  40
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.URIConverter.java">com/terradue/dsi/URIConverter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.RestClientConfigProvider.java">com/terradue/dsi/wire/RestClientConfigProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.package-info.java">com/terradue/dsi/wire/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.RebootInstances.java">com/terradue/dsi/RebootInstances.java</a>
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   6
                 </td>
                 <td>
-                  10
+                  4
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://terradue.github.com/dsione-tools//checkstyle.html#com.terradue.dsione.model.Appliance.java">com/terradue/dsione/model/Appliance.java</a>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.model.UploadTicket.java">com/terradue/dsi/model/UploadTicket.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  36
+                  12
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.RegisterImage.java">com/terradue/dsi/RegisterImage.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.RestClientModule.java">com/terradue/dsi/wire/RestClientModule.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.model.UserDelegates.java">com/terradue/dsi/model/UserDelegates.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.StopInstances.java">com/terradue/dsi/StopInstances.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.model.AccountUser.java">com/terradue/dsi/model/AccountUser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.FTPSClientProvider.java">com/terradue/dsi/wire/FTPSClientProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.AbstractDescribeCommand.java">com/terradue/dsi/AbstractDescribeCommand.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.TrustManagersProvider.java">com/terradue/dsi/wire/TrustManagersProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.SSLContextProvider.java">com/terradue/dsi/wire/SSLContextProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.DescribeClouds.java">com/terradue/dsi/DescribeClouds.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.RestClientProvider.java">com/terradue/dsi/wire/RestClientProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   4

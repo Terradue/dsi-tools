@@ -20,7 +20,7 @@ import static java.lang.System.exit;
 
 import com.beust.jcommander.Parameters;
 
-@Parameters( commandDescription = "Adds a user to an account." )
+@Parameters( commandDescription = "Add a user to an account" )
 public final class Authorize
     extends BaseTool
 {

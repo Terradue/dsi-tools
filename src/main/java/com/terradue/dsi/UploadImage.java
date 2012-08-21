@@ -38,7 +38,7 @@ import com.beust.jcommander.converters.FileConverter;
 import com.terradue.dsi.model.UploadTicket;
 import com.terradue.dsi.wire.FTPSClientProvider;
 
-@Parameters( commandDescription = "Uploads an image on DSI Cloud" )
+@Parameters( commandDescription = "Upload an image on DSI Cloud" )
 public final class UploadImage
     extends BaseTool
 {

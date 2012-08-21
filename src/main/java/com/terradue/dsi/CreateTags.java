@@ -20,7 +20,7 @@ import static java.lang.System.exit;
 
 import com.beust.jcommander.Parameters;
 
-@Parameters( commandDescription = "Creates an instance snapshot." )
+@Parameters( commandDescription = "Creates an instance snapshot" )
 public final class CreateTags
     extends BaseTool
 {

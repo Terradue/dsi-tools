@@ -32,7 +32,7 @@ import com.google.inject.name.Named;
 import com.sun.jersey.api.client.GenericType;
 import com.terradue.dsi.model.Cloud;
 
-@Parameters( commandDescription = "List and describe DSI Cloud(s)." )
+@Parameters( commandDescription = "List and describe DSI Cloud(s)" )
 public final class DescribeClouds
     extends AbstractDescribeCommand
 {

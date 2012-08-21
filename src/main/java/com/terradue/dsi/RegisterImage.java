@@ -27,7 +27,7 @@ import com.beust.jcommander.Parameters;
 import com.google.inject.name.Named;
 import com.terradue.dsi.model.DeploymentCreation;
 
-@Parameters( commandDescription = "Register a previously uploaded image for use." )
+@Parameters( commandDescription = "Register a previously uploaded image to be run." )
 public final class RegisterImage
     extends BaseTool
 {

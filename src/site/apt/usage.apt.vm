@@ -26,22 +26,46 @@ How to use ${project.name}
 
   <${project.name} ${project.version}> offers a list of command line tools to interact with Zimory/DSI REST Server:
 
-  * <<<dsi-upload-image>>>: Uploads an image on DSI Cloud;
+  * <<<dsi-upload-image>>>: Upload an image on DSI Cloud;
 
-  * <<<dsi-stop-instances>>>: Terminate the selected running instance;
+  * <<<dsi-stop-instances>>>: Terminate the selected running instance(s);
 
-  * <<<dsi-start-instances>>>: 
+  * <<<dsi-start-instances>>>: Run an instance of a particular image(s);
 
-  * <<<dsi-register-image>>>: 
+  * <<<dsi-register-image>>>: Register a previously uploaded image to be run;
 
-  * <<<dsi-reboot-instances>>>: 
+  * <<<dsi-reboot-instances>>>: Reboot an instance of specified image(s);
 
-  * <<<dsi-describe-instances>>>: 
+  * <<<dsi-describe-instances>>>: List and describe running instances;
 
-  * <<<dsi-describe-images>>>: 
+  * <<<dsi-describe-images>>>: List and describe previously uploaded images;
 
-  * <<<dsi-describe-clouds>>>: 
+  * <<<dsi-describe-clouds>>>: List and describe DSI Cloud(s);
 
-  * <<<dsi-create-tags>>>: 
+  * <<<dsi-create-tags>>>: Creates an instance snapshot;
 
-  * <<<dsi-authorize>>>: 
+  * <<<dsi-authorize>>>: Add a user to an account.
+
+  The <Windows> version of that commands are named exactly the same, but with <<<.bat>>> extension.
+
+* Common parameters
+
+  By running whatever <<<dsi->>> command with <<<-h>>> (or <<<--help>>>) option, it shows all the available options/flags
+  can be turned on, there are some anyway shared between them:
+
+-------------------
+    -X, --debug      Produce execution debug output.
+                     Default: false
+    -H, --host       The DSI web service URI.
+                     Default: testcloud.t-systems.com
+    -p, --password   The DSI account password.
+    -u, --username   The DSI account username.
+    -v, --version    Display version information.
+                     Default: false
+-------------------
+
+  <NOTE 1> with <<<-u>>> or <<<--username>>> it is intended the username part of the certificate
+  (see {{{./installation.html}Installation}} page).
+
+  <NOTE 2> with <<<-p>>> or <<<--password>>> it is intended the the certificate password
+  (see {{{./installation.html}Installation}} page).

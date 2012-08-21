@@ -37,7 +37,7 @@ public final class FTPSClientProvider
     @Override
     public FTPSClient get()
     {
-        return new FTPSClient( true, sslContext );
+        return new FTPSClient( false, sslContext );
     }
 
 }

@@ -123,6 +123,7 @@ public final class UploadImage
         logger.info( "Connecting to {}...", uploadTicket.getFtpLocation().getHost() );
 
         ftpsClient.connect( uploadTicket.getFtpLocation().getHost() );
+        ftpsClient.login( "anonymous", "" );
 
         logger.info( "Connection extabilished!" );
 

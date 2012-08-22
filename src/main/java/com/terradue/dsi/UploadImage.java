@@ -16,6 +16,7 @@ package com.terradue.dsi;
  *  limitations under the License.
  */
 
+import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 import static com.google.inject.Scopes.SINGLETON;
 import static java.lang.String.format;
 import static java.lang.System.exit;
@@ -27,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.StringTokenizer;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -147,9 +149,19 @@ public final class UploadImage
 
         ftpsClient.connect( uploadTicket.getFtpLocation().getHost() );
 
+        if ( isPositiveCompletion( ftpsClient.getReplyCode() ) )
+        {
+            logger.info( "Connection extabilished! Logging in..." );
+        }
+
         try
         {
-            if ( !ftpsClient.login( "anonymous", "" ) )
+            if ( ftpsClient.login( "anonymous", "" ) )
+            {
+                logger.info( "Successfully logged in! Moving to working directory {}",
+                             uploadTicket.getFtpLocation().getPath() );
+            }
+            else
             {
                 throw new RuntimeException( format( "Impossible to access login to %s, anonymous user not allowed",
                                                     uploadTicket.getFtpLocation().getHost() ) );
@@ -158,15 +170,17 @@ public final class UploadImage
             ftpsClient.enterLocalPassiveMode();
             // ftpsClient.setUseEPSVwithIPv4( true );
 
-            logger.info( "Connection extabilished!" );
-
-            logger.info( "Moving to working directory {}", uploadTicket.getFtpLocation().getPath() );
-
-            if ( !ftpsClient.changeWorkingDirectory( uploadTicket.getFtpLocation().getPath() ) )
+            StringTokenizer tokenizer = new StringTokenizer( uploadTicket.getFtpLocation().getPath(), "/" );
+            while ( tokenizer.hasMoreTokens() )
             {
-                throw new RuntimeException( format( "Impossible to access to %s directory on %s, contact the DSI OPS",
-                                                    uploadTicket.getFtpLocation().getPath(),
-                                                    uploadTicket.getFtpLocation().getHost() ) );
+                String currentDir = tokenizer.nextToken();
+
+                if ( !ftpsClient.changeWorkingDirectory( currentDir ) )
+                {
+                    throw new RuntimeException( format( "Impossible to access to %s directory on %s, contact the DSI OPS",
+                                                        uploadTicket.getFtpLocation().getPath(),
+                                                        uploadTicket.getFtpLocation().getHost() ) );
+                }
             }
 
             transferFile( image, ASCII_FILE_TYPE );

@@ -65,7 +65,7 @@ abstract class BaseTool
     @Parameter( names = { "-u", "--username" }, description = "The DSI account username." )
     private String username;
 
-    @Parameter( names = { "-p", "--password" }, description = "The DSI account password.", password = true )
+    @Parameter( names = { "-p", "--password" }, description = "The DSI account password." )
     private String password;
 
     private File dsiCertificate;

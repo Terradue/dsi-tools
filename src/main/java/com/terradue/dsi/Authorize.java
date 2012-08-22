@@ -18,7 +18,15 @@ package com.terradue.dsi;
 
 import static java.lang.System.exit;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.sun.jersey.api.client.UniformInterfaceException;
 
 @Parameters( commandDescription = "Add a user to an account" )
 public final class Authorize
@@ -30,11 +38,41 @@ public final class Authorize
         exit( new Authorize().execute( args ) );
     }
 
+    @Parameter( description = "The user(s) account identificator(s)" )
+    protected List<String> ids = new LinkedList<String>();
+
+    @Inject
+    @Override
+    public void setServiceUrl( @Named( "service.accounts" ) String serviceUrl )
+    {
+        super.setServiceUrl( serviceUrl );
+    }
+
     @Override
     public void execute()
         throws Exception
     {
-        // TODO
+        for ( String id : ids )
+        {
+            logger.info( "Authorizing user {}", id );
+
+            try
+            {
+                restClient.resource( new StringBuilder( serviceUrl )
+                                    .append( '/' )
+                                    .append( id )
+                                    .append( "/accountUsers" )
+                                    .toString() )
+                          .post();
+
+                logger.info( "User {} successfully authorized", id );
+            }
+            catch ( UniformInterfaceException e )
+            {
+                logger.warn( "Impossible to autorize user {}: {}",
+                             id, e.getResponse().getClientResponseStatus().getReasonPhrase() );
+            }
+        }
     }
 
 }

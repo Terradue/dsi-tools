@@ -20,6 +20,7 @@ import static com.google.inject.Scopes.SINGLETON;
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
+import static org.apache.commons.net.ftp.FTP.ASCII_FILE_TYPE;
 import static org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE;
 
 import java.io.File;
@@ -66,7 +67,11 @@ public final class UploadImage
     @Parameter( names = { "--appliance-id" }, description = "The DSI applicance OS ID" )
     private String applianceOsId;
 
-    @Parameter( names = { "--image" }, description = "Path to the image to upload", converter = FileConverter.class )
+    @Parameter(
+        names = { "--image" },
+        description = "Path of the image descriptor (*.vmx) to upload (*.vmdk will be automatically detected)",
+        converter = FileConverter.class
+    )
     private File image;
 
     @Inject
@@ -99,6 +104,24 @@ public final class UploadImage
         {
             throw new IllegalArgumentException( format( "File %s must be an existing file (directories not supported)",
                                                         image ) );
+        }
+
+        // extension checker
+        int extSeparator = image.getName().lastIndexOf( '.' );
+        String extension = image.getName().substring( extSeparator + 1 );
+
+        if ( !"vmx".equalsIgnoreCase( extension ) )
+        {
+            throw new IllegalArgumentException( format( "File %s is not a valid VMware Configuration File (.vmx)",
+                                                        image ) );
+        }
+
+        String imageName = image.getName().substring( 0, extSeparator );
+        File physicalImage = new File( image.getParent(), format( "%s.vmdk", imageName ) );
+        if ( !physicalImage.exists() )
+        {
+            throw new IllegalArgumentException( format( "File %s not found!",
+                                                        physicalImage ) );
         }
 
         logger.info( "Requesting FTP location where uploading images..." );
@@ -146,7 +169,8 @@ public final class UploadImage
                                                     uploadTicket.getFtpLocation().getHost() ) );
             }
 
-            transferFile( image, BINARY_FILE_TYPE );
+            transferFile( image, ASCII_FILE_TYPE );
+            transferFile( physicalImage, BINARY_FILE_TYPE );
         }
         finally
         {

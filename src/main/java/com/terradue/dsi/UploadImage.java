@@ -16,19 +16,18 @@ package com.terradue.dsi;
  *  limitations under the License.
  */
 
-import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 import static com.google.inject.Scopes.SINGLETON;
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
 import static org.apache.commons.net.ftp.FTP.ASCII_FILE_TYPE;
 import static org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE;
+import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.StringTokenizer;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -170,17 +169,11 @@ public final class UploadImage
             ftpsClient.enterLocalPassiveMode();
             // ftpsClient.setUseEPSVwithIPv4( true );
 
-            StringTokenizer tokenizer = new StringTokenizer( uploadTicket.getFtpLocation().getPath(), "/" );
-            while ( tokenizer.hasMoreTokens() )
+            if ( !ftpsClient.changeWorkingDirectory( uploadTicket.getFtpLocation().getPath() ) )
             {
-                String currentDir = tokenizer.nextToken();
-
-                if ( !ftpsClient.changeWorkingDirectory( currentDir ) )
-                {
-                    throw new RuntimeException( format( "Impossible to access to %s directory on %s, contact the DSI OPS",
-                                                        uploadTicket.getFtpLocation().getPath(),
-                                                        uploadTicket.getFtpLocation().getHost() ) );
-                }
+                throw new RuntimeException( format( "Impossible to access to %s directory on %s, contact the DSI OPS",
+                                                    uploadTicket.getFtpLocation().getPath(),
+                                                    uploadTicket.getFtpLocation().getHost() ) );
             }
 
             transferFile( image, ASCII_FILE_TYPE );

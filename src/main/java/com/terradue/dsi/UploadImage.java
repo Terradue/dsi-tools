@@ -152,6 +152,11 @@ public final class UploadImage
         {
             logger.info( "Connection extabilished! Logging in..." );
         }
+        else
+        {
+            throw new RuntimeException( format( "Impossible to extabilish an FTP connection with %s server, contact the DSI OPS",
+                                                uploadTicket.getFtpLocation().getHost() ) );
+        }
 
         try
         {
@@ -166,8 +171,10 @@ public final class UploadImage
                                                     uploadTicket.getFtpLocation().getHost() ) );
             }
 
+            sendFtpCommand( "PBSZ 0" );
+            sendFtpCommand( "PROT P" );
+
             ftpsClient.enterLocalPassiveMode();
-            // ftpsClient.setUseEPSVwithIPv4( true );
 
             if ( !ftpsClient.changeWorkingDirectory( uploadTicket.getFtpLocation().getPath() ) )
             {
@@ -182,9 +189,28 @@ public final class UploadImage
         finally
         {
             logger.info( "Disconnecting from {} server...", uploadTicket.getFtpLocation().getHost() );
+
             ftpsClient.logout();
-            ftpsClient.disconnect();
+
+            if ( ftpsClient.isConnected() )
+            {
+                ftpsClient.disconnect();
+            }
+
             logger.info( "Connnection closed, bye." );
+        }
+    }
+
+    private void sendFtpCommand( String command )
+        throws Exception
+    {
+        if ( isPositiveCompletion( ftpsClient.sendCommand( command ) ) )
+        {
+            logger.info( "Payload successfully forced to be encrypted" );
+        }
+        else
+        {
+            throw new RuntimeException( "Impossible to force the Payload to be encrypted, contact the DSI OPS" );
         }
     }
 

@@ -171,8 +171,12 @@ public final class UploadImage
                                                     uploadTicket.getFtpLocation().getHost() ) );
             }
 
-            sendFtpCommand( "PBSZ 0" );
-            sendFtpCommand( "PROT P" );
+            sendFtpCommand( "PBSZ 0",
+                            "Protection buffer size successfully set to 0",
+                            "Impossible to set the protection buffer size to 0" );
+            sendFtpCommand( "PROT P",
+                            "Payload successfully forced to be encrypted",
+                            "Impossible to force the Payload to be encrypted, contact the DSI OPS" );
 
             ftpsClient.enterLocalPassiveMode();
 
@@ -201,16 +205,16 @@ public final class UploadImage
         }
     }
 
-    private void sendFtpCommand( String command )
+    private void sendFtpCommand( String command, String successfulMessage, String errorMessage )
         throws Exception
     {
         if ( isPositiveCompletion( ftpsClient.sendCommand( command ) ) )
         {
-            logger.info( "Payload successfully forced to be encrypted" );
+            logger.info( successfulMessage );
         }
         else
         {
-            throw new RuntimeException( "Impossible to force the Payload to be encrypted, contact the DSI OPS" );
+            throw new RuntimeException( errorMessage );
         }
     }
 

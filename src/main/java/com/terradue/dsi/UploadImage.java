@@ -175,8 +175,6 @@ public final class UploadImage
         {
             logger.info( "Disconnecting from {} server...", uploadTicket.getFtpLocation().getHost() );
 
-            ftpsClient.logout();
-
             if ( ftpsClient.isConnected() )
             {
                 ftpsClient.disconnect( false );

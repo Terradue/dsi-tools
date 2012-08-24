@@ -16,14 +16,14 @@ package com.terradue.dsi.wire;
  *  limitations under the License.
  */
 
+import it.sauronsoftware.ftp4j.FTPClient;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.net.ssl.SSLContext;
 
-import org.apache.commons.net.ftp.FTPSClient;
-
-public final class FTPSClientProvider
-    implements Provider<FTPSClient>
+public final class FTPClientProvider
+    implements Provider<FTPClient>
 {
 
     @Inject
@@ -35,9 +35,11 @@ public final class FTPSClientProvider
     }
 
     @Override
-    public FTPSClient get()
+    public FTPClient get()
     {
-        return new FTPSClient( false, sslContext );
+        FTPClient ftpClient = new FTPClient();
+        ftpClient.setSSLSocketFactory( sslContext.getSocketFactory() );
+        return ftpClient;
     }
 
 }

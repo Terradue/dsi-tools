@@ -124,9 +124,9 @@
     </dependency>
 
     <dependency>
-      <groupId>commons-net</groupId>
-      <artifactId>commons-net</artifactId>
-      <version>3.1</version>
+      <groupId>it.sauronsoftware</groupId>
+      <artifactId>ftp4j</artifactId>
+      <version>1.7.2</version>
     </dependency>
   </dependencies>
 

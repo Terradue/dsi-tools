@@ -17,28 +17,24 @@ package com.terradue.dsi;
  */
 
 import static com.google.inject.Scopes.SINGLETON;
+import static it.sauronsoftware.ftp4j.FTPClient.*;
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
-import static org.apache.commons.net.ftp.FTP.ASCII_FILE_TYPE;
-import static org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE;
-import static org.apache.commons.net.ftp.FTPReply.isPositiveCompletion;
+import it.sauronsoftware.ftp4j.FTPClient;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.apache.commons.net.ftp.FTPSClient;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
 import com.terradue.dsi.model.UploadTicket;
-import com.terradue.dsi.wire.FTPSClientProvider;
+import com.terradue.dsi.wire.FTPClientProvider;
 
 @Parameters( commandDescription = "Upload an image on DSI Cloud" )
 public final class UploadImage
@@ -76,7 +72,9 @@ public final class UploadImage
     private File image;
 
     @Inject
-    private FTPSClient ftpsClient;
+    private FTPClient ftpsClient;
+
+    private final Map<String, Integer> ftpProtocolMappings = new HashMap<String, Integer>();
 
     @Inject
     @Override
@@ -85,16 +83,23 @@ public final class UploadImage
         super.setServiceUrl( serviceUrl );
     }
 
-    public void setFtpsClient( FTPSClient ftpsClient )
+    public void setFtpsClient( FTPClient ftpsClient )
     {
         this.ftpsClient = ftpsClient;
+    }
+
+    public UploadImage()
+    {
+        ftpProtocolMappings.put( "ftp", SECURITY_FTP );
+        ftpProtocolMappings.put( "ftps", SECURITY_FTPS );
+        ftpProtocolMappings.put( "ftpes", SECURITY_FTPES );
     }
 
     @Override
     protected void bindConfigurations()
     {
         super.bindConfigurations();
-        bind( FTPSClient.class ).toProvider( FTPSClientProvider.class ).in( SINGLETON );
+        bind( FTPClient.class ).toProvider( FTPClientProvider.class ).in( SINGLETON );
     }
 
     @Override
@@ -146,49 +151,22 @@ public final class UploadImage
 
         logger.info( "Connecting to {}...", uploadTicket.getFtpLocation().getHost() );
 
-        ftpsClient.connect( uploadTicket.getFtpLocation().getHost() );
+        Integer securityLevel = ftpProtocolMappings.get( uploadTicket.getFtpLocation().getScheme().toLowerCase() );
+        ftpsClient.setSecurity( securityLevel.intValue() );
 
-        if ( isPositiveCompletion( ftpsClient.getReplyCode() ) )
-        {
-            logger.info( "Connection extabilished! Logging in..." );
-        }
-        else
-        {
-            throw new RuntimeException( format( "Impossible to extabilish an FTP connection with %s server, contact the DSI OPS",
-                                                uploadTicket.getFtpLocation().getHost() ) );
-        }
+        ftpsClient.connect( uploadTicket.getFtpLocation().getHost() );
+        ftpsClient.setPassive( true );
 
         try
         {
-            if ( ftpsClient.login( "anonymous", "" ) )
-            {
-                logger.info( "Successfully logged in! Moving to working directory {}",
-                             uploadTicket.getFtpLocation().getPath() );
-            }
-            else
-            {
-                throw new RuntimeException( format( "Impossible to access login to %s, anonymous user not allowed",
-                                                    uploadTicket.getFtpLocation().getHost() ) );
-            }
+            ftpsClient.login( "anonymous", "" );
+            logger.info( "Successfully logged in! Moving to working directory {}",
+                         uploadTicket.getFtpLocation().getPath() );
 
-            sendFtpCommand( "PBSZ 0",
-                            "Protection buffer size successfully set to 0",
-                            "Impossible to set the protection buffer size to 0" );
-            sendFtpCommand( "PROT P",
-                            "Payload successfully forced to be encrypted",
-                            "Impossible to force the Payload to be encrypted, contact the DSI OPS" );
+            ftpsClient.changeDirectory( uploadTicket.getFtpLocation().getPath() );
 
-            ftpsClient.enterLocalPassiveMode();
-
-            if ( !ftpsClient.changeWorkingDirectory( uploadTicket.getFtpLocation().getPath() ) )
-            {
-                throw new RuntimeException( format( "Impossible to access to %s directory on %s, contact the DSI OPS",
-                                                    uploadTicket.getFtpLocation().getPath(),
-                                                    uploadTicket.getFtpLocation().getHost() ) );
-            }
-
-            transferFile( image, ASCII_FILE_TYPE );
-            transferFile( physicalImage, BINARY_FILE_TYPE );
+            upload( image, TYPE_TEXTUAL );
+            upload( physicalImage, TYPE_BINARY );
         }
         finally
         {
@@ -198,62 +176,18 @@ public final class UploadImage
 
             if ( ftpsClient.isConnected() )
             {
-                ftpsClient.disconnect();
+                ftpsClient.disconnect( true );
             }
 
             logger.info( "Connnection closed, bye." );
         }
     }
 
-    private void sendFtpCommand( String command, String successfulMessage, String errorMessage )
+    private void upload( File file, int type )
         throws Exception
     {
-        if ( isPositiveCompletion( ftpsClient.sendCommand( command ) ) )
-        {
-            logger.info( successfulMessage );
-        }
-        else
-        {
-            throw new RuntimeException( errorMessage );
-        }
-    }
-
-    private void transferFile( File toBeTransfered, int fileType )
-        throws Exception
-    {
-        logger.info( "Storing {} file...", toBeTransfered.getName() );
-
-        ftpsClient.setFileType( fileType );
-
-        InputStream transferStream = null;
-        try
-        {
-            transferStream = new FileInputStream( toBeTransfered );
-
-            if ( ftpsClient.storeFile( toBeTransfered.getName(), transferStream ) )
-            {
-                logger.info( "File {} successfully stored", toBeTransfered.getName() );
-            }
-            else
-            {
-                throw new RuntimeException( format( "Impossible to store %s file, contact the DSI support team",
-                                                    toBeTransfered.getName() ) );
-            }
-        }
-        finally
-        {
-            if ( transferStream != null )
-            {
-                try
-                {
-                    transferStream.close();
-                }
-                catch ( IOException e )
-                {
-                    // close quietly
-                }
-            }
-        }
+        ftpsClient.setType( type );
+        ftpsClient.upload( file );
     }
 
 }

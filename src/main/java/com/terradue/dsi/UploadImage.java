@@ -199,6 +199,8 @@ public final class UploadImage
 
         private final File toBeUploaded;
 
+        private long transferred = 0;
+
         public UploadTransferListener( Logger logger, File toBeUploaded )
         {
             this.logger = logger;
@@ -232,7 +234,8 @@ public final class UploadImage
         @Override
         public void transferred( int transferred )
         {
-            System.out.printf( "%s%%\r", ( ( transferred * 100 ) / toBeUploaded.length() ) );
+            this.transferred += transferred;
+            System.out.printf( "%s%%\r", ( ( this.transferred * 100 ) / toBeUploaded.length() ) );
         }
 
     }

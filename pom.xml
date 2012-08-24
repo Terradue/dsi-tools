@@ -24,7 +24,7 @@
   </parent>
 
   <artifactId>dsi-tools</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1</version>
 
   <name>DSITools</name>
   <description>A set of Command Line Tools to interact with Zimory/T-Systems cloud REST server</description>

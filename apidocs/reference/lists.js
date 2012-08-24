@@ -23,7 +23,7 @@ var DATA = [
       { id:21, label:"com.terradue.dsi.model.UploadTicket", link:"com/terradue/dsi/model/UploadTicket.html", type:"class" },
       { id:22, label:"com.terradue.dsi.model.UserDelegates", link:"com/terradue/dsi/model/UserDelegates.html", type:"class" },
       { id:23, label:"com.terradue.dsi.wire", link:"com/terradue/dsi/wire/package-summary.html", type:"package" },
-      { id:24, label:"com.terradue.dsi.wire.FTPSClientProvider", link:"com/terradue/dsi/wire/FTPSClientProvider.html", type:"class" },
+      { id:24, label:"com.terradue.dsi.wire.FTPClientProvider", link:"com/terradue/dsi/wire/FTPClientProvider.html", type:"class" },
       { id:25, label:"com.terradue.dsi.wire.KeyManagerProvider", link:"com/terradue/dsi/wire/KeyManagerProvider.html", type:"class" },
       { id:26, label:"com.terradue.dsi.wire.RestClientConfigProvider", link:"com/terradue/dsi/wire/RestClientConfigProvider.html", type:"class" },
       { id:27, label:"com.terradue.dsi.wire.RestClientModule", link:"com/terradue/dsi/wire/RestClientModule.html", type:"class" },

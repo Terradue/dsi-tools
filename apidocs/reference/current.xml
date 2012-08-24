@@ -80,19 +80,16 @@
 <parameter name="restClient" type="com.sun.jersey.api.client.Client">
 </parameter>
 </method>
-<method name="setServiceUrl"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
+<field name="ids"
+ type="java.util.List"
+ transient="false"
+ volatile="false"
  static="false"
  final="false"
  deprecated="not deprecated"
- visibility="public"
+ visibility="protected"
 >
-<parameter name="serviceUrl" type="java.lang.String">
-</parameter>
-</method>
+</field>
 <field name="logger"
  type="org.slf4j.Logger"
  transient="false"
@@ -213,19 +210,16 @@
 <parameter name="restClient" type="com.sun.jersey.api.client.Client">
 </parameter>
 </method>
-<method name="setServiceUrl"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
+<field name="ids"
+ type="java.util.List"
+ transient="false"
+ volatile="false"
  static="false"
  final="false"
  deprecated="not deprecated"
- visibility="public"
+ visibility="protected"
 >
-<parameter name="serviceUrl" type="java.lang.String">
-</parameter>
-</method>
+</field>
 <field name="logger"
  type="org.slf4j.Logger"
  transient="false"
@@ -1481,7 +1475,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="ftpsClient" type="org.apache.commons.net.ftp.FTPSClient">
+<parameter name="ftpsClient" type="it.sauronsoftware.ftp4j.FTPClient">
 </parameter>
 </method>
 <method name="setRestClient"
@@ -3079,7 +3073,7 @@
 </package>
 <package name="com.terradue.dsi.wire"
 >
-<class name="FTPSClientProvider"
+<class name="FTPClientProvider"
  extends="java.lang.Object"
  abstract="false"
  static="false"
@@ -3089,8 +3083,8 @@
 >
 <implements name="javax.inject.Provider">
 </implements>
-<constructor name="FTPSClientProvider"
- type="com.terradue.dsi.wire.FTPSClientProvider"
+<constructor name="FTPClientProvider"
+ type="com.terradue.dsi.wire.FTPClientProvider"
  static="false"
  final="false"
  deprecated="not deprecated"
@@ -3098,7 +3092,7 @@
 >
 </constructor>
 <method name="get"
- return="org.apache.commons.net.ftp.FTPSClient"
+ return="it.sauronsoftware.ftp4j.FTPClient"
  abstract="false"
  native="false"
  synchronized="false"

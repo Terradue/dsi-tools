@@ -9,9 +9,9 @@
     <copyright>&#169;2011 - 2012 Terradue s.r.l.</copyright>
     <item>
       <title>File: 32,
-             Errors: 152,
-             Warnings: 202,
-             Infos: 6
+             Errors: 154,
+             Warnings: 206,
+             Infos: 10
       </title>
             <link>http://terradue.github.com/dsi-tools/checkstyle.html</link>
       <description>
@@ -32,7 +32,7 @@
                   <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.CreateTags.java">com/terradue/dsi/CreateTags.java</a>
                 </td>
                 <td>
-                  0
+                  2
                 </td>
                 <td>
                   2
@@ -91,10 +91,10 @@
                   0
                 </td>
                 <td>
-                  4
+                  8
                 </td>
                 <td>
-                  4
+                  6
                 </td>
               </tr>
                           <tr>
@@ -172,7 +172,7 @@
                   <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.Authorize.java">com/terradue/dsi/Authorize.java</a>
                 </td>
                 <td>
-                  0
+                  2
                 </td>
                 <td>
                   2
@@ -190,6 +190,20 @@
                 </td>
                 <td>
                   0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.FTPClientProvider.java">com/terradue/dsi/wire/FTPClientProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   4
@@ -386,20 +400,6 @@
                 </td>
                 <td>
                   4
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://terradue.github.com/dsi-tools/checkstyle.html#com.terradue.dsi.wire.FTPSClientProvider.java">com/terradue/dsi/wire/FTPSClientProvider.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
                 </td>
                 <td>
                   4

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2012-08-21T17:29:50.813">
-<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java/com/terradue/dsi/BaseTool.java">
+<pmd version="4.2.5" timestamp="2012-08-24T12:15:56.525">
+<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/target/checkout/src/main/java/com/terradue/dsi/BaseTool.java">
 <violation beginline="1" endline="313" begincolumn="1" endcolumn="2" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="com.terradue.dsi" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
 Too many static imports may lead to messy code
 </violation>
@@ -8,12 +8,9 @@ Too many static imports may lead to messy code
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/src/main/java/com/terradue/dsi/UploadImage.java">
-<violation beginline="1" endline="198" begincolumn="1" endcolumn="2" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="com.terradue.dsi" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
+<file name="/Users/simonetripodi/Documents/workspace/dsione-tools/target/checkout/src/main/java/com/terradue/dsi/UploadImage.java">
+<violation beginline="1" endline="243" begincolumn="1" endcolumn="2" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="com.terradue.dsi" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
 Too many static imports may lead to messy code
-</violation>
-<violation beginline="190" endline="193" begincolumn="17" endcolumn="17" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.terradue.dsi" class="UploadImage" method="transferFile" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
-Avoid empty catch blocks
 </violation>
 </file>
 </pmd>

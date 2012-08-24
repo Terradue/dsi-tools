@@ -22,6 +22,7 @@ import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
 import it.sauronsoftware.ftp4j.FTPClient;
+import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
 import java.io.File;
 import java.util.HashMap;
@@ -29,6 +30,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
@@ -176,7 +179,7 @@ public final class UploadImage
 
             if ( ftpsClient.isConnected() )
             {
-                ftpsClient.disconnect( true );
+                ftpsClient.disconnect( false );
             }
 
             logger.info( "Connnection closed, bye." );
@@ -187,7 +190,53 @@ public final class UploadImage
         throws Exception
     {
         ftpsClient.setType( type );
-        ftpsClient.upload( file );
+        ftpsClient.upload( file, new UploadTransferListener( logger, file ) );
+    }
+
+    private static final class UploadTransferListener
+        implements FTPDataTransferListener
+    {
+
+        private final Logger logger;
+
+        private final File toBeUploaded;
+
+        public UploadTransferListener( Logger logger, File toBeUploaded )
+        {
+            this.logger = logger;
+            this.toBeUploaded = toBeUploaded;
+        }
+
+        @Override
+        public void aborted()
+        {
+            logger.warn( "File {} transfer aborted unexpectetly, contact the DSI OPS", toBeUploaded );
+        }
+
+        @Override
+        public void completed()
+        {
+            logger.info( "File {} trasfer complete", toBeUploaded );
+        }
+
+        @Override
+        public void failed()
+        {
+            logger.error( "File {} transfer corrupted, contact the DSI OPS", toBeUploaded );
+        }
+
+        @Override
+        public void started()
+        {
+            logger.info( "Started trasferring file {}...", toBeUploaded );
+        }
+
+        @Override
+        public void transferred( int transferred )
+        {
+            System.out.printf( "%s%%\r", ( ( transferred * 100 ) / toBeUploaded.length() ) );
+        }
+
     }
 
 }

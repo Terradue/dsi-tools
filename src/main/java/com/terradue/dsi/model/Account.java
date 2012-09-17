@@ -20,11 +20,13 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @since 0.2
  */
 @XmlAccessorType( FIELD )
+@XmlRootElement( name = "account" )
 public final class Account
 {
 

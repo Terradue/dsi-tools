@@ -95,7 +95,7 @@ public final class RegisterImage
         throws Exception
     {
         logger.info( "Registering appliance {} ...", applianceId );
-        restClient.resource( serviceUrl ).post( new DeploymentCreation.Builder()
+        DeploymentCreation deploymentCreation = new DeploymentCreation.Builder()
                                                 .withApplianceId( applianceId )
                                                 .withDeploymentClusterId( deploymentClusterId )
                                                 .withDescription( description )
@@ -111,7 +111,8 @@ public final class RegisterImage
                                                 .withUseExternalIp( useExternalIp )
                                                 .withUserDelegates( userDelegates )
                                                 .withVirtualCPUs( virtualCPUs )
-                                                .build() );
+                                                .build();
+        restClient.resource( serviceUrl ).post( deploymentCreation );
     }
 
 }

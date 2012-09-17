@@ -1,10 +1,5 @@
 package com.terradue.dsi.model;
 
-import static javax.xml.bind.annotation.XmlAccessType.FIELD;
-
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-
 /*
  *  Copyright 2012 Terradue srl
  *
@@ -20,6 +15,11 @@ import javax.xml.bind.annotation.XmlElement;
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType( FIELD )
 public final class AccountUser

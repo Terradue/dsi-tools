@@ -18,6 +18,7 @@ package com.terradue.dsi;
 
 import static java.lang.System.exit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -68,7 +69,7 @@ public final class RegisterImage
     private String networkId;
 
     @Parameter( names = { "--users" }, description = "The users ID allowed to use the deployment" )
-    private List<String> userDelegates;
+    private List<String> userDelegates = new ArrayList<String>();
 
     @Parameter( names = { "--end" }, description = "The end date (in yyyy-MM-ddThh:mm:ssZ format)" )
     private String endDate;

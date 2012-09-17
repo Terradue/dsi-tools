@@ -20,13 +20,27 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType( FIELD )
+@XmlRootElement( name = "network" )
 public class Network
 {
 
     @XmlElement( name= "networkId" )
     private String id;
+
+    /**
+     * @since 0.2
+     */
+    @XmlElement( name= "networkName" )
+    private String name;
+
+    /**
+     * @since 0.2
+     */
+    @XmlElement
+    private Account account;
 
     public String getId()
     {
@@ -36,6 +50,26 @@ public class Network
     public void setId( String id )
     {
         this.id = id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName( String name )
+    {
+        this.name = name;
+    }
+
+    public Account getAccount()
+    {
+        return account;
+    }
+
+    public void setAccount( Account account )
+    {
+        this.account = account;
     }
 
 }

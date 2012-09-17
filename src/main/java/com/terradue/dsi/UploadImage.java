@@ -25,6 +25,7 @@ import it.sauronsoftware.ftp4j.FTPClient;
 import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +37,8 @@ import org.slf4j.Logger;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
+import com.sun.jersey.api.client.GenericType;
+import com.terradue.dsi.model.Appliance;
 import com.terradue.dsi.model.UploadTicket;
 import com.terradue.dsi.wire.FTPClientProvider;
 
@@ -77,6 +80,10 @@ public final class UploadImage
     @Inject
     private FTPClient ftpsClient;
 
+    @Inject
+    @Named( "service.appliances" )
+    private String appliancesPath;
+
     private final Map<String, Integer> ftpProtocolMappings = new HashMap<String, Integer>();
 
     @Inject
@@ -84,6 +91,11 @@ public final class UploadImage
     public void setServiceUrl( @Named( "service.upload" ) String serviceUrl )
     {
         super.setServiceUrl( serviceUrl );
+    }
+
+    public void setAppliancesPath( String appliancesPath )
+    {
+        this.appliancesPath = appliancesPath;
     }
 
     public void setFtpsClient( FTPClient ftpsClient )
@@ -181,6 +193,18 @@ public final class UploadImage
             }
 
             logger.info( "Connnection closed, bye." );
+        }
+
+        Collection<Appliance> appliances = restClient.resource( appliancesPath )
+                                                     .get( new GenericType<Collection<Appliance>>(){} );
+
+        for ( Appliance appliance : appliances )
+        {
+            if ( applianceName.equals( appliance.getName() ) )
+            {
+                logger.info( "Image uploaded with id: {}", appliance.getId() );
+                return;
+            }
         }
     }
 

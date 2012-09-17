@@ -201,7 +201,7 @@
             -->
             <program>
               <mainClass>com.terradue.dsi.ListUsers</mainClass>
-              <name>dsi-list-users</name>
+              <name>dsi-describe-users</name>
             </program>
           </programs>
         </configuration>

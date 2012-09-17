@@ -31,13 +31,13 @@ import com.terradue.dsi.model.Account;
 /**
  * @since 0.2
  */
-public final class ListUsers
+public final class DescribeUsers
     extends AbstractDescribeCommand
 {
 
     public static void main( String[] args )
     {
-        exit( new ListUsers().execute( args ) );
+        exit( new DescribeUsers().execute( args ) );
     }
 
     @Override

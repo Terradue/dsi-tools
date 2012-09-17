@@ -196,6 +196,13 @@
               <mainClass>com.terradue.dsi.CreateTags</mainClass>
               <name>dsi-create-tags</name>
             </program>
+            <!--
+             | since 0.2
+            -->
+            <program>
+              <mainClass>com.terradue.dsi.ListUsers</mainClass>
+              <name>dsi-list-users</name>
+            </program>
           </programs>
         </configuration>
       </plugin>

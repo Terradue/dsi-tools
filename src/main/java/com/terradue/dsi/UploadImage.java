@@ -192,7 +192,7 @@ public final class UploadImage
                 ftpsClient.disconnect( false );
             }
 
-            logger.info( "Connnection closed, bye." );
+            logger.info( "FTP Connnection closed." );
         }
 
         Collection<Appliance> appliances = restClient.resource( appliancesPath )

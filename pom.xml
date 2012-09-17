@@ -200,8 +200,12 @@
              | since 0.2
             -->
             <program>
-              <mainClass>com.terradue.dsi.ListUsers</mainClass>
+              <mainClass>com.terradue.dsi.DescribeUsers</mainClass>
               <name>dsi-describe-users</name>
+            </program>
+            <program>
+              <mainClass>com.terradue.dsi.DescribeNetworks</mainClass>
+              <name>dsi-describe-metworks</name>
             </program>
           </programs>
         </configuration>

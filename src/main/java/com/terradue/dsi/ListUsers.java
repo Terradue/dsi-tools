@@ -16,6 +16,7 @@ package com.terradue.dsi;
  *  limitations under the License.
  */
 
+import static java.lang.System.exit;
 import static java.util.Arrays.asList;
 
 import java.util.Collection;
@@ -33,6 +34,11 @@ import com.terradue.dsi.model.Account;
 public final class ListUsers
     extends AbstractDescribeCommand
 {
+
+    public static void main( String[] args )
+    {
+        exit( new ListUsers().execute( args ) );
+    }
 
     @Override
     @Inject

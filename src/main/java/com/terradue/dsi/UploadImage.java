@@ -52,7 +52,7 @@ public final class UploadImage
     @Parameter( names = { "--appliance" }, description = "The DSI applicance name" )
     private String applianceName;
 
-    @Parameter( names = { "--description" }, description = "The DSI applicance name" )
+    @Parameter( names = { "--description" }, description = "The DSI applicance description" )
     private String applianceDescription;
 
     @Parameter( names = { "--provider" }, description = "The DSI provider ID" )

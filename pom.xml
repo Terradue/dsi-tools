@@ -205,7 +205,7 @@
             </program>
             <program>
               <mainClass>com.terradue.dsi.DescribeNetworks</mainClass>
-              <name>dsi-describe-metworks</name>
+              <name>dsi-describe-networks</name>
             </program>
           </programs>
         </configuration>

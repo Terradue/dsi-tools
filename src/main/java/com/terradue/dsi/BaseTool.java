@@ -60,7 +60,7 @@ abstract class BaseTool
     private boolean debug;
 
     @Parameter( names = { "-H", "--host" }, description = "The DSI web service URI." )
-    protected String serviceHost = "testcloud.t-systems.com";
+    protected String serviceHost = "94.100.247.129";
 
     @Parameter( names = { "-u", "--username" }, description = "The DSI account username." )
     private String username;

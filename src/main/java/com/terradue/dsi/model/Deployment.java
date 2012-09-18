@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType( FIELD )
-@XmlRootElement( name = "deployment " )
+@XmlRootElement( name = "deployment" )
 public final class Deployment
 {
 

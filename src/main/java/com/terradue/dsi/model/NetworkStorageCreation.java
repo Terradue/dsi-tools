@@ -39,11 +39,11 @@ public final class NetworkStorageCreation
     @XmlElement( name = "networkStorageProvider" )
     private String provider;
 
-    @XmlElement( name = "networkStorageStorageSizeGb" )
+    @XmlElement( name = "networkStorageSizeGb" )
     private int size;
 
-    @XmlElement( name = "networkStorageStorageExportProtocol" )
-    private String exportProtocol;
+    @XmlElement( name = "networkStorageExternalProtocol" )
+    private String externalProtocol;
 
     @XmlElement( name = "network" )
     private Network network;
@@ -94,14 +94,14 @@ public final class NetworkStorageCreation
         this.size = size;
     }
 
-    public String getExportProtocol()
+    public String getExternalProtocol()
     {
-        return exportProtocol;
+        return externalProtocol;
     }
 
-    public void setExportProtocol( String exportProtocol )
+    public void setExternalProtocol( String externalProtocol )
     {
-        this.exportProtocol = exportProtocol;
+        this.externalProtocol = externalProtocol;
     }
 
     public Network getNetwork()
@@ -150,9 +150,9 @@ public final class NetworkStorageCreation
             return this;
         }
 
-        public Builder setExportProtocol( String exportProtocol )
+        public Builder setExternalProtocol( String externalProtocol )
         {
-            networkStorage.setExportProtocol( exportProtocol );
+            networkStorage.setExternalProtocol( externalProtocol );
             return this;
         }
 
@@ -164,6 +164,7 @@ public final class NetworkStorageCreation
 
         public Builder setProvider( String provider )
         {
+            networkStorage.setProvider( provider );
             return this;
         }
 

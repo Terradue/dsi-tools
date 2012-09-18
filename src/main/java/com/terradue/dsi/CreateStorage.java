@@ -20,6 +20,8 @@ import static java.lang.System.exit;
 
 import java.util.Collection;
 
+import javax.xml.bind.JAXBContext;
+
 import com.beust.jcommander.Parameter;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -78,7 +80,7 @@ public final class CreateStorage
 
         NetworkStorageCreation networkStorage = new NetworkStorageCreation.Builder()
                                                 .setDescription( description )
-                                                .setExportProtocol( exportProtocol )
+                                                .setExternalProtocol( exportProtocol )
                                                 .setName( name )
                                                 .setNetworkId( networkId )
                                                 .setProvider( provider )
@@ -86,6 +88,8 @@ public final class CreateStorage
                                                 .setQualifierId( qualifierId )
                                                 .setSize( size )
                                                 .build();
+
+        JAXBContext.newInstance( NetworkStorageCreation.class ).createMarshaller().marshal( networkStorage, System.out );
 
         restClient.resource( serviceUrl ).post( networkStorage );
 

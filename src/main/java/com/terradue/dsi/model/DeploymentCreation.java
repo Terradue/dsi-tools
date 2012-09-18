@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType( FIELD )
-@XmlRootElement( name = "deploymentCreationInfo " )
+@XmlRootElement( name = "deploymentCreationInfo" )
 public final class DeploymentCreation
 {
 

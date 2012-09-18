@@ -45,7 +45,7 @@ public final class CreateStorage
     @Parameter( names = { "--description" }, description = "The storage name" )
     private String description;
 
-    @Parameter( names = { "--provider" }, description = "The storage provider" )
+    @Parameter( names = { "--storage-provider" }, description = "The storage provider" )
     private String provider = "NETAPP";
 
     @Parameter( names = { "--size" }, description = "The storage size, in GB" )

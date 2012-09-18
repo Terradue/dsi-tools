@@ -208,6 +208,10 @@
               <name>dsi-describe-networks</name>
             </program>
             <program>
+              <mainClass>com.terradue.dsi.CreateStorage</mainClass>
+              <name>dsi-create-storage</name>
+            </program>
+            <program>
               <mainClass>com.terradue.dsi.DescribeStorages</mainClass>
               <name>dsi-describe-storages</name>
             </program>

@@ -49,7 +49,7 @@ public final class CreateStorage
     private String provider = "NETAPP";
 
     @Parameter( names = { "--size" }, description = "The storage size, in GB" )
-    private int size;
+    private int size = 1;
 
     @Parameter( names = { "--protocol" }, description = "The storage exported protocol" )
     private String exportProtocol = "nfs";

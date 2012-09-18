@@ -191,12 +191,6 @@ public final class NetworkStorageCreation
             return this;
         }
 
-        public Builder setNetworkName( String networkName )
-        {
-            networkStorage.getNetwork().setName( networkName );
-            return this;
-        }
-
         public NetworkStorageCreation build()
         {
             return networkStorage;

@@ -19,6 +19,7 @@ package com.terradue.dsi;
 import static java.lang.System.exit;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,6 +27,8 @@ import javax.inject.Inject;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.google.inject.name.Named;
+import com.sun.jersey.api.client.GenericType;
+import com.terradue.dsi.model.Deployment;
 import com.terradue.dsi.model.DeploymentCreation;
 
 @Parameters( commandDescription = "Register a previously uploaded image to be run." )
@@ -84,10 +87,19 @@ public final class RegisterImage
     private String reservationId;
 
     @Inject
+    @Named( "service.deployments" )
+    private String deploymentsPath;
+
+    @Inject
     @Override
     public void setServiceUrl( @Named( "service.deployments" ) String serviceUrl )
     {
         super.setServiceUrl( serviceUrl );
+    }
+
+    public void setDeploymentsPath( String deploymentsPath )
+    {
+        this.deploymentsPath = deploymentsPath;
     }
 
     @Override
@@ -113,6 +125,18 @@ public final class RegisterImage
                                                 .withVirtualCPUs( virtualCPUs )
                                                 .build();
         restClient.resource( serviceUrl ).post( deploymentCreation );
+
+        Collection<Deployment> deployments = restClient.resource( deploymentsPath )
+                                                       .get( new GenericType<Collection<Deployment>>(){} );
+
+        for ( Deployment deployment : deployments )
+        {
+            if ( name.equals( deployment.getName() ) )
+            {
+                logger.info( "Deployment created with id: {}", deployment.getId() );
+                return;
+            }
+        }
     }
 
 }

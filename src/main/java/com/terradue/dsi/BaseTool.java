@@ -41,6 +41,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.google.inject.Inject;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.terradue.dsi.wire.RestClientModule;
 
 abstract class BaseTool
@@ -183,7 +184,19 @@ abstract class BaseTool
             {
                 logger.info( "" );
 
-                if ( debug )
+                if ( error instanceof UniformInterfaceException )
+                {
+                    UniformInterfaceException e = (UniformInterfaceException) error;
+
+                    logger.error( "Execution terminated with errors, server replied {}: {}",
+                                  e.getResponse().getStatus(), e.getResponse().getEntity( String.class ) );
+
+                    if ( debug )
+                    {
+                        logger.error( "Follow below technical info", error );
+                    }
+                }
+                else if ( debug )
                 {
                     logger.error( "Execution terminated with errors", error );
                 }

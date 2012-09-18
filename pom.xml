@@ -207,6 +207,10 @@
               <mainClass>com.terradue.dsi.DescribeNetworks</mainClass>
               <name>dsi-describe-networks</name>
             </program>
+            <program>
+              <mainClass>com.terradue.dsi.DescribeStorages</mainClass>
+              <name>dsi-describe-storages</name>
+            </program>
           </programs>
         </configuration>
       </plugin>

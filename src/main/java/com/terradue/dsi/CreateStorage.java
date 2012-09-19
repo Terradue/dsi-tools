@@ -44,7 +44,7 @@ public final class CreateStorage
     @Parameter( names = { "--name" }, description = "The storage name" )
     private String name;
 
-    @Parameter( names = { "--description" }, description = "The storage name" )
+    @Parameter( names = { "--description" }, description = "The storage description" )
     private String description;
 
     @Parameter( names = { "--storage-provider" }, description = "The storage provider" )

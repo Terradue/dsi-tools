@@ -46,6 +46,16 @@ How to use ${project.name}
 
   * <<<dsi-authorize>>>: Add a user to an account.
 
+* Since 0.2
+
+  * <<<dsi-describe-users>>>: List and describe users;
+
+  * <<<dsi-describe-networks>>>: List and describe available Network(s);
+
+  * <<<dsi-create-storage>>>: Creates a Network Storage;
+
+  * <<<dsi-describe-storages>>>: List and describe available Network Storages.
+
   The <Windows> version of that commands are named exactly the same, but with <<<.bat>>> extension.
 
 * Common parameters

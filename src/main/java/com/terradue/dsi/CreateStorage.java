@@ -23,6 +23,7 @@ import java.util.Collection;
 import javax.xml.bind.JAXBContext;
 
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.client.GenericType;
@@ -32,6 +33,7 @@ import com.terradue.dsi.model.NetworkStorageCreation;
 /**
  * @since 0.2
  */
+@Parameters( commandDescription = "Creates a Network Storage." )
 public final class CreateStorage
     extends BaseTool
 {

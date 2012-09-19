@@ -25,12 +25,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.beust.jcommander.Parameters;
 import com.sun.jersey.api.client.GenericType;
 import com.terradue.dsi.model.Network;
 
 /**
  * @since 0.2
  */
+@Parameters( commandDescription = "List and describe available Network(s)." )
 public final class DescribeNetworks
     extends AbstractDescribeCommand
 {

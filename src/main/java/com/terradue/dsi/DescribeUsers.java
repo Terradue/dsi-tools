@@ -25,12 +25,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.beust.jcommander.Parameters;
 import com.sun.jersey.api.client.GenericType;
 import com.terradue.dsi.model.Account;
 
 /**
  * @since 0.2
  */
+@Parameters( commandDescription = "List and describe users" )
 public final class DescribeUsers
     extends AbstractDescribeCommand
 {

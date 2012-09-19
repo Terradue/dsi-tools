@@ -32,7 +32,7 @@ import com.terradue.dsi.model.Account;
 /**
  * @since 0.2
  */
-@Parameters( commandDescription = "List and describe users" )
+@Parameters( commandDescription = "List and describe users." )
 public final class DescribeUsers
     extends AbstractDescribeCommand
 {

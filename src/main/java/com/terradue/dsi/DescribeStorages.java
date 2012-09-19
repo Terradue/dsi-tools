@@ -33,7 +33,7 @@ import com.terradue.dsi.model.NetworkStorage;
 /**
  * @since 0.2
  */
-@Parameters( commandDescription = "List and describe available Network Storages" )
+@Parameters( commandDescription = "List and describe available Network Storages." )
 public final class DescribeStorages
     extends AbstractDescribeCommand
 {

@@ -20,8 +20,6 @@ import static java.lang.System.exit;
 
 import java.util.Collection;
 
-import javax.xml.bind.JAXBContext;
-
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.google.inject.Inject;
@@ -90,8 +88,6 @@ public final class CreateStorage
                                                 .setQualifierId( qualifierId )
                                                 .setSize( size )
                                                 .build();
-
-        JAXBContext.newInstance( NetworkStorageCreation.class ).createMarshaller().marshal( networkStorage, System.out );
 
         restClient.resource( serviceUrl ).post( networkStorage );
 

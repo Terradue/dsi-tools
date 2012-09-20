@@ -50,10 +50,10 @@ public final class CreateStorage
     private String description;
 
     @Parameter( names = { "--storage-provider" }, description = "The storage provider" )
-    private String provider = "NETAPP";
+    private String provider = "NetApp";
 
-    @Parameter( names = { "--size" }, description = "The storage size, in GB" )
-    private int size = 1;
+    @Parameter( names = { "--size" }, description = "The storage size, in GB (10Gb is the lesser accepted value)" )
+    private int size = 10;
 
     @Parameter( names = { "--protocol" }, description = "The storage exported protocol" )
     private String exportProtocol = "nfs";

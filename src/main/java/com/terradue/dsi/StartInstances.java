@@ -72,8 +72,12 @@ public final class StartInstances
         }
         catch ( UniformInterfaceException e )
         {
-            logger.warn( "An error occurred while starting instance {}, server replied: {}",
-                         id, e.getResponse().getClientResponseStatus() );
+            logger.warn( "An error occurred while starting instance {}, server replied {}: {}",
+                         new Object[] {
+                             id,
+                             e.getResponse().getClientResponseStatus(),
+                             e.getResponse().getEntity( String.class )
+                         } );
         }
     }
 

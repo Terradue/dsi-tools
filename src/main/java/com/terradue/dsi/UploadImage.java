@@ -16,6 +16,7 @@ package com.terradue.dsi;
  *  limitations under the License.
  */
 
+import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
 import static org.apache.commons.io.IOUtils.*;
 
 import static com.google.inject.Scopes.SINGLETON;
@@ -36,6 +37,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -156,8 +158,7 @@ public final class UploadImage
 
         logger.info( "Done! Creating the MD5 checksum for file {}...", zipImage );
 
-        // TODO
-        File md5File = null;
+        File md5File = md5( zipImage );
 
         logger.info( "Uploading image: {} on {} (expires on {})...",
                      new Object[]
@@ -251,6 +252,28 @@ public final class UploadImage
         }
 
         return zipFile;
+    }
+
+    private static File md5( File file )
+        throws IOException
+    {
+        File checksumFile = new File( file.getParent(), format( "%s.md5", file.getName() ) );
+
+        InputStream data = new FileInputStream( file );
+        OutputStream output = new FileOutputStream( checksumFile );
+
+        try
+        {
+            String md5 = md5Hex( data );
+            copy( new StringReader( md5 ), output );
+        }
+        finally
+        {
+            closeQuietly( data );
+            closeQuietly( output );
+        }
+
+        return checksumFile;
     }
 
     private static final class UploadTransferListener

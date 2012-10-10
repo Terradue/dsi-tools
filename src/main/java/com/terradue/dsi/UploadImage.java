@@ -16,8 +16,14 @@ package com.terradue.dsi;
  *  limitations under the License.
  */
 
+import static org.apache.commons.io.IOUtils.*;
+
 import static com.google.inject.Scopes.SINGLETON;
-import static it.sauronsoftware.ftp4j.FTPClient.*;
+import static it.sauronsoftware.ftp4j.FTPClient.SECURITY_FTP;
+import static it.sauronsoftware.ftp4j.FTPClient.SECURITY_FTPES;
+import static it.sauronsoftware.ftp4j.FTPClient.SECURITY_FTPS;
+import static it.sauronsoftware.ftp4j.FTPClient.TYPE_BINARY;
+import static it.sauronsoftware.ftp4j.FTPClient.TYPE_TEXTUAL;
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
@@ -25,9 +31,16 @@ import it.sauronsoftware.ftp4j.FTPClient;
 import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -72,7 +85,7 @@ public final class UploadImage
 
     @Parameter(
         names = { "--image" },
-        description = "Path of the image descriptor (*.vmx) to upload (*.vmdk will be automatically detected)",
+        description = "Path of the dir containing the image descriptor (*.vmx) and the image (*.vmdk) to upload",
         converter = FileConverter.class
     )
     private File image;
@@ -121,28 +134,9 @@ public final class UploadImage
     public void execute()
         throws Exception
     {
-        if ( !image.exists() || image.isDirectory() )
+        if ( !image.exists() || !image.isDirectory() )
         {
-            throw new IllegalArgumentException( format( "File %s must be an existing file (directories not supported)",
-                                                        image ) );
-        }
-
-        // extension checker
-        int extSeparator = image.getName().lastIndexOf( '.' );
-        String extension = image.getName().substring( extSeparator + 1 );
-
-        if ( !"vmx".equalsIgnoreCase( extension ) )
-        {
-            throw new IllegalArgumentException( format( "File %s is not a valid VMware Configuration File (.vmx)",
-                                                        image ) );
-        }
-
-        String imageName = image.getName().substring( 0, extSeparator );
-        File physicalImage = new File( image.getParent(), format( "%s.vmdk", imageName ) );
-        if ( !physicalImage.exists() )
-        {
-            throw new IllegalArgumentException( format( "File %s not found!",
-                                                        physicalImage ) );
+            throw new IllegalArgumentException( format( "File %s must be an existing directory", image ) );
         }
 
         logger.info( "Requesting FTP location where uploading images..." );
@@ -156,10 +150,19 @@ public final class UploadImage
                                                          .queryParam( "applianceOsId", applianceOsId )
                                                          .build() ).get( UploadTicket.class );
 
+        logger.info( "Done! Compressing image directory {}...", image );
+
+        File zipImage = zip( image );
+
+        logger.info( "Done! Creating the MD5 checksum for file {}...", zipImage );
+
+        // TODO
+        File md5File = null;
+
         logger.info( "Uploading image: {} on {} (expires on {})...",
                      new Object[]
                      {
-                         image.getAbsolutePath(),
+                         zipImage.getAbsolutePath(),
                          uploadTicket.getFtpLocation().toString(),
                          uploadTicket.getExpirationDate()
                      } );
@@ -180,8 +183,8 @@ public final class UploadImage
 
             ftpsClient.changeDirectory( uploadTicket.getFtpLocation().getPath() );
 
-            upload( image, TYPE_TEXTUAL );
-            upload( physicalImage, TYPE_BINARY );
+            upload( zipImage, TYPE_BINARY );
+            upload( md5File, TYPE_TEXTUAL );
         }
         finally
         {
@@ -215,6 +218,39 @@ public final class UploadImage
     {
         ftpsClient.setType( type );
         ftpsClient.upload( file, new UploadTransferListener( logger, file ) );
+    }
+
+    public static File zip( File directory )
+        throws IOException
+    {
+        File zipFile = new File( directory.getParent(), format( "%s.zip", directory.getName() ) );
+
+        OutputStream out = new FileOutputStream( zipFile );
+        ZipOutputStream zout = new ZipOutputStream( out );
+        try
+        {
+            for ( File kid : directory.listFiles() )
+            {
+                zout.putNextEntry( new ZipEntry( kid.getName() ) );
+                InputStream input = new FileInputStream( kid );
+                try
+                {
+                    copy( input, zout );
+                }
+                finally
+                {
+                    closeQuietly( input );
+                }
+                zout.closeEntry();
+            }
+        }
+        finally
+        {
+            closeQuietly( zout );
+            closeQuietly( out );
+        }
+
+        return zipFile;
     }
 
     private static final class UploadTransferListener

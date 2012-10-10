@@ -231,7 +231,7 @@ public final class UploadImage
         ZipOutputStream zout = new ZipOutputStream( out );
         try
         {
-            for ( File kid : listFiles( directory, new String[] { "vmx", "vmdk" }, false) )
+            for ( File kid : listFiles( directory, new String[] { "vmx", "vmdk" }, false ) )
             {
                 zout.putNextEntry( new ZipEntry( kid.getName() ) );
                 InputStream input = new FileInputStream( kid );

@@ -26,6 +26,7 @@ import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
 import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
+import static org.apache.commons.io.FileUtils.listFiles;
 import static org.apache.commons.io.FileUtils.write;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.io.IOUtils.copy;
@@ -230,7 +231,7 @@ public final class UploadImage
         ZipOutputStream zout = new ZipOutputStream( out );
         try
         {
-            for ( File kid : directory.listFiles() )
+            for ( File kid : listFiles( directory, new String[] { "vmx", "vmdk" }, false) )
             {
                 zout.putNextEntry( new ZipEntry( kid.getName() ) );
                 InputStream input = new FileInputStream( kid );

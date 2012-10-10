@@ -26,6 +26,7 @@ import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
 import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
+import static org.apache.commons.io.FileUtils.write;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.io.IOUtils.copy;
 import it.sauronsoftware.ftp4j.FTPClient;
@@ -37,7 +38,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.StringReader;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -260,17 +260,15 @@ public final class UploadImage
         File checksumFile = new File( file.getParent(), format( "%s.md5", file.getName() ) );
 
         InputStream data = new FileInputStream( file );
-        OutputStream output = new FileOutputStream( checksumFile );
 
         try
         {
             String md5 = md5Hex( data );
-            copy( new StringReader( md5 ), output );
+            write( checksumFile, md5 );
         }
         finally
         {
             closeQuietly( data );
-            closeQuietly( output );
         }
 
         return checksumFile;

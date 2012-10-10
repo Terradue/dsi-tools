@@ -206,6 +206,8 @@ public final class UploadImage
                 return;
             }
         }
+
+        logger.warn( "Appliance is not available yet, back checking appliances later" );
     }
 
     private void upload( File file, int type )

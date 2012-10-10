@@ -16,9 +16,6 @@ package com.terradue.dsi;
  *  limitations under the License.
  */
 
-import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
-import static org.apache.commons.io.IOUtils.*;
-
 import static com.google.inject.Scopes.SINGLETON;
 import static it.sauronsoftware.ftp4j.FTPClient.SECURITY_FTP;
 import static it.sauronsoftware.ftp4j.FTPClient.SECURITY_FTPES;
@@ -28,6 +25,9 @@ import static it.sauronsoftware.ftp4j.FTPClient.TYPE_TEXTUAL;
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
+import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
+import static org.apache.commons.io.IOUtils.closeQuietly;
+import static org.apache.commons.io.IOUtils.copy;
 import it.sauronsoftware.ftp4j.FTPClient;
 import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 

@@ -142,7 +142,15 @@ public final class UploadImage
             throw new IllegalArgumentException( format( "File %s must be an existing directory", image ) );
         }
 
-        logger.info( "Requesting FTP location where uploading images..." );
+        logger.info( "Compressing image directory {}...", image );
+
+        File zipImage = zip( image );
+
+        logger.info( "Done! Creating the MD5 checksum for file {}...", zipImage );
+
+        File md5File = md5( zipImage );
+
+        logger.info( "Done! Requesting FTP location where uploading images..." );
 
         UploadTicket uploadTicket = restClient.resource( fromUri( serviceUrl )
                                                          .queryParam( "providerId", providerId )
@@ -153,15 +161,7 @@ public final class UploadImage
                                                          .queryParam( "applianceOsId", applianceOsId )
                                                          .build() ).get( UploadTicket.class );
 
-        logger.info( "Done! Compressing image directory {}...", image );
-
-        File zipImage = zip( image );
-
-        logger.info( "Done! Creating the MD5 checksum for file {}...", zipImage );
-
-        File md5File = md5( zipImage );
-
-        logger.info( "Uploading image: {} on {} (expires on {})...",
+        logger.info( "Done! Uploading image: {}(.md5) on {} (expires on {})...",
                      new Object[]
                      {
                          zipImage.getAbsolutePath(),

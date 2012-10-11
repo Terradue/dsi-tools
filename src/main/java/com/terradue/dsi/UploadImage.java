@@ -16,7 +16,6 @@ package com.terradue.dsi;
  *  limitations under the License.
  */
 
-import static java.util.UUID.randomUUID;
 import static com.google.inject.Scopes.SINGLETON;
 import static it.sauronsoftware.ftp4j.FTPClient.SECURITY_FTP;
 import static it.sauronsoftware.ftp4j.FTPClient.SECURITY_FTPES;
@@ -27,7 +26,6 @@ import static java.lang.String.format;
 import static java.lang.System.exit;
 import static javax.ws.rs.core.UriBuilder.fromUri;
 import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
-import static org.apache.commons.io.FileUtils.listFiles;
 import static org.apache.commons.io.FileUtils.write;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.io.IOUtils.copy;
@@ -38,8 +36,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -225,30 +226,49 @@ public final class UploadImage
     private File zip( File directory )
         throws IOException
     {
-        File zipFile = new File( directory.getParent(), format( "%s.zip", randomUUID() ) );
+        Deque<File> queue = new LinkedList<File>();
+        queue.push( directory );
+
+        final URI base = directory.toURI();
+
+        File zipFile = new File( directory.getParent(), format( "%s.zip", directory.getName() ) );
 
         logger.info( "Archiving directory {} to zip archive {}", directory, zipFile );
 
         ArchiveOutputStream os = new ZipArchiveOutputStream( zipFile );
         try
         {
-            for ( File kid : listFiles( directory, new String[] { "vmx", "vmdk" }, false ) )
+            while ( !queue.isEmpty() )
             {
-                logger.info( "Adding {} as ZIP entry...", kid );
-
-                os.putArchiveEntry( new ZipArchiveEntry( kid.getName() ) );
-
-                InputStream input = new FileInputStream( kid );
-                try
+                directory = queue.pop();
+                for ( File kid : directory.listFiles() )
                 {
-                    copy( input, os );
-                }
-                finally
-                {
-                    closeQuietly( input );
-                    os.closeArchiveEntry();
+                    String name = base.relativize( kid.toURI() ).getPath();
+                    if ( kid.isDirectory() )
+                    {
+                        queue.push( kid );
+                        name = name.endsWith( "/" ) ? name : name + "/";
+                        os.putArchiveEntry( new ZipArchiveEntry( name ) );
+                    }
+                    else
+                    {
+                        logger.info( "Adding {} as ZIP entry...", name );
 
-                    logger.info( "Done!" );
+                        os.putArchiveEntry( new ZipArchiveEntry( name ) );
+
+                        InputStream input = new FileInputStream( kid );
+                        try
+                        {
+                            copy( input, os );
+                        }
+                        finally
+                        {
+                            closeQuietly( input );
+                            os.closeArchiveEntry();
+
+                            logger.info( "Done!" );
+                        }
+                    }
                 }
             }
         }

@@ -16,6 +16,7 @@ package com.terradue.dsi;
  *  limitations under the License.
  */
 
+import static java.util.UUID.randomUUID;
 import static com.google.inject.Scopes.SINGLETON;
 import static it.sauronsoftware.ftp4j.FTPClient.SECURITY_FTP;
 import static it.sauronsoftware.ftp4j.FTPClient.SECURITY_FTPES;
@@ -224,13 +225,17 @@ public final class UploadImage
     private File zip( File directory )
         throws IOException
     {
-        File zipFile = new File( directory.getParent(), format( "%s.zip", directory.getName() ) );
+        File zipFile = new File( directory.getParent(), format( "%s.zip", randomUUID() ) );
+
+        logger.info( "Archiving directory {} to zip archive {}", directory, zipFile );
 
         ArchiveOutputStream os = new ZipArchiveOutputStream( zipFile );
         try
         {
             for ( File kid : listFiles( directory, new String[] { "vmx", "vmdk" }, false ) )
             {
+                logger.info( "Adding {} as ZIP entry...", kid );
+
                 os.putArchiveEntry( new ZipArchiveEntry( kid.getName() ) );
 
                 InputStream input = new FileInputStream( kid );
@@ -241,8 +246,10 @@ public final class UploadImage
                 finally
                 {
                     closeQuietly( input );
+                    os.closeArchiveEntry();
+
+                    logger.info( "Done!" );
                 }
-                os.closeArchiveEntry();
             }
         }
         finally
@@ -253,6 +260,7 @@ public final class UploadImage
             }
             finally
             {
+                logger.info( "ZIP archive complete" );
                 closeQuietly( os );
             }
         }
@@ -260,9 +268,11 @@ public final class UploadImage
         return zipFile;
     }
 
-    private static File md5( File file )
+    private File md5( File file )
         throws IOException
     {
+        logger.info( "Creating MD5 chescksum for file {}...", file );
+
         File checksumFile = new File( file.getParent(), format( "%s.md5", file.getName() ) );
 
         InputStream data = new FileInputStream( file );
@@ -276,6 +286,8 @@ public final class UploadImage
         {
             closeQuietly( data );
         }
+
+        logger.info( "MD5 chescksum stored to file {}", checksumFile );
 
         return checksumFile;
     }

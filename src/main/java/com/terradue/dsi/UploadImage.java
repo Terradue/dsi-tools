@@ -223,7 +223,7 @@ public final class UploadImage
         ftpsClient.upload( file, new UploadTransferListener( logger, file ) );
     }
 
-    private File zip( File directory )
+    private File zip( final File directory )
         throws IOException
     {
         Deque<File> queue = new LinkedList<File>();
@@ -240,11 +240,11 @@ public final class UploadImage
         {
             while ( !queue.isEmpty() )
             {
-                directory = queue.pop();
+                File tmpDirectory = queue.pop();
 
-                for ( File kid : directory.listFiles() )
+                for ( File kid : tmpDirectory.listFiles() )
                 {
-                    String name = base.relativize( kid.toURI() ).getPath();
+                    String name = format( "%s/%s", directory.getName(), base.relativize( kid.toURI() ).getPath() );
 
                     if ( kid.isDirectory() )
                     {

@@ -241,9 +241,11 @@ public final class UploadImage
             while ( !queue.isEmpty() )
             {
                 directory = queue.pop();
+
                 for ( File kid : directory.listFiles() )
                 {
                     String name = base.relativize( kid.toURI() ).getPath();
+
                     if ( kid.isDirectory() )
                     {
                         queue.push( kid );

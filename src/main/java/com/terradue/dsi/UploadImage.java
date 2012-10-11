@@ -35,19 +35,18 @@ import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.compress.archivers.ArchiveOutputStream;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
 import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
@@ -222,34 +221,40 @@ public final class UploadImage
         ftpsClient.upload( file, new UploadTransferListener( logger, file ) );
     }
 
-    public static File zip( File directory )
+    private File zip( File directory )
         throws IOException
     {
         File zipFile = new File( directory.getParent(), format( "%s.zip", directory.getName() ) );
 
-        OutputStream out = new FileOutputStream( zipFile );
-        ZipOutputStream zout = new ZipOutputStream( out );
+        ArchiveOutputStream os = new ZipArchiveOutputStream( zipFile );
         try
         {
             for ( File kid : listFiles( directory, new String[] { "vmx", "vmdk" }, false ) )
             {
-                zout.putNextEntry( new ZipEntry( kid.getName() ) );
+                os.putArchiveEntry( new ZipArchiveEntry( kid.getName() ) );
+
                 InputStream input = new FileInputStream( kid );
                 try
                 {
-                    copy( input, zout );
+                    copy( input, os );
                 }
                 finally
                 {
                     closeQuietly( input );
                 }
-                zout.closeEntry();
+                os.closeArchiveEntry();
             }
         }
         finally
         {
-            closeQuietly( zout );
-            closeQuietly( out );
+            try
+            {
+                os.finish();
+            }
+            finally
+            {
+                closeQuietly( os );
+            }
         }
 
         return zipFile;

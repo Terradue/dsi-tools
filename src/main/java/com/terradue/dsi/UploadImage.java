@@ -143,11 +143,7 @@ public final class UploadImage
             throw new IllegalArgumentException( format( "File %s must be an existing directory", image ) );
         }
 
-        logger.info( "Compressing image directory {}...", image );
-
         File zipImage = zip( image );
-
-        logger.info( "Done! Creating the MD5 checksum for file {}...", zipImage );
 
         File md5File = md5( zipImage );
 

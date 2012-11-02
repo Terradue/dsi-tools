@@ -34,6 +34,7 @@ import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -42,13 +43,12 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.compress.archivers.ArchiveOutputStream;
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
-import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
 import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
@@ -231,9 +231,13 @@ public final class UploadImage
 
         logger.info( "Archiving directory {} to zip archive {}", directory, zipFile );
 
-        ArchiveOutputStream os = new ZipArchiveOutputStream( zipFile );
+        FileOutputStream fos = null;
+        ZipOutputStream os = null;
         try
         {
+            fos = new FileOutputStream( zipFile );
+            os = new ZipOutputStream( fos );
+
             while ( !queue.isEmpty() )
             {
                 directory = queue.pop();
@@ -246,13 +250,13 @@ public final class UploadImage
                     {
                         queue.push( kid );
                         name = name.endsWith( "/" ) ? name : name + "/";
-                        os.putArchiveEntry( new ZipArchiveEntry( name ) );
+                        os.putNextEntry( new ZipEntry( name ) );
                     }
                     else
                     {
                         logger.info( "Adding {} as ZIP entry...", name );
 
-                        os.putArchiveEntry( new ZipArchiveEntry( name ) );
+                        os.putNextEntry( new ZipEntry( name ) );
 
                         InputStream input = new FileInputStream( kid );
                         try
@@ -262,7 +266,8 @@ public final class UploadImage
                         finally
                         {
                             closeQuietly( input );
-                            os.closeArchiveEntry();
+                            os.flush();
+                            os.closeEntry();
 
                             logger.info( "Done!" );
                         }
@@ -279,6 +284,7 @@ public final class UploadImage
             finally
             {
                 logger.info( "ZIP archive complete" );
+                closeQuietly( fos );
                 closeQuietly( os );
             }
         }

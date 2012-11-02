@@ -100,27 +100,9 @@
      | net layer
     -->
     <dependency>
-      <groupId>org.sonatype.spice</groupId>
+      <groupId>org.jfarcand</groupId>
       <artifactId>jersey-ahc-client</artifactId>
-      <version>1.0.2</version>
-      <exclusions>
-        <exclusion>
-          <groupId>com.ning</groupId>
-          <artifactId>async-http-client</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>com.ning</groupId>
-      <artifactId>async-http-client</artifactId>
-      <version>1.7.6</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>1.0.4</version>
     </dependency>
 
     <dependency>

@@ -98,7 +98,8 @@ public final class CreateStorage
         {
             if ( name.equals( storage.getName() ) )
             {
-                logger.info( "Storage created with id: {}", storage.getId() );
+                logger.info( "Storage created with id: {}, available on {}://{}",
+                             storage.getId(), storage.getExportProtocol(), storage.getExportUrl() );
                 return;
             }
         }

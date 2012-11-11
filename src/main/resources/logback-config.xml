@@ -21,6 +21,8 @@
     </encoder>
   </appender>
 
+  <logger name="com.ning.http" level="ERROR" />
+
   <root level="${log.level}">
     <appender-ref ref="Console" />
   </root>

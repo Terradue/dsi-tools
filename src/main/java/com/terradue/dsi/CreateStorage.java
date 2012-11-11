@@ -98,7 +98,7 @@ public final class CreateStorage
         {
             if ( name.equals( storage.getName() ) )
             {
-                logger.info( "Storage created with id: {}, available on {}://{}",
+                logger.info( "Storage created with id: {}, it can be mount by running `sudo mount -t %s %s /mount`",
                              storage.getId(), storage.getExportProtocol(), storage.getExportUrl() );
                 return;
             }

@@ -50,15 +50,15 @@
           <tbody>
             <tr>
               <td>${project.name} ${project.version} (Source tar.gz)</td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-src.tar.gz">${project.build.finalName}-src.tar.gz</a></td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-src.tar.gz.md5">${project.build.finalName}-src.tar.gz.md5</a></td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-src.tar.gz.asc">${project.build.finalName}-src.tar.gz.asc</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-src.tar.gz">${project.build.finalName}-src.tar.gz</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-src.tar.gz.md5">${project.build.finalName}-src.tar.gz.md5</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-src.tar.gz.asc">${project.build.finalName}-src.tar.gz.asc</a></td>
             </tr>
             <tr>
               <td>${project.name} ${project.version} (Source zip)</td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-src.zip">${project.build.finalName}-src.zip</a></td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-src.zip.md5">${project.build.finalName}-src.zip.md5</a></td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-src.zip.asc">${project.build.finalName}-src.zip.asc</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-src.zip">${project.build.finalName}-src.zip</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-src.zip.md5">${project.build.finalName}-src.zip.md5</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-src.zip.asc">${project.build.finalName}-src.zip.asc</a></td>
             </tr>
           </tbody>
         </table>
@@ -77,15 +77,15 @@
           <tbody>
             <tr>
               <td>${project.name} ${project.version} (Binary tar.gz)</td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-bin.tar.gz">${project.build.finalName}-bin.tar.gz</a></td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-bin.tar.gz.md5">${project.build.finalName}-bin.tar.gz.md5</a></td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-bin.tar.gz.asc">${project.build.finalName}-bin.tar.gz.asc</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-bin.tar.gz">${project.build.finalName}-bin.tar.gz</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-bin.tar.gz.md5">${project.build.finalName}-bin.tar.gz.md5</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-bin.tar.gz.asc">${project.build.finalName}-bin.tar.gz.asc</a></td>
             </tr>
             <tr>
               <td>${project.name} ${project.version} (Binary zip)</td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-bin.zip">${project.build.finalName}-bin.zip</a></td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-bin.zip.md5">${project.build.finalName}-bin.zip.md5</a></td>
-              <td><a href="http://central.maven.org/maven2/com/terradue/${project.build.finalName}-bin.zip.asc">${project.build.finalName}-bin.zip.asc</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-bin.zip">${project.build.finalName}-bin.zip</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-bin.zip.md5">${project.build.finalName}-bin.zip.md5</a></td>
+              <td><a href="http://search.maven.org/remotecontent?filepath=com/terradue/${project.build.finalName}-bin.zip.asc">${project.build.finalName}-bin.zip.asc</a></td>
             </tr>
           </tbody>
         </table>

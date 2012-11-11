@@ -67,6 +67,9 @@ public final class Deployment
     @XmlElement
     private String internalIpAddress;
 
+    @XmlElement
+    private String state;
+
     public int getId()
     {
         return id;
@@ -195,6 +198,16 @@ public final class Deployment
     public void setInternalIpAddress( String internalIpAddress )
     {
         this.internalIpAddress = internalIpAddress;
+    }
+
+    public String getState()
+    {
+        return state;
+    }
+
+    public void setState( String state )
+    {
+        this.state = state;
     }
 
 }

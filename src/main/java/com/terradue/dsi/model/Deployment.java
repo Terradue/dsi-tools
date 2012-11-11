@@ -61,6 +61,12 @@ public final class Deployment
     @XmlElement
     private String description;
 
+    @XmlElement
+    private String externalIpAddress;
+
+    @XmlElement
+    private String internalIpAddress;
+
     public int getId()
     {
         return id;
@@ -169,6 +175,26 @@ public final class Deployment
     public void setDescription( String description )
     {
         this.description = description;
+    }
+
+    public String getExternalIpAddress()
+    {
+        return externalIpAddress;
+    }
+
+    public void setExternalIpAddress( String externalIpAddress )
+    {
+        this.externalIpAddress = externalIpAddress;
+    }
+
+    public String getInternalIpAddress()
+    {
+        return internalIpAddress;
+    }
+
+    public void setInternalIpAddress( String internalIpAddress )
+    {
+        this.internalIpAddress = internalIpAddress;
     }
 
 }

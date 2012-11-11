@@ -42,13 +42,13 @@ public final class NetworkStorage
     @XmlElement( name = "networkStorageProvider" )
     private String provider;
 
-    @XmlElement( name = "networkStorageSizeGb" )
+    @XmlElement( name = "networkStorageStorageSizeGb" )
     private int size;
 
-    @XmlElement( name = "networkStorageExportProtocol" )
+    @XmlElement( name = "networkStorageStorageExportProtocol" )
     private String exportProtocol;
 
-    @XmlElement( name = "networkStorageExportUrl" )
+    @XmlElement( name = "networkStorageStorageExportUrl" )
     private String exportUrl;
 
     @XmlElement( name = "network" )

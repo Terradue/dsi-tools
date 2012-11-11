@@ -53,6 +53,9 @@ public final class Deployment
     private int memorySize;
 
     @XmlElement
+    private String storageSize;
+
+    @XmlElement
     private String name;
 
     @XmlElement
@@ -136,6 +139,16 @@ public final class Deployment
     public void setMemorySize( int memorySize )
     {
         this.memorySize = memorySize;
+    }
+
+    public String getStorageSize()
+    {
+        return storageSize;
+    }
+
+    public void setStorageSize( String storageSize )
+    {
+        this.storageSize = storageSize;
     }
 
     public String getName()

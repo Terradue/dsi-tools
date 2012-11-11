@@ -16,7 +16,6 @@ package com.terradue.dsi.model;
  *  limitations under the License.
  */
 
-import static java.lang.String.format;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -76,7 +75,7 @@ public class Network
     @Override
     public String toString()
     {
-        return format( "%s:%s", id, name );
+        return id;
     }
 
 }

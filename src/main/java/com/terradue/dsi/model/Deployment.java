@@ -44,6 +44,9 @@ public final class Deployment
     private String createdBy;
 
     @XmlElement
+    private String creationDate;
+
+    @XmlElement
     private int locationId;
 
     @XmlElement( name = "memSize" )
@@ -100,6 +103,16 @@ public final class Deployment
     public void setCreatedBy( String createdBy )
     {
         this.createdBy = createdBy;
+    }
+
+    public String getCreationDate()
+    {
+        return creationDate;
+    }
+
+    public void setCreationDate( String creationDate )
+    {
+        this.creationDate = creationDate;
     }
 
     public int getLocationId()

@@ -55,6 +55,9 @@ public final class Deployment
     @XmlElement
     private String name;
 
+    @XmlElement
+    private String description;
+
     public int getId()
     {
         return id;
@@ -143,6 +146,16 @@ public final class Deployment
     public void setName( String name )
     {
         this.name = name;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription( String description )
+    {
+        this.description = description;
     }
 
 }

@@ -43,7 +43,21 @@ public final class DescribeInstances
     @Override
     protected List<String> getDefaultFields()
     {
-        return asList( "id", "name", "active", "applianceId", "cpuNumber", "createdBy", "locationId", "memorySize" );
+        return asList( "id",
+                       "name",
+                       "state",
+                       "active",
+                       "applianceId",
+                       "cpuNumber",
+                       "createdBy",
+                       "creationDate",
+                       "locationId",
+                       "memorySize",
+                       "storageSize",
+                       "externalIpAddress",
+                       "internalIpAddress",
+                       "vncUri",
+                       "vncPassword" );
     }
 
     @Inject

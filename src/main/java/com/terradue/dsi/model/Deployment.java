@@ -73,9 +73,6 @@ public final class Deployment
     @XmlElement
     private String vncUri;
 
-    @XmlElement
-    private String vncPassword;
-
     public int getId()
     {
         return id;
@@ -224,16 +221,6 @@ public final class Deployment
     public void setVncUri( String vncUri )
     {
         this.vncUri = vncUri;
-    }
-
-    public String getVncPassword()
-    {
-        return vncPassword;
-    }
-
-    public void setVncPassword( String vncPassword )
-    {
-        this.vncPassword = vncPassword;
     }
 
 }

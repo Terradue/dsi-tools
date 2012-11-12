@@ -56,8 +56,7 @@ public final class DescribeInstances
                        "storageSize",
                        "externalIpAddress",
                        "internalIpAddress",
-                       "vncUri",
-                       "vncPassword" );
+                       "vncUri" );
     }
 
     @Inject

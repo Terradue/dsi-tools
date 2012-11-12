@@ -26,35 +26,31 @@ How to use ${project.name}
 
   <${project.name} ${project.version}> offers a list of command line tools to interact with Zimory/DSI REST Server:
 
-  * <<<dsi-upload-image>>>: Upload an image on DSI Cloud;
-
-  * <<<dsi-stop-instances>>>: Terminate the selected running instance(s);
-
-  * <<<dsi-start-instances>>>: Run an instance of a particular image(s);
-
-  * <<<dsi-register-image>>>: Register a previously uploaded image to be run;
-
-  * <<<dsi-reboot-instances>>>: Reboot an instance of specified image(s);
-
-  * <<<dsi-describe-instances>>>: List and describe running instances;
-
-  * <<<dsi-describe-images>>>: List and describe previously uploaded images;
-
-  * <<<dsi-describe-clouds>>>: List and describe DSI Cloud(s);
-
-  * <<<dsi-create-tags>>>: Creates an instance snapshot;
-
-  * <<<dsi-authorize>>>: Add a user to an account.
-
-* Since 0.2
-
-  * <<<dsi-describe-users>>>: List and describe users;
-
-  * <<<dsi-describe-networks>>>: List and describe available Network(s);
+   * <<<dsi-create-deployment>>>: Creates a new Deployment with a previously uploaded Appliance to be run;
 
   * <<<dsi-create-storage>>>: Creates a Network Storage;
 
-  * <<<dsi-describe-storages>>>: List and describe available Network Storages.
+  * <<<dsi-create-tags>>>: Creates a Deployment snapshot;
+
+  * <<<dsi-describe-appliances>>>: List and describe available Appliances;
+
+  * <<<dsi-describe-clouds>>>: List and describe DSI Clouds;
+
+  * <<<dsi-describe-deployments>>>: List and describe running Deployments
+
+  * <<<dsi-describe-networks>>>: List and describe available Networks;
+
+  * <<<dsi-describe-storages>>>: List and describe available Network Storages;
+
+  * <<<dsi-describe-users>>>: List and describe users;
+
+  * <<<dsi-reboot-deployments>>>: Reboot the specified Deployment(s);
+
+  * <<<dsi-start-deployments>>>: Run the specified Deployment(s);
+
+  * <<<dsi-stop-deployments>>>: Terminate the specified Deployment(s);
+
+  * <<<dsi-upload-appliance>>>: Upload a VM image to be associated to an Appliance.
 
   The <Windows> version of that commands are named exactly the same, but with <<<.bat>>> extension.
 

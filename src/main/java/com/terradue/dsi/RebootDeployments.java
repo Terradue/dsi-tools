@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
-@Parameters( commandDescription = "Reboot an instance of specified image(s)" )
+@Parameters( commandDescription = "Reboot the specified Deployment(s)." )
 public final class RebootDeployments
     extends BaseTool
 {

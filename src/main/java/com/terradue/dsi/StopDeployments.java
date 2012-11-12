@@ -27,7 +27,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.client.UniformInterfaceException;
 
-@Parameters( commandDescription = "Terminate the selected running instance" )
+@Parameters( commandDescription = "Terminate the specified Deployment(s)." )
 public final class StopDeployments
     extends BaseTool
 {

@@ -59,7 +59,7 @@ import com.terradue.dsi.model.Appliance;
 import com.terradue.dsi.model.UploadTicket;
 import com.terradue.dsi.wire.FTPClientProvider;
 
-@Parameters( commandDescription = "Upload an image on DSI Cloud" )
+@Parameters( commandDescription = "Upload a VM image to be associated to an Appliance." )
 public final class UploadAppliance
     extends BaseTool
 {

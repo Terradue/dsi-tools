@@ -27,7 +27,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.client.UniformInterfaceException;
 
-@Parameters( commandDescription = "Run an instance of a particular image(s)." )
+@Parameters( commandDescription = "Run the specified Deployment(s)." )
 public final class StartDeployments
     extends BaseTool
 {

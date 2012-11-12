@@ -30,7 +30,7 @@ import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.terradue.dsi.model.Deployment;
 
-@Parameters( commandDescription = "List and describe running instances" )
+@Parameters( commandDescription = "List and describe running Deployments." )
 public final class DescribeDeployments
     extends AbstractDescribeCommand
 {

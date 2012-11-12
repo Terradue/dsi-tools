@@ -31,7 +31,7 @@ import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.terradue.dsi.model.Appliance;
 
-@Parameters( commandDescription = "List and describe previously uploaded images" )
+@Parameters( commandDescription = "List and describe available Appliances." )
 public final class DescribeAppliances
     extends AbstractDescribeCommand
 {

@@ -28,7 +28,7 @@ import com.beust.jcommander.Parameters;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.client.UniformInterfaceException;
 
-@Parameters( commandDescription = "Creates an instance snapshot" )
+@Parameters( commandDescription = "Creates a Deployment snapshot." )
 public final class CreateTags
     extends BaseTool
 {

@@ -31,7 +31,7 @@ import com.sun.jersey.api.client.GenericType;
 import com.terradue.dsi.model.Deployment;
 import com.terradue.dsi.model.DeploymentCreation;
 
-@Parameters( commandDescription = "Register a previously uploaded image to be run." )
+@Parameters( commandDescription = "Creates a new Deployment with a previously uploaded Appliance to be run." )
 public final class CreateDeployment
     extends BaseTool
 {

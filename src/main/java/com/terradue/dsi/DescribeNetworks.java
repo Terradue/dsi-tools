@@ -32,7 +32,7 @@ import com.terradue.dsi.model.Network;
 /**
  * @since 0.2
  */
-@Parameters( commandDescription = "List and describe available Network(s)." )
+@Parameters( commandDescription = "List and describe available Networks." )
 public final class DescribeNetworks
     extends AbstractDescribeCommand
 {

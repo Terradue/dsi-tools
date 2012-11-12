@@ -27,14 +27,14 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.client.UniformInterfaceException;
 
-@Parameters( commandDescription = "Terminate the selected running instance" )
-public final class StopInstances
+@Parameters( commandDescription = "Run an instance of a particular image(s)." )
+public final class StartDeployments
     extends BaseTool
 {
 
     public static void main( String[] args )
     {
-        exit( new StopInstances().execute( args ) );
+        exit( new StartDeployments().execute( args ) );
     }
 
     @Parameter( description = "The image identificator(s) as returned by the upload command" )
@@ -53,13 +53,13 @@ public final class StopInstances
     {
         for ( String id : ids )
         {
-            stopInstance( id );
+            startInstance( id );
         }
     }
 
-    boolean stopInstance( String id )
+    void startInstance( String id )
     {
-        logger.info( "Stopping instance {} ...", id );
+        logger.info( "Starting instance {} ...", id );
         try
         {
             restClient.resource( new StringBuilder( serviceUrl )
@@ -68,18 +68,16 @@ public final class StopInstances
                                 .append( "/start" )
                                 .toString() )
                       .post();
-            logger.info( "Instance {} successfully stopped", id );
-            return true;
+            logger.info( "Instance {} successfully started", id );
         }
         catch ( UniformInterfaceException e )
         {
-            logger.warn( "An error occurred while stopping instance {}, server replied {}: {}",
+            logger.warn( "An error occurred while starting instance {}, server replied {}: {}",
                          new Object[] {
                              id,
                              e.getResponse().getClientResponseStatus(),
                              e.getResponse().getEntity( String.class )
                          } );
-            return false;
         }
     }
 

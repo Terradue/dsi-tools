@@ -31,13 +31,13 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.terradue.dsi.model.Deployment;
 
 @Parameters( commandDescription = "List and describe running instances" )
-public final class DescribeInstances
+public final class DescribeDeployments
     extends AbstractDescribeCommand
 {
 
     public static void main( String[] args )
     {
-        exit( new DescribeInstances().execute( args ) );
+        exit( new DescribeDeployments().execute( args ) );
     }
 
     @Override

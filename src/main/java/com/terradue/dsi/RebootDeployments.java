@@ -27,30 +27,30 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 @Parameters( commandDescription = "Reboot an instance of specified image(s)" )
-public final class RebootInstances
+public final class RebootDeployments
     extends BaseTool
 {
 
     public static void main( String[] args )
     {
-        exit( new RebootInstances().execute( args ) );
+        exit( new RebootDeployments().execute( args ) );
     }
 
     @Parameter( description = "The image identificator(s) as returned by the upload command" )
     protected List<String> ids = new LinkedList<String>();
 
     @Inject
-    private StopInstances stopInstances;
+    private StopDeployments stopInstances;
 
     @Inject
-    private StartInstances startInstances;
+    private StartDeployments startInstances;
 
-    public void setStopInstances( StopInstances stopInstances )
+    public void setStopInstances( StopDeployments stopInstances )
     {
         this.stopInstances = stopInstances;
     }
 
-    public void setStartInstances( StartInstances startInstances )
+    public void setStartInstances( StartDeployments startInstances )
     {
         this.startInstances = startInstances;
     }

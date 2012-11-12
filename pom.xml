@@ -170,7 +170,7 @@
               <name>dsi-describe-appliances</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsi.DescribeInstances</mainClass>
+              <mainClass>com.terradue.dsi.DescribeDeployments</mainClass>
               <name>dsi-describe-deployments</name>
             </program>
             <program>
@@ -178,7 +178,7 @@
               <name>dsi-authorize</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsi.RebootInstances</mainClass>
+              <mainClass>com.terradue.dsi.RebootDeployments</mainClass>
               <name>dsi-reboot-deployments</name>
             </program>
             <program>
@@ -186,11 +186,11 @@
               <name>dsi-register-appliance</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsi.StopInstances</mainClass>
+              <mainClass>com.terradue.dsi.StopDeployments</mainClass>
               <name>dsi-stop-deployments</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsi.StartInstances</mainClass>
+              <mainClass>com.terradue.dsi.StartDeployments</mainClass>
               <name>dsi-start-deployments</name>
             </program>
             <program>

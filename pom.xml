@@ -182,8 +182,8 @@
               <name>dsi-reboot-deployments</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsi.RegisterAppliance</mainClass>
-              <name>dsi-register-appliance</name>
+              <mainClass>com.terradue.dsi.CreateDeployment</mainClass>
+              <name>dsi-create-deployment</name>
             </program>
             <program>
               <mainClass>com.terradue.dsi.StopDeployments</mainClass>

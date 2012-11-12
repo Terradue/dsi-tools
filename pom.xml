@@ -158,7 +158,7 @@
           <extraJvmArguments>-Dproject.name=${project.name} -Dproject.version=${project.version} -Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
           <programs>
             <program>
-              <mainClass>com.terradue.dsi.UploadImage</mainClass>
+              <mainClass>com.terradue.dsi.UploadAppliance</mainClass>
               <name>dsi-upload-appliance</name>
             </program>
             <program>
@@ -166,7 +166,7 @@
               <name>dsi-describe-clouds</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsi.DescribeImages</mainClass>
+              <mainClass>com.terradue.dsi.DescribeAppliances</mainClass>
               <name>dsi-describe-appliances</name>
             </program>
             <program>
@@ -182,7 +182,7 @@
               <name>dsi-reboot-deployments</name>
             </program>
             <program>
-              <mainClass>com.terradue.dsi.RegisterImage</mainClass>
+              <mainClass>com.terradue.dsi.RegisterAppliance</mainClass>
               <name>dsi-register-appliance</name>
             </program>
             <program>

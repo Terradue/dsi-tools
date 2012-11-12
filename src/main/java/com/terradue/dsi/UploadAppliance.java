@@ -60,13 +60,13 @@ import com.terradue.dsi.model.UploadTicket;
 import com.terradue.dsi.wire.FTPClientProvider;
 
 @Parameters( commandDescription = "Upload an image on DSI Cloud" )
-public final class UploadImage
+public final class UploadAppliance
     extends BaseTool
 {
 
     public static void main( String[] args )
     {
-        exit( new UploadImage().execute( args ) );
+        exit( new UploadAppliance().execute( args ) );
     }
 
     @Parameter( names = { "--appliance" }, description = "The DSI applicance name" )
@@ -120,7 +120,7 @@ public final class UploadImage
         this.ftpsClient = ftpsClient;
     }
 
-    public UploadImage()
+    public UploadAppliance()
     {
         ftpProtocolMappings.put( "ftp", SECURITY_FTP );
         ftpProtocolMappings.put( "ftps", SECURITY_FTPS );

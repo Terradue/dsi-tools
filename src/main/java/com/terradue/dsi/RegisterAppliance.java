@@ -32,13 +32,13 @@ import com.terradue.dsi.model.Deployment;
 import com.terradue.dsi.model.DeploymentCreation;
 
 @Parameters( commandDescription = "Register a previously uploaded image to be run." )
-public final class RegisterImage
+public final class RegisterAppliance
     extends BaseTool
 {
 
     public static void main( String[] args )
     {
-        exit( new RegisterImage().execute( args ) );
+        exit( new RegisterAppliance().execute( args ) );
     }
 
     @Parameter( names = { "--appliance" }, description = "The DSI applicance ID" )

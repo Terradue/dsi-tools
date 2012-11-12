@@ -32,13 +32,13 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.terradue.dsi.model.Appliance;
 
 @Parameters( commandDescription = "List and describe previously uploaded images" )
-public final class DescribeImages
+public final class DescribeAppliances
     extends AbstractDescribeCommand
 {
 
     public static void main( String[] args )
     {
-        exit( new DescribeImages().execute( args ) );
+        exit( new DescribeAppliances().execute( args ) );
     }
 
     @Inject

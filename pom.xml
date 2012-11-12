@@ -159,7 +159,7 @@
           <programs>
             <program>
               <mainClass>com.terradue.dsi.UploadImage</mainClass>
-              <name>dsi-upload-image</name>
+              <name>dsi-upload-appliance</name>
             </program>
             <program>
               <mainClass>com.terradue.dsi.DescribeClouds</mainClass>
@@ -167,11 +167,11 @@
             </program>
             <program>
               <mainClass>com.terradue.dsi.DescribeImages</mainClass>
-              <name>dsi-describe-images</name>
+              <name>dsi-describe-appliances</name>
             </program>
             <program>
               <mainClass>com.terradue.dsi.DescribeInstances</mainClass>
-              <name>dsi-describe-instances</name>
+              <name>dsi-describe-deployments</name>
             </program>
             <program>
               <mainClass>com.terradue.dsi.Authorize</mainClass>
@@ -179,19 +179,19 @@
             </program>
             <program>
               <mainClass>com.terradue.dsi.RebootInstances</mainClass>
-              <name>dsi-reboot-instances</name>
+              <name>dsi-reboot-deployments</name>
             </program>
             <program>
               <mainClass>com.terradue.dsi.RegisterImage</mainClass>
-              <name>dsi-register-image</name>
+              <name>dsi-register-appliance</name>
             </program>
             <program>
               <mainClass>com.terradue.dsi.StopInstances</mainClass>
-              <name>dsi-stop-instances</name>
+              <name>dsi-stop-deployments</name>
             </program>
             <program>
               <mainClass>com.terradue.dsi.StartInstances</mainClass>
-              <name>dsi-start-instances</name>
+              <name>dsi-start-deployments</name>
             </program>
             <program>
               <mainClass>com.terradue.dsi.CreateTags</mainClass>

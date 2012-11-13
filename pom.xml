@@ -155,7 +155,7 @@
         <configuration>
           <repositoryLayout>flat</repositoryLayout>
           <repositoryName>lib</repositoryName>
-          <extraJvmArguments>-Dproject.name=${project.name} -Dproject.version=${project.version} -Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
+          <extraJvmArguments>-Djava.util.logging.config.file=log.properties -Dproject.name=${project.name} -Dproject.version=${project.version} -Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
           <programs>
             <program>
               <mainClass>com.terradue.dsi.UploadAppliance</mainClass>

@@ -53,9 +53,6 @@ public final class CreateDeployment
     @Parameter( names = { "--cluster" }, description = "The DSI deployment cluster ID" )
     private String deploymentClusterId;
 
-    @Parameter( names = { "--perf" }, description = "The performance unit" )
-    private int performanceUnit;
-
     @Parameter( names = { "--memory" }, description = "The memory (in Mb)" )
     private int memoryMb;
 
@@ -115,7 +112,6 @@ public final class CreateDeployment
                                                 .withMemoryMb( memoryMb )
                                                 .withName( name )
                                                 .withNetwork( networkId )
-                                                .withPerformanceUnit( performanceUnit )
                                                 .withPermanentIp( permanentIp )
                                                 .withProviderId( providerId )
                                                 .withQualifierId( qualifierId )

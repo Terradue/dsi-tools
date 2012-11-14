@@ -43,9 +43,6 @@ public final class DeploymentCreation
     private String deploymentClusterId;
 
     @XmlElement
-    private int performanceUnit;
-
-    @XmlElement
     private int memoryMb;
 
     @XmlElement
@@ -137,22 +134,6 @@ public final class DeploymentCreation
     public void setDeploymentClusterId( String deploymentClusterId )
     {
         this.deploymentClusterId = deploymentClusterId;
-    }
-
-    /**
-     * @return the performanceUnit
-     */
-    public int getPerformanceUnit()
-    {
-        return performanceUnit;
-    }
-
-    /**
-     * @param performanceUnit the performanceUnit to set
-     */
-    public void setPerformanceUnit( int performanceUnit )
-    {
-        this.performanceUnit = performanceUnit;
     }
 
     /**
@@ -326,8 +307,6 @@ public final class DeploymentCreation
 
         private String deploymentClusterId;
 
-        private int performanceUnit;
-
         private int memoryMb;
 
         private int virtualCPUs;
@@ -381,15 +360,6 @@ public final class DeploymentCreation
         public Builder withDeploymentClusterId( String deploymentClusterId )
         {
             this.deploymentClusterId = deploymentClusterId;
-            return this;
-        }
-
-        /**
-         * @param performanceUnit the performanceUnit to set
-         */
-        public Builder withPerformanceUnit( int performanceUnit )
-        {
-            this.performanceUnit = performanceUnit;
             return this;
         }
 
@@ -502,7 +472,6 @@ public final class DeploymentCreation
             deploymentCreation.setName( name );
             deploymentCreation.setDescription( description );
             deploymentCreation.setDeploymentClusterId( deploymentClusterId );
-            deploymentCreation.setPerformanceUnit( performanceUnit );
             deploymentCreation.setMemoryMb( memoryMb );
             deploymentCreation.setVirtualCPUs( virtualCPUs );
             deploymentCreation.setUseExternalIp( useExternalIp );

@@ -20,8 +20,10 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType( FIELD )
+@XmlRootElement( name = "delegateRole" )
 public final class DelegateRole
 {
 

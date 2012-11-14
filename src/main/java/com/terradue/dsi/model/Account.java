@@ -39,7 +39,7 @@ public final class Account
     private String name;
 
     @XmlElement( name = "userAccountOwner" )
-    private AccountOwner owner;
+    private AccountUser owner;
 
     /**
      * @return the id
@@ -76,7 +76,7 @@ public final class Account
     /**
      * @return the owner
      */
-    public AccountOwner getOwner()
+    public AccountUser getOwner()
     {
         return owner;
     }
@@ -84,7 +84,7 @@ public final class Account
     /**
      * @param owner the owner to set
      */
-    public void setOwner( AccountOwner owner )
+    public void setOwner( AccountUser owner )
     {
         this.owner = owner;
     }

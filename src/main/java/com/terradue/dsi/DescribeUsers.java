@@ -17,6 +17,7 @@ package com.terradue.dsi;
  */
 
 import static java.lang.System.exit;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.util.Arrays.asList;
 
 import java.util.Collection;
@@ -27,6 +28,7 @@ import javax.inject.Named;
 
 import com.beust.jcommander.Parameters;
 import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.terradue.dsi.model.AccountUser;
 
 /**
@@ -59,7 +61,39 @@ public final class DescribeUsers
     protected void execute()
         throws Exception
     {
-        log( restClient.resource( serviceUrl ).get( new GenericType<Collection<AccountUser>>(){} ) );
+        if ( !ids.isEmpty() )
+        {
+            boolean first = true;
+
+            for ( String id : ids )
+            {
+                try
+                {
+                    log( restClient.resource( new StringBuilder( serviceUrl )
+                                             .append( '/' )
+                                             .append( id )
+                                             .toString() )
+                                   .get( AccountUser.class ),
+                         headers && first );
+
+                    if ( first )
+                    {
+                        first = false;
+                    }
+                }
+                catch ( UniformInterfaceException e )
+                {
+                    if ( HTTP_NOT_FOUND == e.getResponse().getClientResponseStatus().getStatusCode() )
+                    {
+                        logger.warn( "User {} not found ", id );
+                    }
+                }
+            }
+        }
+        else
+        {
+            log( restClient.resource( serviceUrl ).get( new GenericType<Collection<AccountUser>>(){} ) );
+        }
     }
 
 }

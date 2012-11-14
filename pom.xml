@@ -208,6 +208,13 @@
               <mainClass>com.terradue.dsi.DescribeStorages</mainClass>
               <name>dsi-describe-storages</name>
             </program>
+            <!--
+             | since 0.3
+            -->
+            <program>
+              <mainClass>com.terradue.dsi.DescribeProviders</mainClass>
+              <name>dsi-describe-providers</name>
+            </program>
           </programs>
         </configuration>
       </plugin>

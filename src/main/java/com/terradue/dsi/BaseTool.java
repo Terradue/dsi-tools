@@ -273,6 +273,7 @@ abstract class BaseTool
         bindProperty( "service.accounts" ).toValue( "${service.url}/accounts" );
         bindProperty( "service.clouds" ).toValue( "${service.url}/clouds" );
         bindProperty( "service.storages" ).toValue( "${service.url}/networkStorages" );
+        bindProperty( "service.providers" ).toValue( "${service.url}/constants/providers" );
 
         // certificate
         bind( File.class ).annotatedWith( named( "user.certificate" ) ).toInstance( dsiCertificate );

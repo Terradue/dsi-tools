@@ -84,7 +84,7 @@ public final class UploadAppliance
     @Parameter( names = { "--operating-system" }, description = "The DSI applicance Operating System [OPTIONAL]" )
     private String applianceOS = "Linux";
 
-    @Parameter( names = { "--appliance-id" }, description = "The DSI applicance OS ID" )
+    @Parameter( names = { "--appliance-os-id" }, description = "The DSI applicance OS ID" )
     private String applianceOsId;
 
     @Parameter(

@@ -215,6 +215,10 @@
               <mainClass>com.terradue.dsi.DescribeProviders</mainClass>
               <name>dsi-describe-providers</name>
             </program>
+            <program>
+              <mainClass>com.terradue.dsi.DescribeDelegateRoles</mainClass>
+              <name>dsi-describe-roles</name>
+            </program>
           </programs>
         </configuration>
       </plugin>

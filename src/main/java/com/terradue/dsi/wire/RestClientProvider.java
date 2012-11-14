@@ -16,7 +16,6 @@ package com.terradue.dsi.wire;
  *  limitations under the License.
  */
 
-import static java.util.logging.Logger.getLogger;
 import static java.lang.Runtime.getRuntime;
 import static org.sonatype.spice.jersey.client.ahc.AhcHttpClient.create;
 
@@ -24,7 +23,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.filter.LoggingFilter;
+import com.terradue.dsi.logging.Slf4jFilter;
 
 public final class RestClientProvider
     implements Provider<Client>
@@ -42,7 +41,7 @@ public final class RestClientProvider
     public Client get()
     {
         final Client client = create( config );
-        client.addFilter( new LoggingFilter( getLogger( "dsi-rest-client" ) ) );
+        client.addFilter( new Slf4jFilter() );
 
         getRuntime().addShutdownHook( new Thread()
         {

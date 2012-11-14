@@ -45,7 +45,6 @@
   <properties>
     <javac.src.version>1.6</javac.src.version>
     <javac.target.version>1.6</javac.target.version>
-    <slf4j.version>1.7.2</slf4j.version>
   </properties>
 
   <dependencies>
@@ -55,14 +54,8 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
+      <version>1.7.2</version>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jul-to-slf4j</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
@@ -132,6 +125,12 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+      </resource>
+    </resources>
+
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -148,7 +147,7 @@
         <configuration>
           <repositoryLayout>flat</repositoryLayout>
           <repositoryName>lib</repositoryName>
-          <extraJvmArguments>-Djava.util.logging.config.file="$BASEDIR"/etc/logging.properties -Dproject.name=${project.name} -Dproject.version=${project.version} -Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
+          <extraJvmArguments>-Dproject.name=${project.name} -Dproject.version=${project.version} -Xms500m -Xmx500m -XX:PermSize=128m -XX:-UseGCOverheadLimit</extraJvmArguments>
           <programs>
             <program>
               <mainClass>com.terradue.dsi.UploadAppliance</mainClass>

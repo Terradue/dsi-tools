@@ -78,16 +78,6 @@
         <exclude>*.xml</exclude>
       </excludes>
     </fileSet>
-
-    <!--
-     | logging settings
-    -->
-    <fileSet>
-      <directory>${basedir}/src/main/resources</directory>
-      <filtered>false</filtered>
-      <outputDirectory>/etc</outputDirectory>
-      <fileMode>666</fileMode>
-    </fileSet>
   </fileSets>
 
 </assembly>

@@ -65,7 +65,7 @@ public final class StopDeployments
             restClient.resource( new StringBuilder( serviceUrl )
                                 .append( '/' )
                                 .append( id )
-                                .append( "/start" )
+                                .append( "/stop" )
                                 .toString() )
                       .post();
             logger.info( "Instance {} successfully stopped", id );

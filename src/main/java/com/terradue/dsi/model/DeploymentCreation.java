@@ -58,6 +58,9 @@ public final class DeploymentCreation
     private Network network;
 
     @XmlElement
+    private DelegateRole defaultDelegateRole;
+
+    @XmlElement
     private UserDelegates userDelegates;
 
     @XmlElement
@@ -216,6 +219,16 @@ public final class DeploymentCreation
         this.network = network;
     }
 
+    public DelegateRole getDefaultDelegateRole()
+    {
+        return defaultDelegateRole;
+    }
+
+    public void setDefaultDelegateRole( DelegateRole defaultDelegateRole )
+    {
+        this.defaultDelegateRole = defaultDelegateRole;
+    }
+
     /**
      * @return the userDelegates
      */
@@ -317,6 +330,8 @@ public final class DeploymentCreation
 
         private Network network;
 
+        private DelegateRole delegateRole;
+
         private UserDelegates userDelegates;
 
         private String endDate;
@@ -410,6 +425,14 @@ public final class DeploymentCreation
             return this;
         }
 
+        public Builder withDefaultDelegatedRole( String delegateRole )
+        {
+            DelegateRole role = new DelegateRole();
+            role.setId( delegateRole );
+            this.delegateRole = role;
+            return this;
+        }
+
         /**
          * @param userDelegates the userDelegates to set
          */
@@ -477,6 +500,7 @@ public final class DeploymentCreation
             deploymentCreation.setUseExternalIp( useExternalIp );
             deploymentCreation.setPermanentIp( permanentIp );
             deploymentCreation.setNetwork( network );
+            deploymentCreation.setDefaultDelegateRole( delegateRole );
             deploymentCreation.setUserDelegates( userDelegates );
             deploymentCreation.setEndDate( endDate );
             deploymentCreation.setProviderId( providerId );

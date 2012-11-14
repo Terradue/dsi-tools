@@ -68,6 +68,9 @@ public final class CreateDeployment
     @Parameter( names = { "--network" }, description = "The DSI Network ID" )
     private String networkId;
 
+    @Parameter( names = { "--delegate-role" }, description = "The DSI Network ID" )
+    private String roleId;
+
     @Parameter( names = { "--users" }, description = "The users ID allowed to use the deployment" )
     private List<String> userDelegates = new ArrayList<String>();
 
@@ -112,6 +115,7 @@ public final class CreateDeployment
                                                 .withMemoryMb( memoryMb )
                                                 .withName( name )
                                                 .withNetwork( networkId )
+                                                .withDefaultDelegatedRole( roleId )
                                                 .withPermanentIp( permanentIp )
                                                 .withProviderId( providerId )
                                                 .withQualifierId( qualifierId )

@@ -270,7 +270,7 @@ abstract class BaseTool
         bindProperty( "service.appliances" ).toValue( "${service.url}/appliances" );
         bindProperty( "service.upload" ).toValue( "${service.appliances}/uploadTicket" );
         bindProperty( "service.deployments" ).toValue( "${service.url}/deployments" );
-        bindProperty( "service.accounts" ).toValue( "${service.url}/accounts" );
+        bindProperty( "service.accounts" ).toValue( "${service.url}/delegates" );
         bindProperty( "service.clouds" ).toValue( "${service.url}/clouds" );
         bindProperty( "service.storages" ).toValue( "${service.url}/networkStorages" );
         bindProperty( "service.providers" ).toValue( "${service.url}/constants/providers" );

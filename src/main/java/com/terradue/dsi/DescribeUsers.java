@@ -27,7 +27,7 @@ import javax.inject.Named;
 
 import com.beust.jcommander.Parameters;
 import com.sun.jersey.api.client.GenericType;
-import com.terradue.dsi.model.Account;
+import com.terradue.dsi.model.AccountUser;
 
 /**
  * @since 0.2
@@ -52,14 +52,14 @@ public final class DescribeUsers
     @Override
     protected List<String> getDefaultFields()
     {
-        return asList( "id", "name", "owner" );
+        return asList( "id", "login", "firstName", "lastName", "email", "locked", "passwordSet" );
     }
 
     @Override
     protected void execute()
         throws Exception
     {
-        log( restClient.resource( serviceUrl ).get( new GenericType<Collection<Account>>(){} ) );
+        log( restClient.resource( serviceUrl ).get( new GenericType<Collection<AccountUser>>(){} ) );
     }
 
 }

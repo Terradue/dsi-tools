@@ -20,13 +20,33 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType( FIELD )
+@XmlRootElement( name = "accountUser" )
 public final class AccountUser
 {
 
     @XmlElement
     private String id;
+
+    @XmlElement
+    private String login;
+
+    @XmlElement
+    private String firstName;
+
+    @XmlElement
+    private String lastName;
+
+    @XmlElement
+    private String email;
+
+    @XmlElement
+    private boolean locked;
+
+    @XmlElement
+    private boolean passwordSet;
 
     public void setId( String id )
     {
@@ -36,6 +56,102 @@ public final class AccountUser
     public String getId()
     {
         return id;
+    }
+
+    /**
+     * @return the login
+     */
+    public String getLogin()
+    {
+        return login;
+    }
+
+    /**
+     * @param login the login to set
+     */
+    public void setLogin( String login )
+    {
+        this.login = login;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName( String firstName )
+    {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName( String lastName )
+    {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail()
+    {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail( String email )
+    {
+        this.email = email;
+    }
+
+    /**
+     * @return the locked
+     */
+    public boolean isLocked()
+    {
+        return locked;
+    }
+
+    /**
+     * @param locked the locked to set
+     */
+    public void setLocked( boolean locked )
+    {
+        this.locked = locked;
+    }
+
+    /**
+     * @return the passwordSet
+     */
+    public boolean isPasswordSet()
+    {
+        return passwordSet;
+    }
+
+    /**
+     * @param passwordSet the passwordSet to set
+     */
+    public void setPasswordSet( boolean passwordSet )
+    {
+        this.passwordSet = passwordSet;
     }
 
 }

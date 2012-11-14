@@ -43,10 +43,10 @@ public final class AccountUser
     private String email;
 
     @XmlElement
-    private boolean locked;
+    private String locked;
 
     @XmlElement
-    private boolean passwordSet;
+    private String passwordSet;
 
     public void setId( String id )
     {
@@ -125,7 +125,7 @@ public final class AccountUser
     /**
      * @return the locked
      */
-    public boolean isLocked()
+    public String getLocked()
     {
         return locked;
     }
@@ -133,7 +133,7 @@ public final class AccountUser
     /**
      * @param locked the locked to set
      */
-    public void setLocked( boolean locked )
+    public void setLocked( String locked )
     {
         this.locked = locked;
     }
@@ -141,7 +141,7 @@ public final class AccountUser
     /**
      * @return the passwordSet
      */
-    public boolean isPasswordSet()
+    public String getPasswordSet()
     {
         return passwordSet;
     }
@@ -149,7 +149,7 @@ public final class AccountUser
     /**
      * @param passwordSet the passwordSet to set
      */
-    public void setPasswordSet( boolean passwordSet )
+    public void setPasswordSet( String passwordSet )
     {
         this.passwordSet = passwordSet;
     }

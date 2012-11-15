@@ -43,13 +43,6 @@ public final class DescribeNetworks
     }
 
     @Override
-    protected void bindConfigurations()
-    {
-        super.bindConfigurations();
-        bindProperty( "service.networks" ).toValue( "${service.url}/networks" );
-    }
-
-    @Override
     @Inject
     public void setServiceUrl( @Named( "service.networks" ) String serviceUrl )
     {

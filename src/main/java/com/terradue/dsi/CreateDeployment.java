@@ -53,6 +53,9 @@ public final class CreateDeployment
     @Parameter( names = { "--cluster" }, description = "The DSI deployment cluster ID" )
     private String deploymentClusterId;
 
+    @Parameter( names = { "--perf" }, description = "The performance unit" )
+    private int performanceUnit;
+
     @Parameter( names = { "--memory" }, description = "The memory (in Mb)" )
     private int memoryMb;
 
@@ -68,7 +71,7 @@ public final class CreateDeployment
     @Parameter( names = { "--network" }, description = "The DSI Network ID" )
     private String networkId;
 
-    @Parameter( names = { "--delegate-role" }, description = "The DSI Network ID" )
+    @Parameter( names = { "--delegate-role" }, description = "The Delegate Role ID" )
     private String roleId;
 
     @Parameter( names = { "--users" }, description = "The users ID allowed to use the deployment" )
@@ -115,6 +118,7 @@ public final class CreateDeployment
                                                 .withMemoryMb( memoryMb )
                                                 .withName( name )
                                                 .withNetwork( networkId )
+                                                .withPerformanceUnit( performanceUnit )
                                                 .withDefaultDelegatedRole( roleId )
                                                 .withPermanentIp( permanentIp )
                                                 .withProviderId( providerId )

@@ -304,7 +304,7 @@ public final class UploadAppliance
         try
         {
             String md5 = md5Hex( data );
-            write( checksumFile, md5 );
+            write( checksumFile, format( "%s %s", md5, file.getName() ) );
         }
         finally
         {

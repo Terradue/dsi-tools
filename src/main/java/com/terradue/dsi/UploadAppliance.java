@@ -40,9 +40,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Collection;
-import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -223,9 +221,6 @@ public final class UploadAppliance
     private File zip( File directory )
         throws IOException
     {
-        Deque<File> queue = new LinkedList<File>();
-        queue.push( directory );
-
         final URI base = directory.getParentFile().toURI();
 
         File zipFile = new File( directory.getParent(), format( "%s.zip", directory.getName() ) );
@@ -243,42 +238,7 @@ public final class UploadAppliance
                            getProperty( "project.name" ),
                            getProperty( "project.version" ) ) );
 
-            while ( !queue.isEmpty() )
-            {
-                directory = queue.pop();
-
-                for ( File kid : directory.listFiles() )
-                {
-                    String name = base.relativize( kid.toURI() ).getPath();
-
-                    if ( kid.isDirectory() )
-                    {
-                        queue.push( kid );
-                        name = name.endsWith( "/" ) ? name : name + "/";
-                        os.putNextEntry( new ZipEntry( name ) );
-                    }
-                    else
-                    {
-                        logger.info( "Adding {} as ZIP entry...", name );
-
-                        os.putNextEntry( new ZipEntry( name ) );
-
-                        InputStream input = new FileInputStream( kid );
-                        try
-                        {
-                            copyLarge( input, os );
-                        }
-                        finally
-                        {
-                            closeQuietly( input );
-                            os.flush();
-                            os.closeEntry();
-
-                            logger.info( "Done!" );
-                        }
-                    }
-                }
-            }
+            addToZip( os, base, directory );
         }
         finally
         {
@@ -295,6 +255,47 @@ public final class UploadAppliance
         }
 
         return zipFile;
+    }
+
+    private void addToZip( ZipOutputStream os, URI base, File file )
+        throws IOException
+    {
+        String name = base.relativize( file.toURI() ).getPath();
+
+        if ( file.isDirectory() )
+        {
+            name = name.endsWith( "/" ) ? name : name + "/";
+        }
+
+        logger.info( "Adding {} ZIP entry...", name );
+
+        os.putNextEntry( new ZipEntry( name ) );
+
+        if ( file.isDirectory() )
+        {
+            for ( File kid : file.listFiles() )
+            {
+                addToZip( os, base, kid );
+            }
+        }
+        else
+        {
+            InputStream input = new FileInputStream( file );
+            try
+            {
+                copyLarge( input, os );
+            }
+            finally
+            {
+                closeQuietly( input );
+                os.flush();
+            }
+        }
+
+        // always close the zip entry!
+        os.closeEntry();
+
+        logger.info( "ZIP entry {} added!", name );
     }
 
     private File md5( File file )

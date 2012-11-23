@@ -29,7 +29,6 @@ import static javax.ws.rs.core.UriBuilder.fromUri;
 import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
 import static org.apache.commons.io.FileUtils.write;
 import static org.apache.commons.io.IOUtils.closeQuietly;
-import static org.apache.commons.io.IOUtils.copyLarge;
 import it.sauronsoftware.ftp4j.FTPClient;
 import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
@@ -62,6 +61,10 @@ import com.terradue.dsi.wire.FTPClientProvider;
 public final class UploadAppliance
     extends BaseTool
 {
+
+    private static final int EOF = -1;
+
+    private static final int DEFAULT_BUFFER_ZISE = 1024 * 4;
 
     public static void main( String[] args )
     {
@@ -233,7 +236,6 @@ public final class UploadAppliance
         {
             fos = new FileOutputStream( zipFile );
             os = new ZipOutputStream( fos );
-            os.setLevel( 9 );
             os.setComment( format( "Created by %s %s",
                            getProperty( "project.name" ),
                            getProperty( "project.version" ) ) );
@@ -283,16 +285,24 @@ public final class UploadAppliance
             InputStream input = new FileInputStream( file );
             try
             {
-                copyLarge( input, os );
+                long compressed = 0;
+                int length = 0;
+                byte[] buffer = new byte[DEFAULT_BUFFER_ZISE];
+                while ( EOF != ( length = input.read( buffer ) ) )
+                {
+                    os.write( buffer, 0, length );
+                    compressed += length;
+                    System.out.printf( "%s%%\r", ( ( compressed * 100 ) / file.length() ) );
+                }
             }
             finally
             {
                 closeQuietly( input );
-                os.flush();
             }
         }
 
         // always close the zip entry!
+        os.flush();
         os.closeEntry();
 
         logger.info( "ZIP entry {} added!", name );

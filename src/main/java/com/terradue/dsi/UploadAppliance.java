@@ -24,11 +24,12 @@ import static it.sauronsoftware.ftp4j.FTPClient.TYPE_BINARY;
 import static it.sauronsoftware.ftp4j.FTPClient.TYPE_TEXTUAL;
 import static java.lang.String.format;
 import static java.lang.System.exit;
+import static java.lang.System.getProperty;
 import static javax.ws.rs.core.UriBuilder.fromUri;
 import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
 import static org.apache.commons.io.FileUtils.write;
 import static org.apache.commons.io.IOUtils.closeQuietly;
-import static org.apache.commons.io.IOUtils.copy;
+import static org.apache.commons.io.IOUtils.copyLarge;
 import it.sauronsoftware.ftp4j.FTPClient;
 import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
@@ -237,6 +238,10 @@ public final class UploadAppliance
         {
             fos = new FileOutputStream( zipFile );
             os = new ZipOutputStream( fos );
+            os.setLevel( 9 );
+            os.setComment( format( "Created by %s %s",
+                           getProperty( "project.name" ),
+                           getProperty( "project.version" ) ) );
 
             while ( !queue.isEmpty() )
             {
@@ -261,7 +266,7 @@ public final class UploadAppliance
                         InputStream input = new FileInputStream( kid );
                         try
                         {
-                            copy( input, os );
+                            copyLarge( input, os );
                         }
                         finally
                         {

@@ -58,6 +58,12 @@ public final class Appliance
     @XmlElement
     private String osId;
 
+    /**
+     * @since 0.3
+     */
+    @XmlElement
+    private boolean active;
+
     public int getId()
     {
         return id;
@@ -156,6 +162,24 @@ public final class Appliance
     public void setOsId( String osId )
     {
         this.osId = osId;
+    }
+
+    /**
+     * @return
+     * @since 0.3
+     */
+    public boolean isActive()
+    {
+        return active;
+    }
+
+    /**
+     * @param active
+     * @since 0.3
+     */
+    public void setActive( boolean active )
+    {
+        this.active = active;
     }
 
 }

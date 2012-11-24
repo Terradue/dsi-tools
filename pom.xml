@@ -118,9 +118,15 @@
     </dependency>
 
     <dependency>
-      <groupId>de.schlichtherle</groupId>
-      <artifactId>truezip</artifactId>
-      <version>6.8.4</version>
+      <groupId>de.schlichtherle.truezip</groupId>
+      <artifactId>truezip-driver-zip</artifactId>
+      <version>7.7.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>de.schlichtherle.truezip</groupId>
+          <artifactId>truezip-swing</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

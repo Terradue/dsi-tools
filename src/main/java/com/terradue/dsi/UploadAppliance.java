@@ -46,8 +46,8 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.schlichtherle.util.zip.ZipEntry;
-import de.schlichtherle.util.zip.ZipOutputStream;
+import de.schlichtherle.truezip.zip.ZipEntry;
+import de.schlichtherle.truezip.zip.ZipOutputStream;
 import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;

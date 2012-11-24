@@ -32,6 +32,7 @@ import static org.apache.commons.io.IOUtils.closeQuietly;
 import it.sauronsoftware.ftp4j.FTPClient;
 import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -41,12 +42,12 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.schlichtherle.util.zip.ZipEntry;
+import de.schlichtherle.util.zip.ZipOutputStream;
 import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
@@ -231,16 +232,19 @@ public final class UploadAppliance
         logger.info( "Archiving directory {} to zip archive {}", directory, zipFile );
 
         FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
         ZipOutputStream os = null;
         try
         {
             fos = new FileOutputStream( zipFile );
+            bos = new BufferedOutputStream( fos );
             os = new ZipOutputStream( fos );
             os.setComment( format( "Created by %s %s",
                            getProperty( "project.name" ),
                            getProperty( "project.version" ) ) );
 
             addToZip( os, base, directory );
+            os.flush();
         }
         finally
         {
@@ -252,6 +256,7 @@ public final class UploadAppliance
             {
                 logger.info( "ZIP archive complete" );
                 closeQuietly( fos );
+                closeQuietly( bos );
                 closeQuietly( os );
             }
         }
@@ -269,12 +274,14 @@ public final class UploadAppliance
             name = name.endsWith( "/" ) ? name : name + "/";
         }
 
-        logger.info( "Adding {} ZIP entry...", name );
-
-        os.putNextEntry( new ZipEntry( name ) );
+        ZipEntry entry = new ZipEntry( name );
+        entry.setSize( file.length() );
+        os.putNextEntry( entry );
 
         if ( file.isDirectory() )
         {
+            logger.info( " creating: {}", name );
+
             for ( File kid : file.listFiles() )
             {
                 addToZip( os, base, kid );
@@ -282,6 +289,8 @@ public final class UploadAppliance
         }
         else
         {
+            logger.info( "deflating: {}", name );
+
             InputStream input = new FileInputStream( file );
             try
             {
@@ -301,11 +310,7 @@ public final class UploadAppliance
             }
         }
 
-        // always close the zip entry!
-        os.flush();
         os.closeEntry();
-
-        logger.info( "ZIP entry {} added!", name );
     }
 
     private File md5( File file )

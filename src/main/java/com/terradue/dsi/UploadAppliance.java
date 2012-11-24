@@ -289,7 +289,7 @@ public final class UploadAppliance
         }
         else
         {
-            logger.info( "deflating: {} ({} b)", name, file.length() );
+            logger.info( "deflating: {} (Length: {})", name, file.length() );
 
             InputStream input = new FileInputStream( file );
             try

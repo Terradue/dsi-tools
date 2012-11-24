@@ -237,27 +237,27 @@ public final class UploadAppliance
         try
         {
             fos = new FileOutputStream( zipFile );
-            bos = new BufferedOutputStream( fos );
+            bos = new BufferedOutputStream( fos, 0x40000 );
             os = new ZipOutputStream( fos );
             os.setComment( format( "Created by %s %s",
                            getProperty( "project.name" ),
                            getProperty( "project.version" ) ) );
 
             addToZip( os, base, directory );
-            os.flush();
         }
         finally
         {
             try
             {
+                bos.flush();
                 os.finish();
             }
             finally
             {
                 logger.info( "ZIP archive complete" );
-                closeQuietly( fos );
-                closeQuietly( bos );
                 closeQuietly( os );
+                closeQuietly( bos );
+                closeQuietly( fos );
             }
         }
 
@@ -289,7 +289,7 @@ public final class UploadAppliance
         }
         else
         {
-            logger.info( "deflating: {}", name );
+            logger.info( "deflating: {} ({} b)", name, file.length() );
 
             InputStream input = new FileInputStream( file );
             try

@@ -37,7 +37,7 @@ public final class StopDeployments
         exit( new StopDeployments().execute( args ) );
     }
 
-    @Parameter( description = "The image identificator(s) as returned by the upload command" )
+    @Parameter( description = "The deployment identificator(s) as returned by the upload command" )
     protected List<String> ids = new LinkedList<String>();
 
     @Inject
@@ -59,7 +59,7 @@ public final class StopDeployments
 
     boolean stopInstance( String id )
     {
-        logger.info( "Stopping instance {} ...", id );
+        logger.info( "Stopping deployment {} ...", id );
         try
         {
             restClient.resource( new StringBuilder( serviceUrl )
@@ -68,12 +68,12 @@ public final class StopDeployments
                                 .append( "/stop" )
                                 .toString() )
                       .post();
-            logger.info( "Instance {} successfully stopped", id );
+            logger.info( "Deployment {} successfully stopped", id );
             return true;
         }
         catch ( UniformInterfaceException e )
         {
-            logger.warn( "An error occurred while stopping instance {}, server replied {}: {}",
+            logger.warn( "An error occurred while stopping deployment {}, server replied {}: {}",
                          new Object[] {
                              id,
                              e.getResponse().getClientResponseStatus(),

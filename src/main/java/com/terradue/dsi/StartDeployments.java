@@ -37,7 +37,7 @@ public final class StartDeployments
         exit( new StartDeployments().execute( args ) );
     }
 
-    @Parameter( description = "The image identificator(s) as returned by the upload command" )
+    @Parameter( description = "The deployment identificator(s) as returned by the upload command" )
     protected List<String> ids = new LinkedList<String>();
 
     @Inject
@@ -59,7 +59,7 @@ public final class StartDeployments
 
     void startInstance( String id )
     {
-        logger.info( "Starting instance {} ...", id );
+        logger.info( "Starting deployment {} ...", id );
         try
         {
             restClient.resource( new StringBuilder( serviceUrl )
@@ -68,11 +68,11 @@ public final class StartDeployments
                                 .append( "/start" )
                                 .toString() )
                       .post();
-            logger.info( "Instance {} successfully started", id );
+            logger.info( "Deployment {} successfully started", id );
         }
         catch ( UniformInterfaceException e )
         {
-            logger.warn( "An error occurred while starting instance {}, server replied {}: {}",
+            logger.warn( "An error occurred while starting deployment {}, server replied {}: {}",
                          new Object[] {
                              id,
                              e.getResponse().getClientResponseStatus(),

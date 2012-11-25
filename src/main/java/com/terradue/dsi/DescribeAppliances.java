@@ -51,7 +51,7 @@ public final class DescribeAppliances
     @Override
     protected List<String> getDefaultFields()
     {
-        return asList( "id", "name", "architecture", "custom", "description", "operatingSystem", "osId", "usageCount", "virtualMachineType", "deprecated" );
+        return asList( "id", "name", "description", "active", "architecture", "custom", "operatingSystem", "osId", "usageCount", "virtualMachineType", "deprecated" );
     }
 
     @Override

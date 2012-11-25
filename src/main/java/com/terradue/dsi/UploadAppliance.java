@@ -32,7 +32,6 @@ import static org.apache.commons.io.IOUtils.closeQuietly;
 import it.sauronsoftware.ftp4j.FTPClient;
 import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -46,8 +45,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.schlichtherle.truezip.zip.ZipEntry;
-import de.schlichtherle.truezip.zip.ZipOutputStream;
 import org.slf4j.Logger;
 
 import com.beust.jcommander.Parameter;
@@ -58,6 +55,9 @@ import com.terradue.dsi.model.Appliance;
 import com.terradue.dsi.model.UploadTicket;
 import com.terradue.dsi.wire.FTPClientProvider;
 
+import de.schlichtherle.truezip.zip.ZipEntry;
+import de.schlichtherle.truezip.zip.ZipOutputStream;
+
 @Parameters( commandDescription = "Upload a VM image to be associated to an Appliance." )
 public final class UploadAppliance
     extends BaseTool
@@ -65,7 +65,7 @@ public final class UploadAppliance
 
     private static final int EOF = -1;
 
-    private static final int DEFAULT_BUFFER_ZISE = 1024 * 4;
+    private static final int DEFAULT_BUFFER_SIZE = 1024 * 8;
 
     public static void main( String[] args )
     {
@@ -232,12 +232,10 @@ public final class UploadAppliance
         logger.info( "Archiving directory {} to zip archive {}", directory, zipFile );
 
         FileOutputStream fos = null;
-        BufferedOutputStream bos = null;
         ZipOutputStream os = null;
         try
         {
             fos = new FileOutputStream( zipFile );
-            bos = new BufferedOutputStream( fos, 0x40000 );
             os = new ZipOutputStream( fos );
             os.setComment( format( "Created by %s %s",
                            getProperty( "project.name" ),
@@ -249,14 +247,12 @@ public final class UploadAppliance
         {
             try
             {
-                bos.flush();
                 os.finish();
             }
             finally
             {
                 logger.info( "ZIP archive complete" );
                 closeQuietly( os );
-                closeQuietly( bos );
                 closeQuietly( fos );
             }
         }
@@ -289,17 +285,20 @@ public final class UploadAppliance
         }
         else
         {
-            logger.info( "deflating: {} (Length: {})", name, file.length() );
+            logger.info( "deflating: {}", name );
 
-            InputStream input = new FileInputStream( file );
+            FileInputStream input = new FileInputStream( file );
+
+            long compressed = 0;
+            int length = 0;
+            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+
             try
             {
-                long compressed = 0;
-                int length = 0;
-                byte[] buffer = new byte[DEFAULT_BUFFER_ZISE];
                 while ( EOF != ( length = input.read( buffer ) ) )
                 {
                     os.write( buffer, 0, length );
+
                     compressed += length;
                     System.out.printf( "%s%%\r", ( ( compressed * 100 ) / file.length() ) );
                 }

@@ -150,7 +150,7 @@ public final class UploadAppliance
 
         File md5File = md5( zipImage );
 
-        logger.info( "Done! Requesting FTP location where uploading images..." );
+        logger.info( "Requesting FTP location where uploading images..." );
 
         UploadTicket uploadTicket = restClient.resource( fromUri( serviceUrl )
                                                          .queryParam( "providerId", providerId )
@@ -161,7 +161,7 @@ public final class UploadAppliance
                                                          .queryParam( "applianceOsId", applianceOsId )
                                                          .build() ).get( UploadTicket.class );
 
-        logger.info( "Done! Uploading image: {}(.md5) on {} (expires on {})...",
+        logger.info( "Uploading image: {}(.md5) on {} (expires on {})...",
                      new Object[]
                      {
                          zipImage.getAbsolutePath(),
@@ -324,14 +324,13 @@ public final class UploadAppliance
         try
         {
             String md5 = md5Hex( data );
+            logger.info( "MD5 ({}) = {}", file.getName(), md5 );
             write( checksumFile, format( "%s %s", md5, file.getName() ) );
         }
         finally
         {
             closeQuietly( data );
         }
-
-        logger.info( "MD5 chescksum stored to file {}", checksumFile );
 
         return checksumFile;
     }

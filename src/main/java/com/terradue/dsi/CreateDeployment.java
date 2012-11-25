@@ -109,7 +109,7 @@ public final class CreateDeployment
     public void execute()
         throws Exception
     {
-        logger.info( "Registering appliance {} ...", applianceId );
+        logger.info( "Creating deployment with appliance {} ...", applianceId );
         DeploymentCreation deploymentCreation = new DeploymentCreation.Builder()
                                                 .withApplianceId( applianceId )
                                                 .withDeploymentClusterId( deploymentClusterId )

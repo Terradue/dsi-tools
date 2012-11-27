@@ -207,7 +207,7 @@ public final class UploadAppliance
         {
             if ( applianceName.equals( appliance.getName() ) )
             {
-                logger.info( "Image uploaded with id: {}", appliance.getId() );
+                logger.info( "Appliance uploaded with id: {}", appliance.getId() );
                 return;
             }
         }
